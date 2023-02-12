@@ -1,4 +1,4 @@
-package br.com.digitalhouse.meuboletopago.android.component
+package br.com.digitalhouse.meuboletopago.android.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

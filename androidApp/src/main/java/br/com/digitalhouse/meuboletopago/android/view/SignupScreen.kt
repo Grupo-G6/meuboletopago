@@ -1,4 +1,4 @@
-package br.com.digitalhouse.meuboletopago.android.signup
+package br.com.digitalhouse.meuboletopago.android.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

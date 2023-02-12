@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.android.component.CenterTopBar
-import br.com.digitalhouse.meuboletopago.android.component.ListItemComponent
+import br.com.digitalhouse.meuboletopago.android.components.CenterTopBar
+import br.com.digitalhouse.meuboletopago.android.components.ListItemComponent
 import br.com.digitalhouse.meuboletopago.model.Mock
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -103,5 +103,6 @@ fun HomeScreen(navController: NavController)  {
 //@Preview
 //@Composable
 //fun HomeScreen_Preview() {
-//    HomeScreen {  }
+//    HomeScreen()
+//}
 //}
