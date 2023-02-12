@@ -40,14 +40,6 @@ fun HomeScreen(navController: NavController)  {
         ) {
             LazyColumn{
 
-                item {
-                    TextButton(
-                        onClick = { navController.navigate("login") },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(text = "Esqueci minha senha", color = Color.Blue)
-                    }
-                }
 
 
                 val transactions = Mock.transacoes

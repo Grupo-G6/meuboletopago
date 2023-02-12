@@ -1,10 +1,13 @@
 package br.com.digitalhouse.meuboletopago.android.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,26 +15,29 @@ import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
+//import kotlinx.coroutines.flow.internal.NoOpContinuation.context
+//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
 
-class DeleteScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Delete()
-                }
-            }
-        }
-    }
-}
+//class DeleteScreen : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            MyApplicationTheme {
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colors.background
+//                ) {
+//                    Delete()
+//                }
+//            }
+//        }
+//    }
+//}
 @Composable
-fun Delete() {
+fun Delete(navController: NavController) {
 
     var state by remember { mutableStateOf(true) }
     Column(
@@ -43,12 +49,12 @@ fun Delete() {
             title = {
                 Text(text = "Excluir registro")
             },
-//            navigationIcon = {
-//                IconButton(onClick = { /*TODO*/ }) {
-//                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
-//                }
-//            },
-//            backgroundColor = Color.Blue,
+            navigationIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+                }
+            },
+            backgroundColor = Color.Blue,
             contentColor = Color.White,
             elevation = 8.dp
         )
@@ -99,7 +105,7 @@ fun Delete() {
             OutlinedButton(
                 onClick = {
 //                                Toast.makeText(context, "Solicitação Confirmada", Toast.LENGTH_SHORT).show()
-//                                navController.navigate("login_page")
+                     navController.navigate("home")
 //                                Toast.makeText(context, "Registro Excluído", Toast.LENGTH_SHORT).show()
                 },
 //                    border = BorderStroke(
@@ -118,17 +124,17 @@ fun Delete() {
     }
 
 
-@Preview
-@Composable
-fun DeletePage_Preview() {
-    MyApplicationTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            Delete()
-        }
-    }
-}
+//@Preview
+//@Composable
+//fun DeletePage_Preview() {
+//    MyApplicationTheme {
+//        Surface(
+//            modifier = Modifier.fillMaxSize(),
+//            color = MaterialTheme.colors.background
+//        ) {
+//            Delete()
+//        }
+//    }
+//}
 
 

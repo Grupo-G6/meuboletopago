@@ -1,6 +1,8 @@
 package br.com.digitalhouse.meuboletopago.android.movement
 
+import android.content.Context
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.components.TopBar
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -172,7 +175,13 @@ fun MovementScreen(navController: NavController)  {
                         Spacer(modifier = Modifier.weight(1f))
                     }
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+
+                            fun showToast(context: Context, message: String) {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            }
+
+                            navController.navigate("home") },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)

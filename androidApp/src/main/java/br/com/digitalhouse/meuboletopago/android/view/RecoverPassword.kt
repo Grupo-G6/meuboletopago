@@ -1,7 +1,12 @@
 package br.com.digitalhouse.meuboletopago.android.screen
 
 import AlertDialogComponent
+import android.content.Context
+import android.content.Context.ALARM_SERVICE
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -30,22 +35,36 @@ import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
 import br.com.digitalhouse.meuboletopago.android.view.Detalhe
 import br.com.digitalhouse.meuboletopago.model.Login
+import br.com.digitalhouse.meuboletopago.model.RecoverValidator
+
 
 class RecoverPassword : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.layout_default)
+
+        val button = findViewById<Button>(R.id.toast_button)
+        button.setOnClickListener {
+            showToast(this, "Hello Toast!")
+        }
         setContent {
             MyApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Detalhe()
+                    Recover()
                 }
             }
         }
     }
+    fun showToast(context: Context, message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
 }
+
+
 @Composable
 fun Recover() {
     var state by remember { mutableStateOf(true) }
@@ -65,8 +84,9 @@ fun Recover() {
             contentColor = Color.White,
             elevation = 8.dp )
 
-                val login = remember { mutableStateOf(TextFieldValue()) }
+
                 val password = remember { mutableStateOf(TextFieldValue()) }
+                val passwordConfirmation = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
                 val showDialog = remember { mutableStateOf(false) }
 
@@ -94,8 +114,8 @@ fun Recover() {
                 Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = password.value,
-            onValueChange = { password.value = it },
+            value = passwordConfirmation.value,
+            onValueChange = { passwordConfirmation.value = it },
             label = { Text(text = "Confirmar senha") },
             visualTransformation = if (passwordVisible.value.not()) PasswordVisualTransformation() else VisualTransformation.None,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -112,21 +132,18 @@ fun Recover() {
         )
         Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = {
-                    val loginUser = Login(login = login.value.text, senha = password.value.text)
-                    if (loginUser.validator()) {
-//                        onHomeNavigate.invoke()
-//                        navController.navigate("home")
-                    } else {
-                        showDialog.value = true
+                    fun showToast(context: Context, message: String) {
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                     }
+
                 }, modifier = Modifier.fillMaxWidth()) {
-                    Text(text = "Entrar")
+                    Text(text = "Confirmar")
                 }
-                AlertDialogComponent(
-                    showDialog = showDialog.value,
-                    message = "Senhas não coincidem!",
-                    onDismissRequest = { showDialog.value = false }
-                )
+//                AlertDialogComponent(
+//                    showDialog = showDialog.value,
+//                    message = "Senhas não coincidem!",
+//                    onDismissRequest = { showDialog.value = false }
+//                )
                 Spacer(modifier = Modifier.height(256.dp))
 
             }

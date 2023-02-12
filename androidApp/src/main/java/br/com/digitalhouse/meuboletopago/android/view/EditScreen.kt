@@ -59,7 +59,7 @@ fun EditScreen(navController: NavController)  {
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { navController.navigate("home") },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)

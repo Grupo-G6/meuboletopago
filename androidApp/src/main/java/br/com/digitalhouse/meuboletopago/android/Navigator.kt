@@ -26,7 +26,7 @@ fun Navigator(){
         composable("movement", content = { MovementScreen(navController = navController) })
         composable("edit_page", content = { EditScreen(navController = navController) })
 //        composable("signup_page", content = { SignupScreen (navController = navController) })
-//        composable("recover_page", content = { RecoverPassword(navController = navController) })
+        composable("recover_page", content = { RecoverPassword() })
 //        composable("delete_page", content = { DeletePage(navController = navController) })
         composable("splash_screen", content = { SplashScreen(navController = navController) })
 //        composable("detail_page", content = { DetailingScreen (navController = navController) })

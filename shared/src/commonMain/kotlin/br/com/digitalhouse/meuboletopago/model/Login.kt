@@ -1,7 +1,7 @@
 package br.com.digitalhouse.meuboletopago.model
 
-class Login ( val login:String, val senha: String ) {
-        fun validator() = (login == "usuario@kmm.com" && senha == "12345")
+class Login ( val loginEnter:String, val senha: String ) {
+        fun validator() = (loginEnter == "usuario@kmm.com" && senha == "12345")
 //        fun validator() = (login == "" && senha == "")
 
 }
