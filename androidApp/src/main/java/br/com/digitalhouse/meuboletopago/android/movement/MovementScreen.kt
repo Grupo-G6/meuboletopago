@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,20 +14,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
+import br.com.digitalhouse.meuboletopago.android.component.MaskTransformation
 import br.com.digitalhouse.meuboletopago.android.component.TopBar
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MovementScreen(navController: NavController)  {
+    val spacer: Dp = 16.dp
     var state by remember { mutableStateOf(true) }
-    var state2 by remember { mutableStateOf(true) }
-    var state3 by remember { mutableStateOf(true) }
     MyApplicationTheme() {
         Scaffold (
             topBar = { TopBar(title = "Movimentação", navController = navController)}
@@ -47,11 +49,14 @@ fun MovementScreen(navController: NavController)  {
                             },
                             colors = RadioButtonDefaults.colors(
                                 selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
+                                unselectedColor = Color.LightGray,
                             )
 
                         )
-                        Text(text = "Receita")
+                        Text(
+                            text = "Receita",
+                            color = (MaterialTheme.colors.primaryVariant)
+                        )
                         Spacer(modifier = Modifier.weight(1f))
                         RadioButton(
                             selected = !state,
@@ -60,124 +65,65 @@ fun MovementScreen(navController: NavController)  {
                                 contentDescription = "Localized Description"
                             },
                             colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
+                                selectedColor = Color.Red,
                                 unselectedColor = Color.LightGray
                             )
                         )
                         Text(
                             text = "Despesa",
-                            textAlign = TextAlign.Center
+                            color = (MaterialTheme.colors.primaryVariant)
                         )
                         Spacer(modifier = Modifier.weight(1f))
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Column {
+                    Spacer(modifier = Modifier.height(spacer))
+                    Column (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(spacer)
+                    ){
                         val descricao = remember { mutableStateOf(TextFieldValue()) }
                         val valor = remember { mutableStateOf(TextFieldValue()) }
                         val data = remember { mutableStateOf(TextFieldValue()) }
-                        Text(text = "Descrição")
-                        TextField(
+                        OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = descricao.value,
                             onValueChange = { descricao.value = it },
-                            label = { Text(text = "") }
+                            label = { Text(text = "Descrição", color = (MaterialTheme.colors.primaryVariant)) }
                         )
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Text(text = "Valor")
-                        TextField(
+                        Spacer(modifier = Modifier.height(spacer))
+                        OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = valor.value,
                             onValueChange = { valor.value = it },
-                            label = { Text(text = "") }
+                            label = {
+                                Text(
+                                    text = "Valor",
+                                    color = (MaterialTheme.colors.primaryVariant)
+                                )
+                            },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
                         )
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Text(text = "Data")
-                        TextField(
+                        Spacer(modifier = Modifier.height(spacer))
+                        OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = data.value,
                             onValueChange = { data.value = it },
-                            label = { Text(text = "") }
+                            label = {
+                                Text(
+                                    text = "Data",
+                                    color = (MaterialTheme.colors.primaryVariant)
+                                )
+                            },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            visualTransformation = MaskTransformation()
                         )
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Row(
-                        Modifier.selectableGroup(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Spacer(modifier = Modifier.weight(1f))
-                        RadioButton(
-                            selected = state2,
-                            onClick = { state2 = true },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Localized Description"
-                            },
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
-                            )
-
-                        )
-                        Text(text = "Não Repetir")
-                        Spacer(modifier = Modifier.weight(1f))
-                        RadioButton(
-                            selected = !state2,
-                            onClick = { state2 = false },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Localized Description"
-                            },
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
-                            )
-                        )
-                        Text(
-                            text = "Repetir",
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Row(
-                        Modifier.selectableGroup(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Spacer(modifier = Modifier.weight(1f))
-                        RadioButton(
-                            selected = state3,
-                            onClick = { state3 = true },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Localized Description"
-                            },
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
-                            )
-
-                        )
-                        Text(text = "Fixo")
-                        Spacer(modifier = Modifier.weight(1f))
-                        RadioButton(
-                            selected = !state3,
-                            onClick = { state3 = false },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Localized Description"
-                            },
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
-                            )
-                        )
-                        Text(
-                            text = "Parcelado",
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                    }
+                    Spacer(modifier = Modifier.height(spacer))
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { navController.navigate("home") },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .padding(spacer)
                     ) {
                         Text(text = "Salvar")
                     }
@@ -187,10 +133,8 @@ fun MovementScreen(navController: NavController)  {
     }
 }
 
-
-//@RequiresApi(Build.VERSION_CODES.O)
-//@Preview
-//@Composable
-//fun MovementScreen_Preview(){
-//    MovementScreen()
-//}
+@Preview
+@Composable
+fun MovementScreen_Preview() {
+    MovementScreen(navController = NavController(LocalContext.current))
+}
