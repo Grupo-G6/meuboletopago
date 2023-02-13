@@ -22,7 +22,7 @@ fun MyApplicationTheme(
 ) {
     val colors = if (darkTheme) {
         darkColors(
-            primary = Color(0xFFBB86FC),
+            primary = Color(0xFF369B73),
             primaryVariant = Color(0xFF3700B3),
             secondary = Color(0xFF03DAC5)
         )
@@ -37,6 +37,7 @@ fun MyApplicationTheme(
         body1 = TextStyle(
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Normal,
+
             fontSize = 16.sp
         )
     )

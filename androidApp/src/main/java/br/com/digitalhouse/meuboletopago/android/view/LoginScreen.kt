@@ -5,6 +5,7 @@ import android.media.Image
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -26,6 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -46,11 +48,14 @@ fun LoginScreen(navController: NavController) {
 
             Column(
                 modifier = Modifier
-                    .padding(spacer),
-//                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                .padding(25.dp)
+                .background(Color.White)
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center)
 
-            ) {
+             {
                 //VARIÁVEIS
                 val login = remember { mutableStateOf(TextFieldValue()) }
                 val password = remember { mutableStateOf(TextFieldValue()) }
@@ -58,37 +63,39 @@ fun LoginScreen(navController: NavController) {
                 val showDialog = remember { mutableStateOf(false) }
                 val mensagem = remember { mutableStateOf("") }
 
-                Spacer(modifier = Modifier.height(spacer))
-                Image(
+               Image(
                     painter = painterResource(id = R.drawable.meu_boleto_pago),
                     contentDescription = "Meu Boleto Pago",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(80.dp)
+                        .height(100.dp)
                 )
                 Spacer(modifier = Modifier.height(spacer))
                 Text(
                     text = "Login",
                     fontWeight = FontWeight.Bold,
                     fontSize = 26.sp,
-                    color = (MaterialTheme.colors.primaryVariant))
+                    textAlign = TextAlign.Center
+                    )
                 Spacer(modifier = Modifier.height(spacer))
 
 //        ver diferença textfield, outline and textfieldValue - VER MATERIAL DESIGN
 //        USUÁRIO
+                Text(text = "E-mail")
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = login.value,
                     onValueChange = { login.value = it },
-                    label = { Text(text = "Usuario") }
+                    label = { Text(text = "") }
 
                 )
                 Spacer(modifier = Modifier.height(spacer))
+                Text(text = "Senha")
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password.value,
                     onValueChange = { password.value = it },
-                    label = { Text(text = "password") },
+                    label = { Text(text = "") },
                     visualTransformation = if (passwordVisible.value.not()) PasswordVisualTransformation() else VisualTransformation.None,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {

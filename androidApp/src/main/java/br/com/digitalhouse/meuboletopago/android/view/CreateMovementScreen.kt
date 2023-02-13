@@ -1,7 +1,10 @@
 package br.com.digitalhouse.meuboletopago.android.movement
 
 import android.os.Build
+import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,14 +19,36 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.components.TopBar
+import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
 import br.com.digitalhouse.meuboletopago.android.view.passwordMatches
 
+class SignupScreen(navController: NavHostController) : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MyApplicationTheme {
+                Surface(
 
-//@RequiresApi(Build.VERSION_CODES.O)
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+
+                ) {
+                    CreateMovementScreen(navController = NavController(LocalContext.current))
+                }
+            }
+        }
+    }
+}
+
+
+
+
 @Composable
 fun CreateMovementScreen(navController: NavController)  {
     var state by remember { mutableStateOf(true) }
@@ -199,9 +224,8 @@ fun CreateMovementScreen(navController: NavController)  {
 }
 
 
-//@RequiresApi(Build.VERSION_CODES.O)
-//@Preview
-//@Composable
-//fun MovementScreen_Preview(){
-//    MovementScreen()
-//}
+@Preview
+@Composable
+fun MovementScreen_Preview(){
+     CreateMovementScreen(navController = NavController(LocalContext.current))
+}

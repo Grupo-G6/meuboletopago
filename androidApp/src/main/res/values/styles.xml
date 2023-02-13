@@ -1,13 +1,13 @@
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar"/>
     <style name="AppTheme.SplashScreen">
-        <item name="windowSplashScreenBackground">
-            @color/purple_500
-        </item>
+        <item name="windowSplashScreenBackground">@color/meuboletologo2_background</item>
         <item name="windowSplashScreenAnimatedIcon">
-            @drawable/meu_boleto_pago
+            @drawable/meu_boleto_pago_vector
         </item>
-        <item name="windowSplashScreenAnimationDuration">3000</item>
+        <item name="windowSplashScreenAnimationDuration">1500</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 </resources>
+
+
