@@ -16,18 +16,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 
 
-class SignupScreen : ComponentActivity() {
+class SignupScreen(navController: NavHostController) : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,7 +40,7 @@ class SignupScreen : ComponentActivity() {
                     color = MaterialTheme.colors.background
 
                 ) {
-                    SignupView()
+                    SignupView(navController = NavController(LocalContext.current))
                 }
             }
         }
@@ -47,7 +49,7 @@ class SignupScreen : ComponentActivity() {
 
 
 @Composable
-fun SignupView() {
+fun SignupView(navController: NavController) {
     Column(
 
         modifier = Modifier
@@ -126,19 +128,19 @@ fun SignupView() {
         }
     }
 }
-
-@Preview
-@Composable
-fun SignupPreview() {
-    MyApplicationTheme {
-        Surface(
-            color = Color.White,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            SignupView()
-        }
-    }
-}
+//
+//@Preview
+//@Composable
+//fun SignupPreview() {
+//    MyApplicationTheme {
+//        Surface(
+//            color = Color.White,
+//            modifier = Modifier.fillMaxSize()
+//        ) {
+//            SignupView(navController = NavController(LocalContext.current))
+//        }
+//    }
+//}
 
 
 

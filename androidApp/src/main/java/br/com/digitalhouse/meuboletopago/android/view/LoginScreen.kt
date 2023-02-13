@@ -1,8 +1,10 @@
 package br.com.digitalhouse.meuboletopago.android.login
 
 import AlertDialogComponent
+import android.media.Image
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -16,13 +18,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.digitalhouse.meuboletopago.android.R
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.model.Login
@@ -31,13 +39,15 @@ import br.com.digitalhouse.meuboletopago.model.Login
 
 @Composable
 fun LoginScreen(navController: NavController) {
+    val spacer: Dp = 8.dp
     MyApplicationTheme() {
 
         Surface(modifier = Modifier.fillMaxSize()) {
+
             Column(
                 modifier = Modifier
-                    .padding(25.dp),
-                verticalArrangement = Arrangement.Center,
+                    .padding(spacer),
+//                verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
@@ -48,11 +58,21 @@ fun LoginScreen(navController: NavController) {
                 val showDialog = remember { mutableStateOf(false) }
                 val mensagem = remember { mutableStateOf("") }
 
-                Text(text = "MeuBoletoPago", fontWeight = FontWeight.Bold, fontSize = 32.sp)
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "Login", fontWeight = FontWeight.Normal, fontSize = 25.sp)
-                Spacer(modifier = Modifier.height(16.dp))
-
+                Spacer(modifier = Modifier.height(spacer))
+                Image(
+                    painter = painterResource(id = R.drawable.meu_boleto_pago),
+                    contentDescription = "Meu Boleto Pago",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(80.dp)
+                )
+                Spacer(modifier = Modifier.height(spacer))
+                Text(
+                    text = "Login",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 26.sp,
+                    color = (MaterialTheme.colors.primaryVariant))
+                Spacer(modifier = Modifier.height(spacer))
 
 //        ver diferença textfield, outline and textfieldValue - VER MATERIAL DESIGN
 //        USUÁRIO
@@ -63,7 +83,7 @@ fun LoginScreen(navController: NavController) {
                     label = { Text(text = "Usuario") }
 
                 )
-
+                Spacer(modifier = Modifier.height(spacer))
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password.value,
@@ -82,12 +102,7 @@ fun LoginScreen(navController: NavController) {
                     }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-
-
-
-
-
-                Button(onClick = {
+                 Button(onClick = {
                     val loginUser = Login(
                         loginEnter = login.value.text,
                         senha = password.value.text
@@ -110,42 +125,44 @@ fun LoginScreen(navController: NavController) {
                     onDismissRequest = { showDialog.value = false }
 
                 )
-                Spacer(modifier = Modifier.height(256.dp))
                 Button(
-                    onClick = {/*openDialog.value = true*/ },
-                    modifier = Modifier.fillMaxWidth(),
-                    border = BorderStroke(0.dp, Transparent),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Transparent)
-                )
-                {
+                    onClick = {
 
-                    Text(
-                        text = "Ainda não tem cadastro? Clique aqui",
-                        color = Color.Green
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
+                        navController.navigate("recover_page")
+
+                    }, modifier =  Modifier.fillMaxWidth())
+                {
+                    Text(text = "Esqueci a senha")
+                }
+
+                Spacer(modifier = Modifier.height(96.dp))
+
+
 
                     Button(
-                        onClick = { navController.navigate("recover_page")
+                        onClick = {
 
-//                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                            },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(text = "Esqueci minha senha", color = Color.Blue)
+                        navController.navigate("signup_page")
+
+                        }, modifier =  Modifier.fillMaxWidth())
+                    {
+                        Text(text = "Ainda não tem cadastro? Clique aqui")
                     }
 
-                    //Text(text = "cadastrar")
 
 
                 }
             }
         }
     }
-}
+
+
+
+
+
 
 //@Preview
 //@Composable
 //fun LoginScreen_Preview(navController: NavController?) {
-//    LoginScreen()
+//    LoginScreen(navController = NavController(LocalContext.current))
 //}

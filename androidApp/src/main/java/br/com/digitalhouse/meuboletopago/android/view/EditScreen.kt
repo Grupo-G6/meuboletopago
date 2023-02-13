@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.components.TopBar
-
-@RequiresApi(Build.VERSION_CODES.O)
+//
+//@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EditScreen(navController: NavController)  {
     var state by remember { mutableStateOf(true) }

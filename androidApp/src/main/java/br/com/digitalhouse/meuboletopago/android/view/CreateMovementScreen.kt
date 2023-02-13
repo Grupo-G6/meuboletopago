@@ -1,6 +1,5 @@
 package br.com.digitalhouse.meuboletopago.android.movement
 
-import android.content.Context
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -12,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.TextFieldValue
@@ -20,14 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.components.TopBar
+import br.com.digitalhouse.meuboletopago.android.view.passwordMatches
 
 
-@RequiresApi(Build.VERSION_CODES.O)
+//@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MovementScreen(navController: NavController)  {
+fun CreateMovementScreen(navController: NavController)  {
     var state by remember { mutableStateOf(true) }
     var state2 by remember { mutableStateOf(true) }
     var state3 by remember { mutableStateOf(true) }
+    val context = LocalContext.current
+    val showDialog = remember { mutableStateOf(false) }
     MyApplicationTheme() {
         Scaffold (
             topBar = { TopBar(title = "Movimentação", navController = navController)}
@@ -174,19 +177,20 @@ fun MovementScreen(navController: NavController)  {
                         )
                         Spacer(modifier = Modifier.weight(1f))
                     }
-                    Button(
+                    Button(modifier = Modifier.padding(16.dp),
                         onClick = {
 
-                            fun showToast(context: Context, message: String) {
-                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                            }
+                            Toast.makeText(context,
+                                "Movimentação criada com sucesso!",
+                                Toast.LENGTH_SHORT).show()
 
-                            navController.navigate("home") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        Text(text = "Salvar")
+                            showDialog.value = !showDialog.value
+                            navController.navigate("home")
+                        },
+
+                        colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
+                        Text(text = "Salvar ",
+                            color = Color.White)
                     }
                 }
             }

@@ -26,12 +26,12 @@ fun SplashScreen(navController: NavController) {
         scale.animateTo(
             targetValue = 0.7f,
             animationSpec = tween(
-                durationMillis = 800,
+                durationMillis = 400,
                 easing = {
                     OvershootInterpolator(4f).getInterpolation(it)
                 })
         )
-        delay(3000L)
+        delay(1500L)
         navController.navigate("login_page")
     }
 

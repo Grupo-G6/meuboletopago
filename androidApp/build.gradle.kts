@@ -48,4 +48,5 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("androidx.navigation:navigation-runtime-ktx:2.5.3")
+    implementation("com.google.android.gms:play-services-wallet:19.1.0")
 }
