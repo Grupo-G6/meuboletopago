@@ -1,5 +1,4 @@
 package br.com.digitalhouse.meuboletopago.android.screen
-
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -41,56 +40,56 @@ val cardInfo = listOf<CardInfo>(
     CardInfo("Despesa", R.drawable.icone_exclamcao,"Descrição", 0.00, "dd/mm/aa"),
     CardInfo("Receita", R.drawable.icone_ticado,"Descrição", 0.00, "dd/mm/aa"),
     CardInfo("Despesa", R.drawable.icone_exclamcao,"Descrição", 0.00, "dd/mm/aa"),
-    )
+)
 
 @Composable
 fun HomeScreen(/*TODO: navController: NavController, cardInfo: List<CardInfo>,  ctx: Context*/){
-        val scaffoldState = rememberScaffoldState(
-            rememberDrawerState(initialValue = DrawerValue.Closed))
+    val scaffoldState = rememberScaffoldState(
+        rememberDrawerState(initialValue = DrawerValue.Closed))
 
-        MyApplicationTheme {
-            Scaffold(
-                scaffoldState = scaffoldState,
-                topBar = { TopAppBar(
-                    title = { Text(
-                        textAlign = TextAlign.Justify,
-                        text = "Controle de Despesas",
-                        fontSize = 22.sp,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,)
+    MyApplicationTheme {
+        Scaffold(
+            scaffoldState = scaffoldState,
+            topBar = { TopAppBar(
+                title = { Text(
+                    textAlign = TextAlign.Justify,
+                    text = "Controle de Despesas",
+                    fontSize = 22.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,)
 
-                    })},
-                floatingActionButton = { FloatingActionButton(onClick = {/*TODO: navController.navigate("movement_page")*/},
-                ) {
-                    Icon(imageVector = Icons.Default.Add,
-                        contentDescription = "Adicionar movimentações",
-                        tint = Color.White,
-                        )
-                }},
-                floatingActionButtonPosition = FabPosition.End,
-
-                bottomBar = { Box(){
-                    Column(modifier = Modifier
-                        .fillMaxWidth(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        Text( textAlign = TextAlign.End, text = "Receitas: R$0.00", fontSize = 14.sp, color = Color.White,
-                            modifier = Modifier.padding(8.dp,0.dp))
-                        Text( textAlign = TextAlign.End, text = "Despesas: R$0.00", fontSize = 14.sp, color = Color.White,
-                            modifier = Modifier.padding(8.dp,0.dp))
-                        Text( textAlign = TextAlign.End, text = "Saldo: R$0.00", fontSize = 16.sp, color = Color.White,
-                            fontWeight = FontWeight.Bold,modifier = Modifier.padding(8.dp,0.dp))
-                    }
-                    IconButton(onClick = {/*TODO: navController.navigate("hint_page") */}) {
-                        Icon(imageVector = Icons.Filled.Info, contentDescription = "Informações", tint = Color.White)
-                    }
-                } }
-
+                })},
+            floatingActionButton = { FloatingActionButton(onClick = {/*TODO: navController.navigate("movement_page")*/},
             ) {
-                Tela(modifier = Modifier.padding(it), cardInfo, /*TODO: navController, ctx*/)
-            }
+                Icon(imageVector = Icons.Default.Add,
+                    contentDescription = "Adicionar movimentações",
+                    tint = Color.White,
+                )
+            }},
+            floatingActionButtonPosition = FabPosition.End,
+
+            bottomBar = { Box(){
+                Column(modifier = Modifier
+                    .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text( textAlign = TextAlign.End, text = "Receitas: R$0.00", fontSize = 14.sp, color = Color.White,
+                        modifier = Modifier.padding(8.dp,0.dp))
+                    Text( textAlign = TextAlign.End, text = "Despesas: R$0.00", fontSize = 14.sp, color = Color.White,
+                        modifier = Modifier.padding(8.dp,0.dp))
+                    Text( textAlign = TextAlign.End, text = "Saldo: R$0.00", fontSize = 16.sp, color = Color.White,
+                        fontWeight = FontWeight.Bold,modifier = Modifier.padding(8.dp,0.dp))
+                }
+                IconButton(onClick = {/*TODO: navController.navigate("hint_page") */}) {
+                    Icon(imageVector = Icons.Filled.Info, contentDescription = "Informações", tint = Color.White)
+                }
+            } }
+
+        ) {
+            Tela(modifier = Modifier.padding(it), cardInfo, /*TODO: navController, ctx*/)
         }
+    }
 
 }
 @Composable
