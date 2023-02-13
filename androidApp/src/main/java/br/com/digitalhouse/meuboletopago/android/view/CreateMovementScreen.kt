@@ -1,15 +1,13 @@
 package br.com.digitalhouse.meuboletopago.android.movement
 
-import android.os.Build
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,36 +15,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.android.components.TopBar
-import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
-import br.com.digitalhouse.meuboletopago.android.view.passwordMatches
-
-class SignupScreen(navController: NavHostController) : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
-                Surface(
-
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-
-                ) {
-                    CreateMovementScreen(navController = NavController(LocalContext.current))
-                }
-            }
-        }
-    }
-}
-
-
 
 
 @Composable
@@ -56,9 +31,22 @@ fun CreateMovementScreen(navController: NavController)  {
     var state3 by remember { mutableStateOf(true) }
     val context = LocalContext.current
     val showDialog = remember { mutableStateOf(false) }
-    MyApplicationTheme() {
-        Scaffold (
-            topBar = { TopBar(title = "Movimentação", navController = navController)}
+    MyApplicationTheme {
+        Scaffold(
+            topBar =   {  TopAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                title = {
+                    Text(text = "Nova movimentação")
+                },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate("home") }) {
+                        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+                    }
+                },
+                contentColor = Color.White,
+                elevation = 20.dp
+            )
+            }
         ) {
             LazyColumn(
                 modifier = Modifier.padding(it)) {
@@ -100,12 +88,20 @@ fun CreateMovementScreen(navController: NavController)  {
                         Spacer(modifier = Modifier.weight(1f))
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    Column {
+                    Column (
+                        modifier = Modifier
+                            .padding(25.dp)
+                            .background(Color.White)
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
+
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.Start){
                         val descricao = remember { mutableStateOf(TextFieldValue()) }
                         val valor = remember { mutableStateOf(TextFieldValue()) }
                         val data = remember { mutableStateOf(TextFieldValue()) }
                         Text(text = "Descrição")
-                        TextField(
+                        OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = descricao.value,
                             onValueChange = { descricao.value = it },
@@ -113,7 +109,7 @@ fun CreateMovementScreen(navController: NavController)  {
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Text(text = "Valor")
-                        TextField(
+                        OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = valor.value,
                             onValueChange = { valor.value = it },
@@ -121,7 +117,7 @@ fun CreateMovementScreen(navController: NavController)  {
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Text(text = "Data")
-                        TextField(
+                        OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = data.value,
                             onValueChange = { data.value = it },
@@ -202,16 +198,19 @@ fun CreateMovementScreen(navController: NavController)  {
                         )
                         Spacer(modifier = Modifier.weight(1f))
                     }
-                    Button(modifier = Modifier.padding(16.dp),
+                    Button(
                         onClick = {
 
+                            navController.navigate("home")
                             Toast.makeText(context,
                                 "Movimentação criada com sucesso!",
                                 Toast.LENGTH_SHORT).show()
 
                             showDialog.value = !showDialog.value
-                            navController.navigate("home")
-                        },
+              },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
 
                         colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
                         Text(text = "Salvar ",
@@ -223,9 +222,3 @@ fun CreateMovementScreen(navController: NavController)  {
     }
 }
 
-
-@Preview
-@Composable
-fun MovementScreen_Preview(){
-     CreateMovementScreen(navController = NavController(LocalContext.current))
-}

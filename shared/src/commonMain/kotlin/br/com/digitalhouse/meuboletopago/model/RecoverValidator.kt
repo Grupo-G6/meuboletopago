@@ -5,5 +5,5 @@ class RecoverValidator (
 {
     fun recover() = (password == passwordConfirm)
 }
-//        fun validator() = (login == "" && senha == "")
+
 

@@ -1,6 +1,5 @@
 package br.com.digitalhouse.meuboletopago.android.view
 
-import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -33,23 +32,6 @@ import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
 
 
-//class SignupScreen(navController: NavHostController) : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            MyApplicationTheme {
-//                Surface(
-//
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colors.background
-//
-//                ) {
-//                    SignupView(navController = NavController(LocalContext.current))
-//                }
-//            }
-//        }
-//    }
-//}
 
 
 @Composable
@@ -68,13 +50,13 @@ fun SignupView(navController: NavController) {
 
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = Color.White) //conferir linhas acontentColor = Color.White,
+                    .background(color = Color.White)
                     .padding(25.dp),
 
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start
             ) {
-                //VARIÁVEIS
+
                 val login = remember { mutableStateOf(TextFieldValue()) }
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
@@ -177,19 +159,5 @@ fun SignupView(navController: NavController) {
         }
     }
 }
-//
-//@Preview
-//@Composable
-//fun SignupPreview() {
-//    MyApplicationTheme {
-//        Surface(
-//            color = Color.White,
-//            modifier = Modifier.fillMaxSize()
-//        ) {
-//            SignupView(navController = NavController(LocalContext.current))
-//        }
-//    }
-//}
-
 
 

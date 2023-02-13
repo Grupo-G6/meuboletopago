@@ -13,7 +13,6 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -182,8 +181,3 @@ fun passwordMatches(password: String, checkPassword: String) : Boolean {
     return password == checkPassword
 }
 
-//@Preview
-//@Composable
-//fun FogotPassword_Preview(){
-//    RecoverPassword()
-//}

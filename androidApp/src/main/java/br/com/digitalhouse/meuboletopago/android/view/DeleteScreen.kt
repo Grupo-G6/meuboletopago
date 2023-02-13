@@ -1,6 +1,7 @@
 package br.com.digitalhouse.meuboletopago.android.view
 
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -13,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,17 +25,11 @@ import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 
 private val buttonSize = 260.dp /*TODO: criar padrão para o botão*/
 
-//
-//@Preview()
-//@Composable
-//fun DeleteScreen_Preview(){
-//    DeleteScreen()
-//}
-
 
 @Composable
 fun DeleteScreen(navController: NavController) {
     var dialogShow = remember { mutableStateOf(false) }
+    val ctx = LocalContext.current
     MyApplicationTheme {
         Scaffold(
             topBar = {
@@ -71,11 +67,11 @@ fun DeleteScreen(navController: NavController) {
                         ) {
 
                             OutlinedButton(
-                                onClick = {/*
+                                onClick = {
                                 Toast.makeText(ctx, "Solicitação Confirmada", Toast.LENGTH_SHORT).show()
                                 navController.navigate("home_page")
                                 Toast.makeText(ctx, "Registro Excluído", Toast.LENGTH_SHORT).show()
-                                */
+
                                 },
                                 modifier = Modifier.width(buttonSize),
                                 border = BorderStroke(
@@ -91,11 +87,11 @@ fun DeleteScreen(navController: NavController) {
                         Spacer(modifier = Modifier.padding(5.dp))
 
                         OutlinedButton(
-                            onClick = {/*
+                            onClick = {
                             Toast.makeText(ctx, "Solicitação Confirmada", Toast.LENGTH_SHORT).show()
                             navController.navigate("home_page")
                             Toast.makeText(ctx, "Registro Excluído", Toast.LENGTH_SHORT).show()
-                            */
+
                             },
                             modifier = Modifier.width(buttonSize),
                             border = BorderStroke(

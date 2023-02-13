@@ -1,9 +1,6 @@
 package br.com.digitalhouse.meuboletopago.android.login
 
 import AlertDialogComponent
-import android.media.Image
-import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,17 +15,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Transparent
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,8 +29,7 @@ import br.com.digitalhouse.meuboletopago.android.R
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.model.Login
-//import kotlinx.coroutines.NonCancellable.message
-//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
+
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -64,11 +56,11 @@ fun LoginScreen(navController: NavController) {
                 val mensagem = remember { mutableStateOf("") }
 
                Image(
-                    painter = painterResource(id = R.drawable.meu_boleto_pago),
+                    painter = painterResource(id = R.drawable.meu_boleto_pago_vector),
                     contentDescription = "Meu Boleto Pago",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(100.dp)
+                        .height(120.dp)
                 )
                 Spacer(modifier = Modifier.height(spacer))
                 Text(
@@ -79,8 +71,6 @@ fun LoginScreen(navController: NavController) {
                     )
                 Spacer(modifier = Modifier.height(spacer))
 
-//        ver diferença textfield, outline and textfieldValue - VER MATERIAL DESIGN
-//        USUÁRIO
                 Text(text = "E-mail")
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -143,9 +133,6 @@ fun LoginScreen(navController: NavController) {
                 }
 
                 Spacer(modifier = Modifier.height(96.dp))
-
-
-
                     Button(
                         onClick = {
 
@@ -156,8 +143,6 @@ fun LoginScreen(navController: NavController) {
                         Text(text = "Ainda não tem cadastro? Clique aqui")
                     }
 
-
-
                 }
             }
         }
@@ -165,11 +150,3 @@ fun LoginScreen(navController: NavController) {
 
 
 
-
-
-
-//@Preview
-//@Composable
-//fun LoginScreen_Preview(navController: NavController?) {
-//    LoginScreen(navController = NavController(LocalContext.current))
-//}
