@@ -1,5 +1,7 @@
-package br.com.digitalhouse.meuboletopago.android.component
+package br.com.digitalhouse.meuboletopago.android.components.cards
 
+
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,14 +27,13 @@ enum class StateType(){
 }
 
 @Composable
-fun DetailCard(
-    description: String,
-    dueDate: String,
-    valueMovement: Double
-) {
+fun DetailCard(description: String,
+               dueDate: String,
+               valueMovement: String) {
     val checkedState = remember { mutableStateOf(false) }
     val textState = remember { mutableStateOf(StateType.PENDENTE.name) }
-
+    val context = LocalContext.current
+    val showDialog = remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,7 +62,15 @@ fun DetailCard(
                     Switch(
                         checked = checkedState.value,
                         onCheckedChange = { checkedState.value = it
-                            textState.value = if (it) StateType.PAGO.name else StateType.PENDENTE.name},
+                        textState.value = if (it) StateType.PAGO.name else StateType.PENDENTE.name
+
+                            Toast.makeText(context,
+                                    "Movimentação alterada com sucesso!",
+                                    Toast.LENGTH_SHORT).show()
+                                    showDialog.value = !showDialog.value
+
+                            },
+
                     )
                 }
             }
@@ -84,5 +94,7 @@ fun DetailCard(
 @Preview
 @Composable
 fun DetailCard_Preview(){
-    DetailCard(description = "teste", dueDate = "teste", valueMovement = 4.0)
+    DetailCard(description = "teste", dueDate = "teste", valueMovement = "teste")
 }
+
+

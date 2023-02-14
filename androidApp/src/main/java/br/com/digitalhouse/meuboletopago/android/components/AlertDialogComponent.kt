@@ -25,7 +25,7 @@ fun AlertDialogComponent(
                 }
             },
             contentColor = Color.White,
-            backgroundColor = Color.Black
+            backgroundColor = Color.White
         )
     }
 }

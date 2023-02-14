@@ -1,4 +1,4 @@
-package br.com.digitalhouse.meuboletopago.android.detailing
+package br.com.digitalhouse.meuboletopago.android.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -8,16 +8,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.android.component.DetailCard
+import br.com.digitalhouse.meuboletopago.android.components.cards.DetailCard
 
 @Composable
-fun DetailingScreen(navController: NavController) {
+fun DetailScreen(navController: NavController) {
     MyApplicationTheme {
         Surface(
             modifier = Modifier.fillMaxSize()
@@ -30,7 +28,7 @@ fun DetailingScreen(navController: NavController) {
                         Text(text = "Detalhes")
                     },
                     navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
+                        IconButton(onClick = { navController.navigate("home") }) {
                             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
                         }
                     },
@@ -40,36 +38,35 @@ fun DetailingScreen(navController: NavController) {
 
                 Row(horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically) {
-                    DetailCard(
-                        description = "Academia",
+                    DetailCard(description = "Academia",
                         dueDate = "03/02/2023",
-                        valueMovement = 110.00
-                    )
+                        valueMovement = "110,00")
                 }
 
                 Row(horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically) {
                     Button(modifier = Modifier.padding(16.dp),
-                        onClick = {navController.navigate("edit")},
+                        onClick = {navController.navigate("edit_page")},
                         colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
                         Text(text = "Editar",
                             color = Color.White)
                     }
                     Button(modifier = Modifier.padding(16.dp),
-                        onClick = {navController.navigate("delete")},
+                        onClick = {navController.navigate("delete_page") },
                         colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
                         Text(text = "Excluir",
                             color = Color.White)
                     }
+
+                }
+                Button(modifier = Modifier.padding(16.dp),
+                    onClick = {navController.navigate("home") },
+                    colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
+                    Text(text = "Salvar",
+                        color = Color.White)
                 }
 
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun DetailingScreen_Preview() {
-    DetailingScreen(navController = NavController(LocalContext.current))
 }
