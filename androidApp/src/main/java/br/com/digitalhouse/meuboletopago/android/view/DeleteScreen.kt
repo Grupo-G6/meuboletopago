@@ -22,8 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
+import br.com.digitalhouse.meuboletopago.android.components.cards.ButtonSmall
 
-private val buttonSize = 260.dp /*TODO: criar padrão para o botão*/
+private val buttonSize = 260.dp
 
 
 @Composable
@@ -66,47 +67,25 @@ fun DeleteScreen(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
 
-                            OutlinedButton(
-                                onClick = {
-                                Toast.makeText(ctx, "Solicitação Confirmada", Toast.LENGTH_SHORT).show()
-                                navController.navigate("home_page")
-                                Toast.makeText(ctx, "Registro Excluído", Toast.LENGTH_SHORT).show()
-
-                                },
-                                modifier = Modifier.width(buttonSize),
-                                border = BorderStroke(
-                                    width = 2.dp,
-                                    color = MaterialTheme.colors.primary
-                                )
-                            ){
-                                Icon(imageVector = Icons.Default.Delete, contentDescription = "")
-                                Text(text = "Excluir esse registro")
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.padding(5.dp))
-
-                        OutlinedButton(
-                            onClick = {
-                            Toast.makeText(ctx, "Solicitação Confirmada", Toast.LENGTH_SHORT).show()
-                            navController.navigate("home_page")
-                            Toast.makeText(ctx, "Registro Excluído", Toast.LENGTH_SHORT).show()
-
-                            },
-                            modifier = Modifier.width(buttonSize),
-                            border = BorderStroke(
-                                width = 2.dp,
-                                color = MaterialTheme.colors.primary
+                            ButtonSmall(
+                                "Registro excluído com sucesso!",
+                                navController,
+                                "home",
+                                "Excluir registro"
                             )
-                        ){
-                            Icon(imageVector = Icons.Default.Delete, contentDescription = "")
-                            Text(text = "Excluir todos registros")
+                            Spacer(modifier = Modifier.padding(5.dp))
+
+                            ButtonSmall(
+                                "Registros excluídos com sucesso!",
+                                navController,
+                                "home",
+                                "Excluir TODOS os registro"
+                            )
+///*TODO: ALTERAR TEXTOS PARA CONSTAR UMA CONFIRMAÇÃO ANTES DA EXCLUSÃO DE TODOS OS REGISTROS*/
                         }
 
                     }
-
                 }
-            }
-        )
+            })
     }
 }

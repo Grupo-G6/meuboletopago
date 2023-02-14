@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color =  MaterialTheme.colors.primaryVariant
+                    color =  MaterialTheme.colors.primary
                 ) {
                     Navigator(ctx = this@MainActivity)
 

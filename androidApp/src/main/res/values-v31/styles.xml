@@ -2,7 +2,7 @@
 <resources>
 
     <style name="AppTheme.SplashScreen">
-        <item name="android:windowSplashScreenBackground">@color/meuboletologo2_background</item>
+        <item name="android:windowSplashScreenBackground">@color/purple_200</item>
         <item name="android:windowSplashScreenAnimatedIcon">
            @mipmap/meuboletologo2_foreground
         </item>

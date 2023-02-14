@@ -15,7 +15,7 @@ import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
 import kotlinx.coroutines.delay
 
-
+/*VER QUAL SPLASHSCREEN ESTÁ SENDO APLICADO E EXCLUIR O OUTRO*/
 @Composable
 fun SplashScreen(navController: NavController) {
     val scale = remember {
@@ -37,7 +37,7 @@ fun SplashScreen(navController: NavController) {
                         })
                 )
                 delay(1500L)
-                navController.navigate("login_page")
+//                navController.navigate("login")
             }
             Image(
                 painter = painterResource(R.drawable.meu_boleto_pago_vector),

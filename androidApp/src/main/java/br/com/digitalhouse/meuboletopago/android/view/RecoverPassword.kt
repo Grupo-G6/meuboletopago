@@ -46,7 +46,7 @@ fun RecoverPassword(navController: NavController){
                 )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { navController.navigate("login")}) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
                     }
                 })

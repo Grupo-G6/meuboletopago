@@ -63,8 +63,7 @@ fun DetailCard(description: String,
                         checked = checkedState.value,
                         onCheckedChange = { checkedState.value = it
                         textState.value = if (it) StateType.PAGO.name else StateType.PENDENTE.name
-
-                            Toast.makeText(context,
+                        Toast.makeText(context,
                                     "Movimentação alterada com sucesso!",
                                     Toast.LENGTH_SHORT).show()
                                     showDialog.value = !showDialog.value

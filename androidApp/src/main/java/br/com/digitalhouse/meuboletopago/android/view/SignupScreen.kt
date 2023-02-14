@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
@@ -24,14 +25,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
-
-
+import br.com.digitalhouse.meuboletopago.android.components.cards.ButtonSmall
 
 
 @Composable
@@ -43,12 +44,26 @@ fun SignupView(navController: NavController) {
     val email = remember { mutableStateOf(TextFieldValue()) }
     val emailConfirm = remember { mutableStateOf(TextFieldValue()) }
     MyApplicationTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize()
+        Scaffold(
+            topBar =   { TopAppBar(
+                title = { Text(
+                    textAlign = TextAlign.Justify,
+                    text = "Signup",
+                    fontSize = 22.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate("login")}) {
+                        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+                    }
+                })
+            }
         ) {
             Column(
 
-                modifier = Modifier
+                Modifier.padding(it)
                     .fillMaxWidth()
                     .background(color = Color.White)
                     .padding(25.dp),
@@ -61,13 +76,7 @@ fun SignupView(navController: NavController) {
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
 
-                Image(
-                    painter = painterResource(id = R.drawable.meu_boleto_pago_vector),
-                    contentDescription = "Meu Boleto Pago",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(120.dp)
-                )
+
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "Cadastro",
@@ -134,27 +143,13 @@ fun SignupView(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Button(
-                    modifier = Modifier.padding(16.dp),
-                    onClick = {
+                ButtonSmall(
+                    "Cadastro realizado com sucesso!",
+                    navController,
+                    "home",
+                    "Cadastrar"
+                )
 
-                        Toast.makeText(
-                            context,
-                            "Cadastro realizado com sucesso!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        showDialog.value = !showDialog.value
-                        navController.navigate("home")
-                    },
-
-                    colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)
-                ) {
-                    Text(
-                        text = "Cadastrar",
-                        color = Color.White
-                    )
-                }
             }
         }
     }
