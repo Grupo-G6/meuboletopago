@@ -48,21 +48,3 @@ fun ButtonSmall(textToast: String, navController: NavController, route: String, 
     }
 }
 
-
-//onClick = {
-//                            Toast.makeText(ctx, "Solicitação Confirmada", Toast.LENGTH_SHORT).show()
-//                            navController.navigate("home_page")
-//                            Toast.makeText(ctx, "Registro Excluído", Toast.LENGTH_SHORT).show()
-//                            navController.navigate("home_page")
-//
-//                            },
-//                            modifier = Modifier.width(buttonSize),
-//                            border = BorderStroke(
-//                                width = 2.dp,
-//                                color = MaterialTheme.colors.primary
-//                            )
-//                        ){
-//                            Icon(imageVector = Icons.Default.Delete, contentDescription = "")
-//                            Text(text = "Excluir todos registros")
-//                        }
-//

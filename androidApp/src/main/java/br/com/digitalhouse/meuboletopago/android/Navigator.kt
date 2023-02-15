@@ -15,7 +15,7 @@ import br.com.digitalhouse.meuboletopago.android.movement.CreateMovementScreen
 import br.com.digitalhouse.meuboletopago.android.screen.DetailScreen
 import br.com.digitalhouse.meuboletopago.android.view.*
 import cardInfo
-import com.learnandroid.meuboletopago.SplashScreen
+//import com.learnandroid.meuboletopago.SplashScreen
 
 //@RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -30,7 +30,7 @@ fun Navigator(ctx : Context){
         composable("signup_page", content = { SignupView (navController = navController) })
         composable("recover_page", content = { RecoverPassword(navController = navController) })
         composable("delete_page", content = { DeleteScreen(navController = navController) })
-        composable("splash_screen", content = { SplashScreen(navController = navController) })
+//        composable("splash_screen", content = { SplashScreen(navController = navController) })
         composable("detail_page", content = { DetailScreen (navController = navController) })
 
 

@@ -142,13 +142,22 @@ fun SignupView(navController: NavController) {
                     }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = {
 
-                ButtonSmall(
-                    "Cadastro realizado com sucesso!",
-                    navController,
-                    "home",
-                    "Cadastrar"
+                        navController.navigate("login")
+
+                    }, modifier = Modifier.fillMaxWidth()
                 )
+                {
+                    Text(text = "Cadastrar")
+                }
+//                ButtonSmall(
+//                    "Cadastro realizado com sucesso!",
+//                    navController,
+//                    "home",
+//                    "Cadastrar"
+//                )
 
             }
         }
