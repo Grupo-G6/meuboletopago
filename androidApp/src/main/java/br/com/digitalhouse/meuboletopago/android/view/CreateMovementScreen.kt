@@ -1,4 +1,4 @@
-package br.com.digitalhouse.meuboletopago.android.movement
+package br.com.digitalhouse.meuboletopago.android.view
 
 import android.widget.Toast
 import androidx.compose.foundation.background

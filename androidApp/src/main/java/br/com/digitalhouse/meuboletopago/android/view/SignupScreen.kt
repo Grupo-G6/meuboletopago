@@ -152,12 +152,7 @@ fun SignupView(navController: NavController) {
                 {
                     Text(text = "Cadastrar")
                 }
-//                ButtonSmall(
-//                    "Cadastro realizado com sucesso!",
-//                    navController,
-//                    "home",
-//                    "Cadastrar"
-//                )
+
 
             }
         }

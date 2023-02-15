@@ -1,5 +1,7 @@
 package br.com.digitalhouse.meuboletopago.android.login
 
+
+
 import AlertDialogComponent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,9 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,10 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.network.Network
 import br.com.digitalhouse.meuboletopago.network.loadTransaction
+import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
 @Composable
@@ -51,17 +53,10 @@ fun LoginScreen(navController: NavController) {
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
                 val showDialog = remember { mutableStateOf(false) }
-//               TODO val viewModel: LoginViewModel = viewModel()
+//                val viewModel: LoginViewModel = viewModel()
+//                val loginState by viewModel.loginState.collectAsState()
 
-                loadTransaction()
-//                Text(text = "Transação levou ${Network.carregarDados()}")
-//                Image(
-//                    painter = painterResource(id = R.drawable.meu_boleto_pago_vector),
-//                    contentDescription = "Meu Boleto Pago",
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .height(120.dp)
-//                )
+
                 Spacer(modifier = Modifier.height(spacer))
                 Text(
                     text = "Login",
@@ -99,23 +94,33 @@ fun LoginScreen(navController: NavController) {
                     }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+
+//                if (loginState is DataResult.Loading) {
+//                    CircularProgressIndicator()
+//                }
+//                 if (loginState is DataResult.Success<*>) {
+//                        navController.navigate("home")
+//                  }
+//
+//                 if (loginState is DataResult.Error) {
+//                        showDialog.value = true
+//                 }
+
+
                 Button(
                     onClick = {
-//                  TODO    viewModel.login(
-//                           login.value.text,
-//                           password.value.text
+//                        viewModel.login(
+//                            login.value.text,
+//                            password.value.text
 //                        )
-//                    if (loginUser.validator()) {
-//
-//                       } else {
-//                        showDialog.value = true
-//                    }
-//                     navController.navigate("home")
                     },
                     modifier = Modifier.fillMaxWidth()
-                ) {
+                )
+                {
                     Text(text = "entrar")
                 }
+
+
                 AlertDialogComponent(
                     showDialog = showDialog.value,
                     message = "Ops! Login ou senha inválida :(",
@@ -149,5 +154,9 @@ fun LoginScreen(navController: NavController) {
         }
     }
 }
+
+
+
+
 
 

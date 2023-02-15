@@ -11,11 +11,10 @@ import androidx.navigation.compose.rememberNavController
 import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
 import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
 import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
-import br.com.digitalhouse.meuboletopago.android.movement.CreateMovementScreen
 import br.com.digitalhouse.meuboletopago.android.screen.DetailScreen
 import br.com.digitalhouse.meuboletopago.android.view.*
 import cardInfo
-//import com.learnandroid.meuboletopago.SplashScreen
+
 
 //@RequiresApi(Build.VERSION_CODES.O)
 @Composable

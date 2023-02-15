@@ -1,16 +1,34 @@
-//package br.com.digitalhouse.meuboletopago.android.login
-//
-//import androidx.lifecycle.ViewModel
-//import androidx.lifecycle.viewModelScope
-//import br.com.digitalhouse.dhwallet.api.Api
-//import br.com.digitalhouse.meuboletopago.model.Login
-//import kotlinx.coroutines.launch
-//
-//class LoginViewModel: ViewModel(/*val repository: LoginRepository*/) {
-//
-////função que bate diretamente na Api
-//    fun login(email: String, password: String) = viewModelScope.launch{
-//        Api.token = Api.instance.login(Login("usuario@dhwallet.com.br", "123456"))
-//
-//    }
-//}
+package br.com.digitalhouse.meuboletopago.android.login
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.digitalhouse.meuboletopago.ProfileToken
+import br.com.digitalhouse.meuboletopago.api.Api
+import br.com.digitalhouse.meuboletopago.model.Login
+import br.com.digitalhouse.meuboletopago.repository.LoginRepository
+import br.com.digitalhouse.meuboletopago.util.DataResult
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
+class LoginViewModel (private val repository: LoginRepository = LoginRepository.instance): ViewModel() {
+
+
+    val loginState : StateFlow<DataResult<ProfileToken>>
+        get() = _loginState
+
+    val _loginState : MutableStateFlow<DataResult<ProfileToken>> = MutableStateFlow(DataResult.Empty)
+    fun login(email:String, password:String) = viewModelScope.launch {
+
+      
+        val login = Login(email, password )
+
+        repository.login(login).collectLatest{
+
+            _loginState.value = it
+
+        }
+
+    }
+}

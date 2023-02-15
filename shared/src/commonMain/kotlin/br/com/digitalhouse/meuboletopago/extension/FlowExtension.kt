@@ -1,10 +1,10 @@
-package br.com.digitalhouse.dhwallet.extension
-
-import br.com.digitalhouse.dhwallet.util.DataResult
+package br.com.digitalhouse.meuboletopago.extension
+import br.com.digitalhouse.meuboletopago.util.DataResult
 import io.ktor.utils.io.errors.IOException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.retryWhen
