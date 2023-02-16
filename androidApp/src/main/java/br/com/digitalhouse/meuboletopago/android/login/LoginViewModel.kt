@@ -14,14 +14,13 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel (private val repository: LoginRepository = LoginRepository.instance): ViewModel() {
 
+    private val _loginState : MutableStateFlow<DataResult<ProfileToken>> = MutableStateFlow(DataResult.Empty)
 
-    val loginState : StateFlow<DataResult<ProfileToken>>
-        get() = _loginState
+    val loginState : StateFlow<DataResult<ProfileToken>> = _loginState
 
-    val _loginState : MutableStateFlow<DataResult<ProfileToken>> = MutableStateFlow(DataResult.Empty)
+
     fun login(email:String, password:String) = viewModelScope.launch {
 
-      
         val login = Login(email, password )
 
         repository.login(login).collectLatest{

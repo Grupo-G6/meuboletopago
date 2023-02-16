@@ -20,6 +20,8 @@ class LoginRepository (
     //usar o flow: tratamentos (updateState)
     //se o login der certo-> retorna ProfileToken
     suspend fun login(login: Login) =  flow<DataResult<ProfileToken>>{
+        val dadosApi = api.login(login)
+        Api.token = dadosApi.token
         emit(DataResult.Success(api.login(login)))
     }.updateState().flowOn(dispatcher)
 

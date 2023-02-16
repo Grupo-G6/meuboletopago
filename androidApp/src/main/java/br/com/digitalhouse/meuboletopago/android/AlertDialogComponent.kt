@@ -24,7 +24,7 @@ fun AlertDialogComponent(
                     Text(text = "OK")
                 }
             },
-            contentColor = Color.White,
+            contentColor = Color.Black,
             backgroundColor = Color.White
         )
     }
