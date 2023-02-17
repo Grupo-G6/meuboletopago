@@ -34,31 +34,32 @@ import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
 import br.com.digitalhouse.meuboletopago.android.components.cards.ButtonSmall
 
-
+/*TODO VER SE VAMOS USAR O ALERT OU O TOAST NAS TELAS INICIAIS*/
 @Composable
 fun SignupView(navController: NavController) {
     val context = LocalContext.current
-    val showDialog = remember { mutableStateOf(false) }
     val name = remember { mutableStateOf(TextFieldValue()) }
     val lastName = remember { mutableStateOf(TextFieldValue()) }
     val email = remember { mutableStateOf(TextFieldValue()) }
     val emailConfirm = remember { mutableStateOf(TextFieldValue()) }
     MyApplicationTheme {
         Scaffold(
-            topBar =   { TopAppBar(
-                title = { Text(
-                    textAlign = TextAlign.Justify,
-                    text = "Signup",
-                    fontSize = 22.sp,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigate("login")}) {
-                        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
-                    }
-                })
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            textAlign = TextAlign.Justify,
+                            text = "Signup",
+                            fontSize = 22.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { navController.navigate("login") }) {
+                            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+                        }
+                    })
             }
         ) {
             Column(
@@ -82,7 +83,7 @@ fun SignupView(navController: NavController) {
                     text = "Cadastro",
                     fontWeight = FontWeight.Bold,
                     fontSize = 26.sp,
-                  /*  color = MaterialTheme.colors.primary */
+                    /*  color = MaterialTheme.colors.primary */
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -143,13 +144,27 @@ fun SignupView(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
-                ButtonSmall(
-                    "Cadastro realizado com sucesso!",
-                    navController,
-                    "home",
-                    "Cadastrar"
+
+                Button(
+                    onClick = {
+                        Toast.makeText(
+                            context,
+                            "Cadastro realizado com sucesso!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        navController.navigate("login")
+                    },modifier = Modifier.fillMaxWidth()
+
                 )
 
+                  {
+                    Text(
+                        text = "Cadastrar",
+                        color = Color.White
+                    )
+
+
+                }
             }
         }
     }

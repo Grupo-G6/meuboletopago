@@ -24,7 +24,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -95,7 +94,10 @@ fun RecoverPassword(navController: NavController){
                     AlertDialogComponent(
                         showDialog = showDialog.value,
                         message = "Senhas não são correspondentes. Tente novamente.",
-                        onDismissRequest = { showDialog.value = !showDialog.value })
+                        onDismissRequest = { showDialog.value = !showDialog.value }
+
+
+                    )
                     Column(modifier = Modifier
                         .padding(25.dp)
                         .background(Color.White)

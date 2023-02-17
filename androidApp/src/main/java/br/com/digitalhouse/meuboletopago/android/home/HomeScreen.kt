@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
+import br.com.digitalhouse.meuboletopago.model.Mock
 import com.learnandroid.meuboletopago.component.CardInfo
 
 val cardInfo = listOf<CardInfo>(
@@ -87,7 +88,9 @@ fun HomeScreen(navController: NavController, cardInfo: List<CardInfo>, ctx: Cont
             } }
 
         ) {
+
             Tela(modifier = Modifier.padding(it), cardInfo, navController, ctx)
+          /*TODO implementar dados mocados  val transactions = Mock.transacoes */
         }
     }
 
@@ -97,6 +100,7 @@ fun Tela(modifier: Modifier, cardInfo: List<CardInfo>, navController: NavControl
 
 LazyColumn{
         itemsIndexed(cardInfo){
+
                 index, item ->  meuCard(cardInfo[index], navController, ctx)
         }
     }
