@@ -57,7 +57,6 @@ fun LoginScreen(navController: NavController) {
                 val mensagem = remember { mutableStateOf("") }
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
-                val showDialog = remember { mutableStateOf(false) }
                 val viewModel: LoginViewModel = viewModel()
                 val loginState by viewModel.loginState.collectAsState()
 
@@ -110,30 +109,7 @@ fun LoginScreen(navController: NavController) {
                     showDialog.value = true
                 }
 
-                Button(
-                    modifier = Modifier.padding(16.dp),
-                    onClick = {
-                        viewModel.login(
-                            login.value.text,
-                            password.value.text
-                        )
-                        Toast.makeText(
-                            context,
-                            "Cadastro realizado com sucesso!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        navController.navigate("home")
-                    },
-
-                    colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)
-                ) {
-                    Text(
-                        text = "Cadastrar",
-                        color = Color.White
-                    )
-
-
-                }
+//
 //                if (loginState is DataResult.Loading) {
 //                    CircularProgressIndicator()
 //                    if() {
@@ -141,30 +117,20 @@ fun LoginScreen(navController: NavController) {
 
 
 
-//
-//                Button(
-//                    modifier = Modifier.padding(16.dp),
-//                    onClick = {
 
-//                        if /*(loginState is DataResult.Loading) {
-//                                CircularProgressIndicator()
-//                            } else {
-//                                if*/ (loginState is DataResult.Success) {
-////                            mensagem.value = "Login com sucesso"
-//                            navController.navigate("home")
-//                        } else (loginState is DataResult.Error) {
-//                            showDialog.value = true
-//                            mensagem.value = "Ops! Login ou senha inválida :("
-//
-//                        }
-//
-//
-//                    },
-//
-//                )
-//                {
-//                    Text(text = "entrar")
-//                }
+                Button(
+
+                    onClick = {
+                       viewModel.login( email = login.value.text,
+                        password = password.value.text)
+
+
+                    }, modifier = Modifier.fillMaxWidth()
+
+                )
+                {
+                    Text(text = "entrar")
+                }
 
 
                     AlertDialogComponent(

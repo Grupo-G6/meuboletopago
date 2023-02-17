@@ -6,6 +6,7 @@ package br.com.digitalhouse.meuboletopago.api
 //import br.com.digitalhouse.dhwallet.model.TransactionResponse
 import br.com.digitalhouse.meuboletopago.model.Login
 import br.com.digitalhouse.meuboletopago.Profile
+import br.com.digitalhouse.meuboletopago.ProfileToken
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.*
@@ -40,7 +41,7 @@ class Api {
             .body()
     }
 
-    suspend fun login(login: Login): Profile {
+    suspend fun login(login: Login): ProfileToken {
         return httpClient.post("https://dh-wallet-2.herokuapp.com/login") {
             setBody(login)
         }.body()

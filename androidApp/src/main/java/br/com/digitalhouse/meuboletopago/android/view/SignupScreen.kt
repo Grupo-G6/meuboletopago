@@ -146,7 +146,7 @@ fun SignupView(navController: NavController) {
                 Spacer(modifier = Modifier.height(16.dp))
 
 
-                Button(modifier = Modifier.padding(16.dp),
+                Button(
                     onClick = {
                         Toast.makeText(
                             context,
@@ -154,9 +154,11 @@ fun SignupView(navController: NavController) {
                             Toast.LENGTH_SHORT
                         ).show()
                         navController.navigate("login")
-                    },
+                    },modifier = Modifier.fillMaxWidth()
 
-                    colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)) {
+                )
+
+                  {
                     Text(
                         text = "Cadastrar",
                         color = Color.White
