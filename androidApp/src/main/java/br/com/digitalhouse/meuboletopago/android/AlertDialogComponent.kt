@@ -11,7 +11,8 @@ fun AlertDialogComponent(
     showDialog: Boolean,
     message: String,
     onDismissRequest: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+
 ){
     if (showDialog) {
         AlertDialog(
@@ -33,5 +34,5 @@ fun AlertDialogComponent(
 @Preview
 @Composable
 fun AlertDialogComponentPreview() {
-    AlertDialogComponent(showDialog = true, message = "Teste", onDismissRequest = { })
+    AlertDialogComponent(showDialog = true, message = "Teste", onDismissRequest = { } )
 }

@@ -34,11 +34,10 @@ import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
 import br.com.digitalhouse.meuboletopago.android.components.cards.ButtonSmall
 
-
+/*TODO VER SE VAMOS USAR O ALERT OU O TOAST NAS TELAS INICIAIS*/
 @Composable
 fun SignupView(navController: NavController) {
     val context = LocalContext.current
-    val showDialog = remember { mutableStateOf(false) }
     val name = remember { mutableStateOf(TextFieldValue()) }
     val lastName = remember { mutableStateOf(TextFieldValue()) }
     val email = remember { mutableStateOf(TextFieldValue()) }

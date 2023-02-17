@@ -94,7 +94,8 @@ fun RecoverPassword(navController: NavController){
                     AlertDialogComponent(
                         showDialog = showDialog.value,
                         message = "Senhas não são correspondentes. Tente novamente.",
-                        onDismissRequest = { showDialog.value = !showDialog.value },
+                        onDismissRequest = { showDialog.value = !showDialog.value }
+
 
                     )
                     Column(modifier = Modifier

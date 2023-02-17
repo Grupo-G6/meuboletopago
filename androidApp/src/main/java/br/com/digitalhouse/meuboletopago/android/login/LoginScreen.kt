@@ -3,7 +3,6 @@ package br.com.digitalhouse.meuboletopago.android.login
 
 
 import AlertDialogComponent
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -28,16 +27,14 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.android.view.passwordMatches
 import br.com.digitalhouse.meuboletopago.api.Api.Companion.token
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
+
 @Composable
 fun LoginScreen(navController: NavController) {
-    val spacer: Dp = 8.dp
-    val context = LocalContext.current
-    val showDialog = remember { mutableStateOf(false) }
+
     MyApplicationTheme() {
 
         Surface(modifier = Modifier.fillMaxSize()) {
@@ -54,9 +51,10 @@ fun LoginScreen(navController: NavController) {
             {
                 //VARIÁVEIS
                 val login = remember { mutableStateOf(TextFieldValue()) }
-                val mensagem = remember { mutableStateOf("") }
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
+                val spacer: Dp = 8.dp
+                val showDialog = remember { mutableStateOf(false) }
                 val viewModel: LoginViewModel = viewModel()
                 val loginState by viewModel.loginState.collectAsState()
 
@@ -99,26 +97,25 @@ fun LoginScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
-                if (loginState is DataResult.Success) {
+                if (loginState is DataResult.Loading) {
+                    CircularProgressIndicator()
+                }
+
+                else if (loginState is DataResult.Success) {
                     Text(text = "Meu token é $token")
                     navController.navigate("home")
                 }
 
 
-                else(loginState is DataResult.Error) {
-                    showDialog.value = true
+                else if (loginState is DataResult.Error) {
+                   showDialog.value = true
+                    /*TODO direcionar novamente para login e fechar botão ok*/
+
+
+
                 }
 
-//
-//                if (loginState is DataResult.Loading) {
-//                    CircularProgressIndicator()
-//                    if() {
-
-
-
-
-
-                Button(
+               Button(
 
                     onClick = {
                        viewModel.login( email = login.value.text,
@@ -133,13 +130,12 @@ fun LoginScreen(navController: NavController) {
                 }
 
 
-                    AlertDialogComponent(
-                        showDialog = showDialog.value,
-                        message = mensagem.value,
-                        onDismissRequest = { showDialog.value = false },
-//
+                AlertDialogComponent(
+                    showDialog = showDialog.value,
+                    message = "Login e/ou senha inválida!",
+                    onDismissRequest = { showDialog.value = !showDialog.value })
 
-                    )
+
                     Button(
                         onClick = {
 
