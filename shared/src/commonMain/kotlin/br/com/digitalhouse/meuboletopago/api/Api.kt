@@ -37,10 +37,10 @@ class Api {
         }
     }
 
-    suspend fun getAll(): TransactionResponse {
-        return httpClient.get("https://rickandmortyapi.com/api/character")
-            .body()
-    }
+//    suspend fun getAll(): TransactionResponse {
+//        return httpClient.get("https://rickandmortyapi.com/api/character")
+//            .body()
+//    }
 
     suspend fun login(login: Login): ProfileToken {
         return httpClient.post("https://meu-boleto-pago-api-production.up.railway.app/user/login") {
@@ -48,7 +48,7 @@ class Api {
         }.body()
     }
 
-
+/*TODO DIRECIONAR PARA PÁGINA DE PROFILE OU HOME */
 //    suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
 
     //inicia no momento da instancia da classe
