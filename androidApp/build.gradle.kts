@@ -29,6 +29,9 @@ android {
             isMinifyEnabled = false
         }
     }
+    sourceSets {
+        val ktorVersion = "2.2.2"
+    }
 }
 
 dependencies {
@@ -48,5 +51,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2") /*TODO CARREGAR IMAGEM */
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("androidx.navigation:navigation-runtime-ktx:2.5.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+
     /*implementation("com.google.android.gms:play-services-wallet:19.1.0")*/
 }
