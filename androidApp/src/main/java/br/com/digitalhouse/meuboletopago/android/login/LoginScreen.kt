@@ -99,42 +99,32 @@ fun LoginScreen(navController: NavController) {
 
                 if (loginState is DataResult.Loading) {
                     CircularProgressIndicator()
+                } else {
+                    if (loginState is DataResult.Success) {
+                        Text(text = "Meu token é $token")
+                        navController.navigate("home")
+                    }
+                    if (loginState is DataResult.Error) {
+                        Text(text = "O erro é: ${(loginState as DataResult.Error).error.message}")
+                    //    showDialog.value = true
+                        /*TODO direcionar novamente para login e fechar botão ok*/
+                    }
+                    Button(
+                        onClick = {
+                            viewModel.login(
+                                email = login.value.text,
+                                password = password.value.text
+                            )
+                        }, modifier = Modifier.fillMaxWidth()
+                    )
+                    {
+                        Text(text = "entrar")
+                    }
                 }
-
-                else if (loginState is DataResult.Success) {
-                    Text(text = "Meu token é $token")
-                    navController.navigate("home")
-                }
-
-
-                else if (loginState is DataResult.Error) {
-                   showDialog.value = true
-                    /*TODO direcionar novamente para login e fechar botão ok*/
-
-
-
-                }
-
-               Button(
-
-                    onClick = {
-                       viewModel.login( email = login.value.text,
-                        password = password.value.text)
-
-
-                    }, modifier = Modifier.fillMaxWidth()
-
-                )
-                {
-                    Text(text = "entrar")
-                }
-
-
                 AlertDialogComponent(
                     showDialog = showDialog.value,
                     message = "Login e/ou senha inválida!",
                     onDismissRequest = { showDialog.value = !showDialog.value })
-
 
                     Button(
                         onClick = {

@@ -7,6 +7,7 @@ package br.com.digitalhouse.meuboletopago.api
 import br.com.digitalhouse.meuboletopago.model.Login
 import br.com.digitalhouse.meuboletopago.Profile
 import br.com.digitalhouse.meuboletopago.ProfileToken
+import br.com.digitalhouse.meuboletopago.model.Email
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.*
@@ -32,7 +33,7 @@ class Api {
         defaultRequest {
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
-            header("Authorization" , "Bearer $token")
+            header("Authorization" , token)
         }
     }
 
@@ -42,13 +43,20 @@ class Api {
     }
 
     suspend fun login(login: Login): ProfileToken {
-        return httpClient.post("https://dh-wallet-2.herokuapp.com/login") {
+        return httpClient.post("$DEFAULT_URL/user/login") {
             setBody(login)
         }.body()
     }
 
 
+
     suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
+
+    suspend fun sendRecoverEmail(email: Email): HttpStatusCode {
+        return httpClient.post("$DEFAULT_URL/forgot-password") {
+            setBody(email)
+        }.status
+    }
 
     //inicia no momento da instancia da classe
     //by(delegate)
@@ -58,7 +66,6 @@ class Api {
     companion object {
         val instance by lazy { Api() }
         var token = ""
-        const val DEFAULT_URL = "https://dh-food-api.herokuapp.com"
-
+        const val DEFAULT_URL = "https://meu-boleto-pago-api-production.up.railway.app"
     }
 }
