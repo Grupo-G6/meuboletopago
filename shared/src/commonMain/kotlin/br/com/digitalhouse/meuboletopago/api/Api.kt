@@ -53,7 +53,7 @@ class Api {
     suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
 
     suspend fun sendRecoverEmail(email: Email): HttpStatusCode {
-        return httpClient.post("$DEFAULT_URL/forgot-password") {
+        return httpClient.post("$DEFAULT_URL/user/forgot-password") {
             setBody(email)
         }.status
     }

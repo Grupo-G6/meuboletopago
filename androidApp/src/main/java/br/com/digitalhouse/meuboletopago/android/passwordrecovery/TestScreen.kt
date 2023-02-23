@@ -29,7 +29,7 @@ fun TestScreen(){
                     modifier = Modifier.fillMaxWidth(),
                     value = email.value,
                     onValueChange = { email.value = it },
-                    label = { Text(text = "") }
+                    label = { Text(text = "E-mail") }
                 )
                 if (sendState is DataResult.Loading){
                     CircularProgressIndicator()
