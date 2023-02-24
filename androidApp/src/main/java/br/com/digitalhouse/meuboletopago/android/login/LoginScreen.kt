@@ -52,6 +52,7 @@ fun LoginScreen(navController: NavController) {
 
             {
                 //VARIÁVEIS
+                /*todo enviar variáveis para o ViewModel */
                 val login = remember { mutableStateOf(TextFieldValue()) }
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
@@ -59,6 +60,7 @@ fun LoginScreen(navController: NavController) {
                 val showDialog = remember { mutableStateOf(true) }
                 val viewModel: LoginViewModel = viewModel()
                 val loginState by viewModel.loginState.collectAsState()
+                val isLogged = remember{ mutableStateOf(false)}
 
 
                 Spacer(modifier = Modifier.height(spacer))
@@ -103,26 +105,24 @@ fun LoginScreen(navController: NavController) {
                 if (loginState is DataResult.Loading) {
                     CircularProgressIndicator()
                 } else {
-                    if (loginState is DataResult.Success) {
+                    if (loginState is DataResult.Success && isLogged.value.not()) {
 //                        Text(text = "Meu token é $token")
 //                        onHomeNavigate.invoke()
-                        navController.navigate("home")
+                        navController.navigate("home/1")
+                        isLogged.value = true
                     }
                     if (loginState is DataResult.Error) {
 //                        Text(text = "O erro é: ${(loginState as DataResult.Error).error.message}")
                         AlertDialogComponent(
                             showDialog = showDialog.value,
                             message = "Login e/ou senha inválida!",
-                            onDismissRequest = {showDialog.value = !showDialog.value },
+                            onDismissRequest = {showDialog.value = !showDialog.value
+                            viewModel.defaultState()
+                                               },
                         )
 
-//
-//                        navController.navigate("login")
                     }
-//                    showDialog.value = false
-//                    if ( loginState is DataResult.Empty) {
-//                        showDialog.value = false
-//                        }
+
                         /*TODO direcionar novamente para login e fechar botão ok*/
                     }
 
