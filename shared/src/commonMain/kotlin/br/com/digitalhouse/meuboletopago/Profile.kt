@@ -11,10 +11,3 @@ class Profile (
     val token: String = ""
 }
 
-//    constructor(email: String, token: String, password: String) {
-//        this.email = email
-//        this.token = token
-//        this.password = password
-//    }
-//
-//}

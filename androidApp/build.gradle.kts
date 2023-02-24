@@ -54,4 +54,5 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     /*implementation("com.google.android.gms:play-services-wallet:19.1.0")*/
+    /*TODO colocar mesma versão do material */
 }

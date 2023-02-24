@@ -21,6 +21,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,7 +32,8 @@ import br.com.digitalhouse.meuboletopago.api.Api.Companion.token
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
-
+//@Composable
+//fun LoginScreen(onHomeNavigate: () -> Unit) {
 @Composable
 fun LoginScreen(navController: NavController) {
 
@@ -54,7 +56,7 @@ fun LoginScreen(navController: NavController) {
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
                 val spacer: Dp = 8.dp
-                val showDialog = remember { mutableStateOf(false) }
+                val showDialog = remember { mutableStateOf(true) }
                 val viewModel: LoginViewModel = viewModel()
                 val loginState by viewModel.loginState.collectAsState()
 
@@ -97,44 +99,52 @@ fun LoginScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
+
                 if (loginState is DataResult.Loading) {
                     CircularProgressIndicator()
-                }
+                } else {
+                    if (loginState is DataResult.Success) {
+//                        Text(text = "Meu token é $token")
+//                        onHomeNavigate.invoke()
+                        navController.navigate("home")
+                    }
+                    if (loginState is DataResult.Error) {
+//                        Text(text = "O erro é: ${(loginState as DataResult.Error).error.message}")
+                        AlertDialogComponent(
+                            showDialog = showDialog.value,
+                            message = "Login e/ou senha inválida!",
+                            onDismissRequest = {showDialog.value = !showDialog.value },
+                        )
 
-                else if (loginState is DataResult.Success) {
-                    Text(text = "Meu token é $token")
-                    navController.navigate("home")
-                }
+//
+//                        navController.navigate("login")
+                    }
+//                    showDialog.value = false
+//                    if ( loginState is DataResult.Empty) {
+//                        showDialog.value = false
+//                        }
+                        /*TODO direcionar novamente para login e fechar botão ok*/
+                    }
+
+                    Button(
+
+                        onClick = {
+                            viewModel.login(
+                                email = login.value.text,
+                                password = password.value.text
+                            )
 
 
-                else if (loginState is DataResult.Error) {
-                   showDialog.value = true
-                    /*TODO direcionar novamente para login e fechar botão ok*/
+                        }, modifier = Modifier.fillMaxWidth()
+
+                    )
+                    {
+                        Text(text = "entrar")
+                    }
 
 
 
-
-                }
-
-               Button(
-
-                    onClick = {
-                       viewModel.login( email = login.value.text,
-                        password = password.value.text)
-
-
-                    }, modifier = Modifier.fillMaxWidth()
-
-                )
-                {
-                    Text(text = "entrar")
-                }
-
-
-                AlertDialogComponent(
-                    showDialog = showDialog.value,
-                    message = "Login e/ou senha inválida!",
-                    onDismissRequest = { showDialog.value = !showDialog.value })
+                    /*TODO: mudar o loginState para Empty */
 
 
                     Button(
@@ -165,6 +175,7 @@ fun LoginScreen(navController: NavController) {
         }
     }
 
+
 private operator fun Boolean.invoke(value: Any) {
 
 }
@@ -173,6 +184,24 @@ private operator fun Boolean.invoke(value: Any) {
 //private operator fun <T> Comparable<T>.invoke(value: Any) {
 //
 //}
+//@Preview
+//@Composable
+//fun DefaultPreview() {
+//    br.com.digitalhouse.dhwallet.android.login.LoginScreen {
+//    }
+//}
+//
+
+
+
+
+
+
+
+
+
+
+
 
 
 

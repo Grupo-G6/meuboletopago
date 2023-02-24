@@ -43,7 +43,7 @@ class Api {
 //    }
 
     suspend fun login(login: Login): ProfileToken {
-        return httpClient.post("https://meu-boleto-pago-api-production.up.railway.app/user/login") {
+        return httpClient.post("$DEFAULT_URL/user/login") {
             setBody(login)
         }.body()
     }
@@ -59,7 +59,7 @@ class Api {
     companion object {
         val instance by lazy { Api() }
         var token = ""
-        const val DEFAULT_URL = "https://meu-boleto-pago-api-production.up.railway.app/"
+        const val DEFAULT_URL = "https://meuboletopago-api-production.up.railway.app"
 
     }
 }
