@@ -176,21 +176,22 @@ fun LoginScreen(navController: NavController) {
     }
 
 
-private operator fun Boolean.invoke(value: Any) {
-
-}
+//private operator fun Boolean.invoke(value: Any) {
+//
+//}
 
 
 //private operator fun <T> Comparable<T>.invoke(value: Any) {
 //
-//}
-//@Preview
-//@Composable
-//fun DefaultPreview() {
-//    br.com.digitalhouse.dhwallet.android.login.LoginScreen {
-//    }
-//}
-//
+
+@Preview
+@Composable
+fun DefaultPreview() {
+    LoginScreen(navController = NavController(LocalContext.current))
+
+}
+//preview não pode ser usado com viewModel
+
 
 
 

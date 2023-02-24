@@ -26,17 +26,19 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
-import br.com.digitalhouse.meuboletopago.android.components.cards.ButtonSmall
+
+import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
 
 /*TODO VER SE VAMOS USAR O ALERT OU O TOAST NAS TELAS INICIAIS*/
 @Composable
-fun SignupView(navController: NavController) {
+fun SignupScreen(navController: NavController) {
     val context = LocalContext.current
     val name = remember { mutableStateOf(TextFieldValue()) }
     val lastName = remember { mutableStateOf(TextFieldValue()) }
@@ -169,5 +171,10 @@ fun SignupView(navController: NavController) {
         }
     }
 }
+@Preview
+@Composable
+fun SignUpPreview() {
+    SignupScreen(navController = NavController(LocalContext.current))
 
+}
 

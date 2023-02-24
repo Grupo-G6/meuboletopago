@@ -37,10 +37,6 @@ class Api {
         }
     }
 
-//    suspend fun getAll(): TransactionResponse {
-//        return httpClient.get("https://rickandmortyapi.com/api/character")
-//            .body()
-//    }
 
     suspend fun login(login: Login): ProfileToken {
         return httpClient.post("$DEFAULT_URL/user/login") {
@@ -51,10 +47,7 @@ class Api {
 /*TODO DIRECIONAR PARA PÁGINA DE PROFILE OU HOME */
 //    suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
 
-    //inicia no momento da instancia da classe
-    //by(delegate)
-    //lazy: só executa quando a variável é chamada
-    //instance: só sao instanciados se chamada a API
+
     @ThreadLocal
     companion object {
         val instance by lazy { Api() }
