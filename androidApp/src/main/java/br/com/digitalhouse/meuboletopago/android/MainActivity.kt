@@ -20,7 +20,6 @@ import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
 
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -30,16 +29,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color =  MaterialTheme.colors.primary
                 ) {
-
-
                     Navigator(ctx = this@MainActivity)
 
                 }
             }
         }
-
-        }
     }
+}
 
 
 

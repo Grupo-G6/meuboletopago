@@ -7,6 +7,7 @@ package br.com.digitalhouse.meuboletopago.api
 import br.com.digitalhouse.meuboletopago.model.Login
 import br.com.digitalhouse.meuboletopago.Profile
 import br.com.digitalhouse.meuboletopago.ProfileToken
+
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.*
@@ -32,33 +33,26 @@ class Api {
         defaultRequest {
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
-            header("Authorization" , "Bearer $token")
+            header("Authorization" , token)
         }
     }
 
-    suspend fun getAll(): TransactionResponse {
-        return httpClient.get("https://rickandmortyapi.com/api/character")
-            .body()
-    }
 
     suspend fun login(login: Login): ProfileToken {
-        return httpClient.post("https://dh-wallet-2.herokuapp.com/login") {
+        return httpClient.post("$DEFAULT_URL/user/login") {
             setBody(login)
         }.body()
     }
 
+/*TODO DIRECIONAR PARA PÁGINA DE PROFILE OU HOME */
+//    suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
 
-    suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
 
-    //inicia no momento da instancia da classe
-    //by(delegate)
-    //lazy: só executa quando a variável é chamada
-    //instance: só sao instanciados se chamada a API
     @ThreadLocal
     companion object {
         val instance by lazy { Api() }
         var token = ""
-        const val DEFAULT_URL = "https://dh-food-api.herokuapp.com"
+        const val DEFAULT_URL = "https://meuboletopago-api-production.up.railway.app"
 
     }
 }
