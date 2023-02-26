@@ -9,11 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
-import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
 import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
 import br.com.digitalhouse.meuboletopago.android.screen.DetailScreen
 import br.com.digitalhouse.meuboletopago.android.view.*
-import cardInfo
 
 
 //@RequiresApi(Build.VERSION_CODES.O)
@@ -21,11 +19,11 @@ import cardInfo
 fun Navigator(ctx : Context){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "login", builder = {
+    NavHost(navController = navController, startDestination = "home", builder = {
         composable("login", content = { LoginScreen(navController = navController) })
-        composable("home/{id}", content = {
+        composable("home", content = {
            val id = it.arguments?.getString("id")
-            HomeScreen(navController = navController, cardInfo = cardInfo,ctx = ctx) })
+            HomeScreen(navController = navController) })
         composable("create_movement_page", content = { CreateMovementScreen(navController = navController) })
         composable("edit_page", content = { EditScreen(navController = navController) })
         composable("signup_page", content = { SignupScreen (navController = navController) })

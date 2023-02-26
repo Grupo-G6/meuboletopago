@@ -1,4 +1,16 @@
-//package br.com.digitalhouse.meuboletopago.android.home//package br.com.digitalhouse.meuboletopago.android.home
+package br.com.digitalhouse.meuboletopago.android.home
+
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.digitalhouse.meuboletopago.model.Transaction
+import br.com.digitalhouse.meuboletopago.repository.TransactionRepository
+import br.com.digitalhouse.meuboletopago.util.DataResult
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
 //import androidx.lifecycle.SavedStateHandle
 //import androidx.lifecycle.ViewModel
 //import androidx.lifecycle.viewModelScope
@@ -49,3 +61,24 @@
 //        }
 //    }
 //}
+class HomeViewModel(
+    private val savedStateHandle: SavedStateHandle
+): ViewModel() {
+    private val repository: TransactionRepository = TransactionRepository()
+    private val _transactions = MutableStateFlow<DataResult<List<Transaction>>>(DataResult.Empty)
+    val transactions: StateFlow<DataResult<List<Transaction>>> = _transactions
+
+    init {
+        getTransactions()
+    }
+
+    fun getTransactions() = viewModelScope.launch {
+        repository.getMovement().collectLatest {
+            _transactions.value = it
+        }
+    }
+
+
+
+
+}
