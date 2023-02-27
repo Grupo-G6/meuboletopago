@@ -8,6 +8,7 @@ import br.com.digitalhouse.meuboletopago.model.Login
 import br.com.digitalhouse.meuboletopago.Profile
 import br.com.digitalhouse.meuboletopago.ProfileToken
 import br.com.digitalhouse.meuboletopago.model.Email
+import br.com.digitalhouse.meuboletopago.model.NewPassword
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.*
@@ -58,6 +59,12 @@ class Api {
         }.status
     }
 
+    suspend fun changePassword(newPassword: NewPassword): HttpStatusCode{
+        return httpClient.post("$DEFAULT_URL/user/password-recovery"){
+            setBody(newPassword)
+        }.status
+    }
+
     //inicia no momento da instancia da classe
     //by(delegate)
     //lazy: só executa quando a variável é chamada
@@ -66,6 +73,6 @@ class Api {
     companion object {
         val instance by lazy { Api() }
         var token = ""
-        const val DEFAULT_URL = "https://meu-boleto-pago-api-production.up.railway.app"
+        const val DEFAULT_URL = "https://meuboletopago-api-production.up.railway.app"
     }
 }

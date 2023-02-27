@@ -18,7 +18,11 @@ class RecPasswordViewModel(private val repository : PasswordRecRepository = Pass
     fun sendRecoverEmail(email: String) = viewModelScope.launch {
         val emailObj = Email(email)
         repository.sendRecoverEmail(emailObj).collectLatest {
-            _emailState.value = it
+            _emailState.value = it as DataResult<Nothing>
         }
+    }
+
+    fun setDefaultState() {
+        _emailState.value = DataResult.Empty
     }
 }
