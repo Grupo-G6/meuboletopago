@@ -21,7 +21,7 @@ fun Navigator(ctx : Context){
         composable("login", content = { LoginScreen(navController = navController) })
         composable("home", content = {
 
-            HomeScreen(navController = navController, onItemDetail = {}) })
+            HomeScreen(navController = navController, onItemDetail = {navController.navigate("home/$it")}) })
         composable("create_movement_page", content = { CreateMovementScreen(navController = navController) })
         composable("edit_page", content = { EditScreen(navController = navController) })
         composable("transaction_page/{id}", content = {
