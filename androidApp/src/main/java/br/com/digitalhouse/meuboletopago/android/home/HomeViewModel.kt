@@ -1,51 +1,63 @@
-//package br.com.digitalhouse.meuboletopago.android.home//package br.com.digitalhouse.meuboletopago.android.home
-//import androidx.lifecycle.SavedStateHandle
-//import androidx.lifecycle.ViewModel
-//import androidx.lifecycle.viewModelScope
-//import br.com.digitalhouse.meuboletopago.api.Api
-//import br.com.digitalhouse.meuboletopago.model.Login
-//import br.com.digitalhouse.meuboletopago.Profile
-//import br.com.digitalhouse.meuboletopago.model.Transaction
-//import br.com.digitalhouse.meuboletopago.network.TransactionRepository
-//import br.com.digitalhouse.meuboletopago.util.DataResult
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.flow.MutableStateFlow
-//import kotlinx.coroutines.flow.StateFlow
-//import kotlinx.coroutines.flow.collectLatest
-//import kotlinx.coroutines.launch
-//
-//class HomeViewModel(
-//    private val savedStateHandle: SavedStateHandle
-//) : ViewModel() {
-//    private val repository: TransactionRepository = TransactionRepository()
+package br.com.digitalhouse.meuboletopago.android.home//package br.com.digitalhouse.meuboletopago.android.home
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.digitalhouse.meuboletopago.api.Api
+import br.com.digitalhouse.meuboletopago.model.Login
+import br.com.digitalhouse.meuboletopago.Profile
+import br.com.digitalhouse.meuboletopago.model.Transaction
+import br.com.digitalhouse.meuboletopago.network.Network.login
+
+import br.com.digitalhouse.meuboletopago.repository.TransactionRepository
+import br.com.digitalhouse.meuboletopago.util.DataResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
+class HomeViewModel(
+    private val repository: TransactionRepository = TransactionRepository.instance
+) : ViewModel() {
+
 //    private val search = savedStateHandle.getStateFlow("search_key", "")
-//    private val _transactions = MutableStateFlow<DataResult<List<Transaction>>>(DataResult.Empty)
-//    val transactions: StateFlow<DataResult<List<Transaction>>> = _transactions
+    private val _transactions = MutableStateFlow<DataResult<List<Transaction>>>(DataResult.Empty)
+    val transactions: StateFlow<DataResult<List<Transaction>>> = _transactions
 //
 //    private val _profile = MutableStateFlow<DataResult<Profile>?>(null)
 //    val profile: StateFlow<DataResult<Profile>?> = _profile
-//
-//
+
+    init {
+//        login()
+        getTransactions()
+    }
+
+
 //    private fun search(query: String) {
 //        savedStateHandle["search_key"] = query
 //    }
 //
 //    fun login() = viewModelScope.launch {
-//        Api.token = Api.instance.login(Login("usuario@dhwallet.com.br", "123456")).toString()/*TODO.token*/
+//        Api.token = Api.instance.login()
 //    }.invokeOnCompletion {
 //        getTransactions()
-//        getProfile()
-//    }
 //
-//    fun getTransactions() = viewModelScope.launch {
-//        repository.getTransactions().collectLatest {
-//            _transactions.value /* TODO= it*/
-//        }
 //    }
-//
+fun getTransactions() = viewModelScope.launch {
+        repository.getTransactions().collectLatest {
+            _transactions.value
+//              Log.i("teste", {_transactions.value}.toString())
+        }
+}
+
 //    fun getProfile() = viewModelScope.launch(Dispatchers.Default) {
 //        repository.getProfile().collectLatest {
-//            _profile.value  /* TODO= it*/
+//            _profile.value
 //        }
 //    }
-//}
+    fun defaultState (){
+        _transactions.value = DataResult.Empty
+    }
+
+}

@@ -5,8 +5,9 @@ package br.com.digitalhouse.meuboletopago.api
 //import br.com.digitalhouse.dhwallet.model.ProfileToken
 //import br.com.digitalhouse.dhwallet.model.TransactionResponse
 import br.com.digitalhouse.meuboletopago.model.Login
-import br.com.digitalhouse.meuboletopago.Profile
 import br.com.digitalhouse.meuboletopago.ProfileToken
+import br.com.digitalhouse.meuboletopago.model.Transaction
+import br.com.digitalhouse.meuboletopago.model.TransactionResponse
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -34,9 +35,15 @@ class Api {
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
             header("Authorization" , token)
+
         }
     }
-
+    suspend fun getAll(): TransactionResponse {
+        return httpClient.get("$DEFAULT_URL/movement/filter")
+        {
+            setBody {}
+        }.body()
+    }
 
     suspend fun login(login: Login): ProfileToken {
         return httpClient.post("$DEFAULT_URL/user/login") {
@@ -44,8 +51,10 @@ class Api {
         }.body()
     }
 
+
+
 /*TODO DIRECIONAR PARA PÁGINA DE PROFILE OU HOME */
-//    suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
+//suspend fun profile(): Profile = httpClient.get("$DEFAULT_URL/movement/filter").body()
 
 
     @ThreadLocal
