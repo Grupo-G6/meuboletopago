@@ -36,7 +36,7 @@ import coil.request.ImageRequest
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, onItemDetail:(Long)-> Unit ) {
     val viewModel = viewModel<HomeViewModel>()
     val trans by viewModel.transactions.collectAsState()
     val isLogged = remember { mutableStateOf(false) }
@@ -57,7 +57,7 @@ fun HomeScreen(navController: NavController) {
             when (trans) {
                 is DataResult.Loading -> LoadingIndicator()
                 is DataResult.Error -> ErrorMessage((trans as DataResult.Error).error)
-                is DataResult.Success -> ContentHome(trans as DataResult.Success<List<Transaction>>)
+                is DataResult.Success -> ContentHome(trans as DataResult.Success<MutableList<Transaction>>, onItemDetail)
                     else -> Unit
 
 
@@ -90,8 +90,7 @@ fun LoadingIndicator() {
 }
 
 @Composable
-fun ContentHome(resultado: DataResult.Success<List<Transaction>>) {
-    val transactions = resultado.data
+fun ContentHome(resultado: DataResult.Success<List<Transaction>>, onItemDetail:(Long)-> Unit  ) { val transactions = resultado.data
 //        val listTransactions = remember{ mutableStateOf(emptyList<Transaction>()) }
 //        val isLoading = remember{ mutableStateOf(false) }
 
@@ -104,21 +103,20 @@ fun ContentHome(resultado: DataResult.Success<List<Transaction>>) {
 //            else -> Unit
 //        }
 //    val transactions = listTransactions.value
-
-        LazyColumn {
-//            item {
-//                LoadingIndicator()
-//            }
+    LazyColumn {
+            item {
+                LoadingIndicator()
+            }
             item {
                MovementCard()
             }
 
             item {
-                Button(onClick = {
-
-                }) {
+                Button(onClick = {onItemDetail.invoke(transactions[0].idMovement)}){
                     Text(text = "Transacoes")
                 }
+
+
             }
 
 
@@ -148,10 +146,11 @@ fun ContentHome(resultado: DataResult.Success<List<Transaction>>) {
                                 .clip(CircleShape),
                         )
                     },
-                    title = transactions[it].description.toString(),
-                    subtitle = transactions[it].type.toString(),
+                    title = transactions[it].descriptionMovement.toString(),
+                    subtitle = transactions[it].typeMovement.toString(),
+
                     value = {
-                        Text(text = "R$ ${transactions[it].value}")
+                        Text(text = "R$ ${transactions[it]}")
                     },
                 )
             }
@@ -162,5 +161,5 @@ fun ContentHome(resultado: DataResult.Success<List<Transaction>>) {
     @Preview
     @Composable
     fun HomeScreen_Preview() {
-        HomeScreen(navController = NavController(LocalContext.current))
+        HomeScreen(navController = NavController(LocalContext.current), onItemDetail = {})
     }

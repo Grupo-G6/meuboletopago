@@ -25,6 +25,11 @@ object Network {
 
         return 1
     }
+//    suspend fun getTransa(): Int {
+//        delay(1000)
+//
+//        return 1
+//    }
 
     fun carregarDados(): String {
         var dados = ""

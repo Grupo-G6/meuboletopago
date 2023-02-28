@@ -18,7 +18,7 @@ class TransactionRepository(
     private val api: Api = Api.instance,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
-    suspend fun getTransactions() = flow{
+    suspend fun getTransactions() = flow {
         val chamada = api.getAll().transactions
 
         if (chamada.isEmpty()) {
@@ -29,10 +29,8 @@ class TransactionRepository(
     }.updateState().flowOn(dispatcher)
 
 
+    val instance by lazy { TransactionRepository() }
 
-    companion object {
-        val instance by lazy { TransactionRepository() }
-    }
 }
 
 

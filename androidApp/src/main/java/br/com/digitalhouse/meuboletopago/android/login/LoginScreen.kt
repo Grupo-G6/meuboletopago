@@ -108,7 +108,7 @@ fun LoginScreen(navController: NavController) {
                     if (loginState is DataResult.Success && isLogged.value.not()) {
 //                        Text(text = "Meu token é $token")
 //                        onHomeNavigate.invoke()
-                        navController.navigate("home/1")
+                        navController.navigate("/transaction_page")
                         isLogged.value = true
                     }
                     if (loginState is DataResult.Error) {

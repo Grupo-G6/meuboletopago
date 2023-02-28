@@ -31,6 +31,7 @@ class Api {
                 }
             )
         }
+
         defaultRequest {
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
@@ -39,11 +40,9 @@ class Api {
         }
     }
     suspend fun getAll(): TransactionResponse {
-        return httpClient.get("$DEFAULT_URL/movement/filter")
-        {
-            setBody {}
-        }.body()
-    }
+        return  httpClient.get("$DEFAULT_URL/movement/filter").body()
+}
+
 
     suspend fun login(login: Login): ProfileToken {
         return httpClient.post("$DEFAULT_URL/user/login") {
@@ -64,4 +63,8 @@ class Api {
         const val DEFAULT_URL = "https://meuboletopago-api-production.up.railway.app"
 
     }
+}
+
+private fun Any.setBody() {
+    TODO("Not yet implemented")
 }
