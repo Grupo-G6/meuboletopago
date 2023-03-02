@@ -19,12 +19,12 @@ import br.com.digitalhouse.meuboletopago.android.view.*
 fun Navigator(ctx : Context){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "home", builder = {
+    NavHost(navController = navController, startDestination = "login", builder = {
         composable("login", content = { LoginScreen(navController = navController) })
         composable("home", content = {
            val id = it.arguments?.getString("id")
             HomeScreen(navController = navController) })
-        composable("create_movement_page", content = { CreateMovementScreen(navController = navController) })
+        composable("movement_page", content = { MovementScreen(navController = navController) })
         composable("edit_page", content = { EditScreen(navController = navController) })
         composable("signup_page", content = { SignupScreen (navController = navController) })
         composable("recover_page", content = { RecoverPassword(navController = navController) })

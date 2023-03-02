@@ -1,6 +1,5 @@
 package br.com.digitalhouse.meuboletopago.android.view
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,29 +14,33 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
+import br.com.digitalhouse.meuboletopago.android.movement.MovementViewModel
+import br.com.digitalhouse.meuboletopago.model.Movement
+import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
 @Composable
-fun CreateMovementScreen(navController: NavController)  {
+fun MovementScreen(navController: NavController)  {
+    val viewModel = viewModel<MovementViewModel>()
+    val movement by viewModel.movement.collectAsState()
     var state by remember { mutableStateOf(true) }
-    var state2 by remember { mutableStateOf(true) }
-    var state3 by remember { mutableStateOf(true) }
-    val context = LocalContext.current
-    val showDialog = remember { mutableStateOf(false) }
+    val descricao = remember { mutableStateOf(TextFieldValue()) }
+    val valor = remember { mutableStateOf(TextFieldValue()) }
+    val data = remember { mutableStateOf(TextFieldValue()) }
+
     MyApplicationTheme {
         Scaffold(
             topBar =   {  TopAppBar(
                 modifier = Modifier.fillMaxWidth(),
                 title = {
-                    Text(text = "Nova movimentação")
+                    Text(text = "Nova Movimentação")
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate("home") }) {
@@ -95,120 +98,58 @@ fun CreateMovementScreen(navController: NavController)  {
                             .background(Color.White)
                             .fillMaxWidth()
                             .fillMaxHeight(),
-
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.Start){
-                        val descricao = remember { mutableStateOf(TextFieldValue()) }
-                        val valor = remember { mutableStateOf(TextFieldValue()) }
-                        val data = remember { mutableStateOf(TextFieldValue()) }
-                        Text(text = "Descrição")
+
+//                        Text(text = "Descrição")
                         OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = descricao.value,
                             onValueChange = { descricao.value = it },
-                            label = { Text(text = "") }
+                            label = { Text(text = "Descrição") }
                         )
                         Spacer(modifier = Modifier.height(20.dp))
-                        Text(text = "Valor")
+//                        Text(text = "Valor")
                         OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = valor.value,
                             onValueChange = { valor.value = it },
-                            label = { Text(text = "") }
+                            label = { Text(text = "Valor") }
                         )
                         Spacer(modifier = Modifier.height(20.dp))
-                        Text(text = "Data")
+//                        Text(text = "Data")
                         OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = data.value,
                             onValueChange = { data.value = it },
-                            label = { Text(text = "") }
+                            label = { Text(text = "Data") }
                         )
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    Row(
-                        Modifier.selectableGroup(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Spacer(modifier = Modifier.weight(1f))
-                        RadioButton(
-                            selected = state2,
-                            onClick = { state2 = true },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Localized Description"
-                            },
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
-                            )
-
-                        )
-                        Text(text = "Não Repetir")
-                        Spacer(modifier = Modifier.weight(1f))
-                        RadioButton(
-                            selected = !state2,
-                            onClick = { state2 = false },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Localized Description"
-                            },
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
-                            )
-                        )
-                        Text(
-                            text = "Repetir",
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
+                    if (movement is DataResult.Loading) {
+                        CircularProgressIndicator()
+                    } else {
+                        if (movement is DataResult.Success) {
+                            navController.navigate("home")
+                        }
+                        if (movement is DataResult.Error) {
+                        Text(text = "O erro é: ${(movement as DataResult.Error).error.message}")
+                        }
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Row(
-                        Modifier.selectableGroup(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Spacer(modifier = Modifier.weight(1f))
-                        RadioButton(
-                            selected = state3,
-                            onClick = { state3 = true },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Localized Description"
-                            },
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
-                            )
 
-                        )
-                        Text(text = "Fixo")
-                        Spacer(modifier = Modifier.weight(1f))
-                        RadioButton(
-                            selected = !state3,
-                            onClick = { state3 = false },
-                            modifier = Modifier.semantics {
-                                contentDescription = "Localized Description"
-                            },
-                            colors = RadioButtonDefaults.colors(
-                                selectedColor = Color(0xFF7BC59D),
-                                unselectedColor = Color.LightGray
-                            )
-                        )
-                        Text(
-                            text = "Parcelado",
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                    }
                     Button(
                         onClick = {
-
-                            navController.navigate("home")
-                            Toast.makeText(context,
-                                "Movimentação criada com sucesso!",
-                                Toast.LENGTH_SHORT).show()
-
-                            showDialog.value = !showDialog.value
-              },
+                            viewModel.postMovement(
+                                movement = Movement(
+                                    descriptionMovement = descricao.value.text,
+                                    valueMovement = valor.value.text.toDouble(),
+                                    dueDate = data.value.text,
+                                    typeMovement = if (state) "1" else "2",
+                                    seqParcel = 1,
+                                    wasPaid = false
+                                )
+                            )
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp),
@@ -223,3 +164,8 @@ fun CreateMovementScreen(navController: NavController)  {
     }
 }
 
+@Preview
+@Composable
+fun CreateMovementScreenPreview() {
+    MovementScreen(navController = NavController(LocalContext.current))
+}

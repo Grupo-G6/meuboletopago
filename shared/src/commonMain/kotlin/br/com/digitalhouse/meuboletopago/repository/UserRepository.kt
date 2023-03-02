@@ -8,21 +8,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class TransactionRepository(
+class UserRepository(
     private val api: Api = Api.instance,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
-    suspend fun getAll() = flow {
-        val chamada = api.getMovement().movements
+    suspend fun getUser() = flow {
+        val chamada = api.getUser()
 
-        if (chamada.isEmpty()) {
-            emit(DataResult.Empty)
-        } else {
-            emit(DataResult.Success(chamada))
-        }
+        emit(DataResult.Success(chamada))
     }.updateState().flowOn(dispatcher)
 
     companion object {
-        val instance by lazy { TransactionRepository() }
+        val instance by lazy { UserRepository() }
     }
 }

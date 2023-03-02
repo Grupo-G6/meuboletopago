@@ -4,33 +4,36 @@ package br.com.digitalhouse.meuboletopago.model
 data class Transaction(
     val idMovement: Long,
     val valueMovement: Double,
-//    @kotlinx.serialization.Serializable(with = DateSerializer::class)
     val dueDate: String,
     val descriptionMovement: String,
-//    val seqParcel: Int,
+    val seqParcel: Int,
     val typeMovement: String,
-    val wasPaid: Boolean
+    val wasPaid: Boolean,
+    val user: User
 )
-
-@kotlinx.serialization.Serializable
-data class TransactionSpecification(
-    val idMovement: Long? = 1,
-    val valueMovementIni: Double = 44.0,
-    val valueMovementEnd: Double = 46.0,
-//    @kotlinx.serialization.Serializable(with = DateSerializer::class)
-    val dueDateIni: String = "2000-11-15",
-    val dueDateEnd: String = "2000-11-17",
-    val descriptionMovement: String = "",
-//    val seqParcel: Int? = null,
-    val typeMovement: String = "",
-    val wasPaid: Boolean = false,
-    val idUser: Long = 1
-)
-
 
 @kotlinx.serialization.Serializable
 data class TransactionResponse(
     val transactions: List<Transaction>
+)
+
+@kotlinx.serialization.Serializable
+data class TransactionSpecification(
+    val dueDateIni: String? = "15/11/2000",
+    val dueDateEnd: String? = "17/11/2000",
+    val typeMovement: String? = "1",
+    val descriptionMovement: String? = "teste",
+    val idUser: Long? = 1,
+    val valueMovementIni: Double? = 44.0,
+    val valueMovementEnd: Double? = 46.0,
+    val wasPaid: Boolean? = false,
+    val idMovement: Long? = null
+//    val seqParcel: Int? = null
+)
+
+@kotlinx.serialization.Serializable
+data class TransactionSpec(
+    val transactionsSpec: List<TransactionSpecification>
 )
 //enum class TransactionType(val description: String) {
 //    DESPESA("Despesa"),

@@ -21,6 +21,8 @@ import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.components.CenterTopBar
 import br.com.digitalhouse.meuboletopago.android.home.HomeViewModel
 import br.com.digitalhouse.meuboletopago.model.Transaction
+import br.com.digitalhouse.meuboletopago.model.TransactionResponse
+import br.com.digitalhouse.meuboletopago.model.User
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -28,6 +30,7 @@ import br.com.digitalhouse.meuboletopago.util.DataResult
 fun HomeScreen(navController: NavController){
     val viewModel = viewModel<HomeViewModel>()
     val transactions by viewModel.transactions.collectAsState()
+    val user by viewModel.user.collectAsState()
 
     MyApplicationTheme {
         Scaffold(
@@ -35,7 +38,6 @@ fun HomeScreen(navController: NavController){
                 CenterTopBar(
                     title = "Controle de Despesas",
                     navController = navController
-
                 ) },
             bottomBar = { Box(){
                 Column(modifier = Modifier
@@ -54,17 +56,21 @@ fun HomeScreen(navController: NavController){
 //                    Icon(imageVector = Icons.Filled.Info, contentDescription = "Informações", tint = Color.White)
 //                }
             } }
-        ) {  _ ->
-
+        ) { _ ->
             when (transactions) {
                 is DataResult.Loading -> LoadingIndicator()
                 is DataResult.Error -> ErrorMessage((transactions as DataResult.Error).error)
                 is DataResult.Success -> ContentHome(transactions as DataResult.Success<List<Transaction>>)
                 else -> Unit
             }
+//            when (user) {
+//                is DataResult.Loading -> LoadingIndicator()
+//                is DataResult.Error -> ErrorMessage((user as DataResult.Error).error)
+//                is DataResult.Success -> ContentHome(user as DataResult.Success<User>)
+//                else -> Unit
+//            }
         }
     }
-
 }
 
 @Composable
@@ -88,13 +94,21 @@ fun LoadingIndicator(){
 }
 
 @Composable
-fun ContentHome(resultado: DataResult.Success<List<Transaction>>) {
-    val transactions = resultado.data
+fun ContentHome(
+    resultado2: DataResult.Success<List<Transaction>>
+//    resultado: DataResult.Success<User>
+) {
+//    val transactions = resultado.data
+    val trans = resultado2.data
 
     LazyColumn {
-        item {
-            println("transactions: $transactions")
+        items(trans.size) {
+            Text(text = trans[it].descriptionMovement)
         }
+//        item {
+//            Text(text = "Olá, ${transactions.name}!")
+//
+//        }
 //        items(transactions.size) {
 //            ListItemComponent(
 //                image = painterResource(id = R.drawable.ic_exclamacao),
