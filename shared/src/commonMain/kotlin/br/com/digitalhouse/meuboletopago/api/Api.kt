@@ -49,7 +49,7 @@ class Api {
     }
 
     suspend fun getUser(): User {
-        return httpClient.get("$DEFAULT_URL/user/1").body()
+        return httpClient.get("$DEFAULT_URL/user/3").body()
     }
 
     suspend fun getAll(): TransactionResponse {
@@ -60,7 +60,7 @@ class Api {
         }.body()
     }
 
-    suspend fun getMovement(): MovementResponse {
+    suspend fun getMovement(): List<Movement> {
         return httpClient.get("$DEFAULT_URL/movement").body()
     }
 

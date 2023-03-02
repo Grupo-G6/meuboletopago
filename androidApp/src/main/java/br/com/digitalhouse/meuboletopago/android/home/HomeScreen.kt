@@ -20,9 +20,7 @@ import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.components.CenterTopBar
 import br.com.digitalhouse.meuboletopago.android.home.HomeViewModel
-import br.com.digitalhouse.meuboletopago.model.Transaction
-import br.com.digitalhouse.meuboletopago.model.TransactionResponse
-import br.com.digitalhouse.meuboletopago.model.User
+import br.com.digitalhouse.meuboletopago.model.Movement
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -60,7 +58,7 @@ fun HomeScreen(navController: NavController){
             when (transactions) {
                 is DataResult.Loading -> LoadingIndicator()
                 is DataResult.Error -> ErrorMessage((transactions as DataResult.Error).error)
-                is DataResult.Success -> ContentHome(transactions as DataResult.Success<List<Transaction>>)
+                is DataResult.Success -> ContentHome(transactions as DataResult.Success<List<Movement>>)
                 else -> Unit
             }
 //            when (user) {
@@ -95,7 +93,7 @@ fun LoadingIndicator(){
 
 @Composable
 fun ContentHome(
-    resultado2: DataResult.Success<List<Transaction>>
+    resultado2: DataResult.Success<List<Movement>>
 //    resultado: DataResult.Success<User>
 ) {
 //    val transactions = resultado.data

@@ -130,7 +130,7 @@ fun MovementScreen(navController: NavController)  {
                         CircularProgressIndicator()
                     } else {
                         if (movement is DataResult.Success) {
-                            navController.navigate("home")
+                            navController.navigate("home") /*todo redirecionar, apos criar, ele crasha)*/
                         }
                         if (movement is DataResult.Error) {
                         Text(text = "O erro é: ${(movement as DataResult.Error).error.message}")

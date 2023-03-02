@@ -13,13 +13,11 @@ class TransactionRepository(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
     suspend fun getAll() = flow {
-        val chamada = api.getMovement().movements
+        val chamada = api.getMovement()
 
-        if (chamada.isEmpty()) {
-            emit(DataResult.Empty)
-        } else {
-            emit(DataResult.Success(chamada))
-        }
+        emit(DataResult.Success(chamada))
+
+
     }.updateState().flowOn(dispatcher)
 
     companion object {
