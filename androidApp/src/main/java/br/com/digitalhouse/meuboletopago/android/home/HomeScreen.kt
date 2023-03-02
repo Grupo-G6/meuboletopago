@@ -36,12 +36,13 @@ import coil.request.ImageRequest
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavController, onItemDetail:(Long)-> Unit ) {
+fun HomeScreen(navController: NavController, /*onItemDetail:(Long)-> Unit */) {
     val viewModel = viewModel<HomeViewModel>()
-    val trans by viewModel.transactions.collectAsState()
+    val trans by viewModel.homeState.collectAsState()
     val isLogged = remember { mutableStateOf(false) }
 //    val profile by viewModel.transactions.collectAsState()
     val showDialog = remember { mutableStateOf(true) }
+    val listTransactions = remember{ mutableStateOf(emptyList<Transaction>()) }
 
     MyApplicationTheme {
         Scaffold(
@@ -57,11 +58,12 @@ fun HomeScreen(navController: NavController, onItemDetail:(Long)-> Unit ) {
             when (trans) {
                 is DataResult.Loading -> LoadingIndicator()
                 is DataResult.Error -> ErrorMessage((trans as DataResult.Error).error)
-                is DataResult.Success -> ContentHome(trans as DataResult.Success<MutableList<Transaction>>, onItemDetail)
-                    else -> Unit
+                is DataResult.Success -> ContentHome(trans as DataResult.Success<List<Transaction>> /*onItemDetail*/)
+                is DataResult.Empty ->  /*trans as DataResult.Empty*/
+                viewModel.defaultState()
 
 
-                }
+            }
             }
         }
     }
@@ -90,8 +92,9 @@ fun LoadingIndicator() {
 }
 
 @Composable
-fun ContentHome(resultado: DataResult.Success<List<Transaction>>, onItemDetail:(Long)-> Unit  ) { val transactions = resultado.data
-//        val listTransactions = remember{ mutableStateOf(emptyList<Transaction>()) }
+fun ContentHome(resultado: DataResult.Success<List<Transaction>> /*onItemDetail:(Long)-> Unit*/  ) {
+    val transactions = resultado.data
+
 //        val isLoading = remember{ mutableStateOf(false) }
 
 //        when (state) {
@@ -104,20 +107,26 @@ fun ContentHome(resultado: DataResult.Success<List<Transaction>>, onItemDetail:(
 //        }
 //    val transactions = listTransactions.value
     LazyColumn {
+
             item {
                 LoadingIndicator()
             }
+        items(transactions.size){
+
+            Text(text = "${transactions[it].idMovement}")
+        }
             item {
                MovementCard()
             }
 
-            item {
-                Button(onClick = {onItemDetail.invoke(transactions[0].idMovement)}){
-                    Text(text = "Transacoes")
-                }
-
-
-            }
+//            item {
+//                Button(onClick = {
+//
+//                    })
+//
+//
+//
+//            }
 
 
 
@@ -161,5 +170,5 @@ fun ContentHome(resultado: DataResult.Success<List<Transaction>>, onItemDetail:(
     @Preview
     @Composable
     fun HomeScreen_Preview() {
-        HomeScreen(navController = NavController(LocalContext.current), onItemDetail = {})
+        HomeScreen(navController = NavController(LocalContext.current) /*onItemDetail = {}*/)
     }

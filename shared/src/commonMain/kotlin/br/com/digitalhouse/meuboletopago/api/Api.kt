@@ -40,7 +40,8 @@ class Api {
         }
     }
     suspend fun getAll(): TransactionResponse {
-        return  httpClient.get("$DEFAULT_URL/movement/filter").body()
+        return  httpClient.get("$DEFAULT_URL/movement/filter").
+        body()
 }
 
 

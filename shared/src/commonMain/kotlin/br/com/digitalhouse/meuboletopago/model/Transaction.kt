@@ -3,7 +3,7 @@ package br.com.digitalhouse.meuboletopago.model
 import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable
-class User(
+data class User(
     @SerialName("id") val id: Long,
     @SerialName("name") val name: String,
     @SerialName("email") val email: String,
@@ -40,6 +40,6 @@ class User(
 )
 
 @kotlinx.serialization.Serializable
-class TransactionResponse(
+data class TransactionResponse(
     val transactions: List<Transaction>
 )

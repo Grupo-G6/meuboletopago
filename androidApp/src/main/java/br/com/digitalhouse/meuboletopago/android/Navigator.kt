@@ -20,13 +20,13 @@ fun Navigator(ctx : Context){
     NavHost(navController = navController, startDestination = "login", builder = {
         composable("login", content = { LoginScreen(navController = navController) })
         composable("home", content = {
-
-            HomeScreen(navController = navController, onItemDetail = {navController.navigate("home/$it")}) })
+//            val id = it.arguments?.getString("id")
+            HomeScreen(navController = navController )/*onItemDetail = {navController.navigate("home/$it")})*/ })
         composable("create_movement_page", content = { CreateMovementScreen(navController = navController) })
         composable("edit_page", content = { EditScreen(navController = navController) })
-        composable("transaction_page/{id}", content = {
-            val id = it.arguments?.getString("id")
-            TransactionScreen(id ?: "0", navController = navController) })
+//        composable("transaction_page/{id}", content = {
+//            val id = it.arguments?.getString("id")
+//            TransactionScreen(id ?: "0", navController = navController) })
         composable("signup_page", content = { SignupScreen (navController = navController) })
         composable("recover_page", content = { RecoverPassword(navController = navController) })
         composable("delete_page", content = { DeleteScreen(navController = navController) })
