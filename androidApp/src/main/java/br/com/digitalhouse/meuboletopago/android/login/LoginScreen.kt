@@ -106,7 +106,7 @@ fun LoginScreen(navController: NavController) {
                     CircularProgressIndicator()
                 } else {
                     if (loginState is DataResult.Success && isLogged.value.not()) {
-//                        Text(text = "Meu token é $token")
+                        Text(text = "Meu token é $token")
 //                        onHomeNavigate.invoke()
                         navController.navigate("home/1")
                         isLogged.value = true

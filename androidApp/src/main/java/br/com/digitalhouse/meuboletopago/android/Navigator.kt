@@ -12,6 +12,7 @@ import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
 import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
 import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
 import br.com.digitalhouse.meuboletopago.android.screen.DetailScreen
+import br.com.digitalhouse.meuboletopago.android.signup.SignupScreen
 import br.com.digitalhouse.meuboletopago.android.view.*
 import cardInfo
 
@@ -21,7 +22,7 @@ import cardInfo
 fun Navigator(ctx : Context){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "login", builder = {
+    NavHost(navController = navController, startDestination = "signup_page", builder = {
         composable("login", content = { LoginScreen(navController = navController) })
         composable("home/{id}", content = {
            val id = it.arguments?.getString("id")

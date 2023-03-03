@@ -4,17 +4,21 @@ import br.com.digitalhouse.meuboletopago.util.DateSerializer
 import kotlinx.datetime.LocalDate
 
 @kotlinx.serialization.Serializable
-data class Transaction(
-    val logo:String,
-    val title:String,
-    val transactionType: TransactionType,
-    val value: Double,
-    val status: Boolean,
+data class ListTransaction(
+    val valueMovement: Double,
+    val descriptionMovement: String,
+    val typeMovement: String,
+    val seqParcel: Int,
+    val wasPaid: Boolean,
     @kotlinx.serialization.Serializable(with = DateSerializer::class)
-    val date: String
+    val dueDate: String,
 )
 
-enum class TransactionType(val description: String) {
-    DESPESA("Despesa"),
-    RECEITA("Receita")
-}
+data class Transaction(
+    val transaction: List<ListTransaction>
+)
+
+//enum class TransactionType(val description: String) {
+//    DESPESA("Despesa"),
+//    RECEITA("Receita")
+//}

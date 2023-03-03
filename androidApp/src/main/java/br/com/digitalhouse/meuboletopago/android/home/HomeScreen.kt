@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
-import br.com.digitalhouse.meuboletopago.model.Mock
+
 import com.learnandroid.meuboletopago.component.CardInfo
 
 val cardInfo = listOf<CardInfo>(

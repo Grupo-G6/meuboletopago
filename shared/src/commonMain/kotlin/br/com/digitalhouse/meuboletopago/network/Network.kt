@@ -2,7 +2,7 @@ package br.com.digitalhouse.meuboletopago.network
 
 
 import br.com.digitalhouse.meuboletopago.model.Transaction
-import br.com.digitalhouse.meuboletopago.model.TransactionType
+//import br.com.digitalhouse.meuboletopago.model.TransactionType
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -43,26 +43,26 @@ object Network {
         return dados
     }
 }
-    fun loadTransaction() {
-        val mockData = MutableList(5) {
-            Transaction(
-               "https://media.licdn.com/dms/image/C4E03AQGzYGYIlmUzbg/profile-displayphoto-shrink_800_800/0/1640531489913?e=2147483647&v=beta&t=qmWLp-OvACiTmOfMIYk-T3bCq1R-KQkB7jXM9UsGvfI",
-               "https://media.licdn.com/dms/image/C4E03AQGzYGYIlmUzbg/profile-displayphoto-shrink_800_800/0/1640531489913?e=2147483647&v=beta&t=qmWLp-OvACiTmOfMIYk-T3bCq1R-KQkB7jXM9UsGvfI",
-                TransactionType.DESPESA,
-                45.0,
-                 true,
-                "2023/02/01"
-
-            )
-        }
-        val data = Json.encodeToString(mockData)
-        println("serializando")
-        println(data)
-
-        println("Deserializando")
-        val deserialize = Json.decodeFromString<List<Transaction>>(data)
-        println(deserialize)
-
-        }
-
-
+//    fun loadTransaction() {
+//        val mockData = MutableList(5) {
+//            Transaction(
+//               "https://media.licdn.com/dms/image/C4E03AQGzYGYIlmUzbg/profile-displayphoto-shrink_800_800/0/1640531489913?e=2147483647&v=beta&t=qmWLp-OvACiTmOfMIYk-T3bCq1R-KQkB7jXM9UsGvfI",
+//               "https://media.licdn.com/dms/image/C4E03AQGzYGYIlmUzbg/profile-displayphoto-shrink_800_800/0/1640531489913?e=2147483647&v=beta&t=qmWLp-OvACiTmOfMIYk-T3bCq1R-KQkB7jXM9UsGvfI",
+//                TransactionType.DESPESA,
+//                45.0,
+//                 true,
+//                "2023/02/01"
+//
+//            )
+//        }
+//        val data = Json.encodeToString(mockData)
+//        println("serializando")
+//        println(data)
+//
+//        println("Deserializando")
+//        val deserialize = Json.decodeFromString<List<Transaction>>(data)
+//        println(deserialize)
+//
+//        }
+//
+//

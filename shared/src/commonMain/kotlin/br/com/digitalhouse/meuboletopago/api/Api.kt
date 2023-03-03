@@ -1,18 +1,15 @@
 package br.com.digitalhouse.meuboletopago.api
 
-//import br.com.digitalhouse.dhwallet.model.Login
-//import br.com.digitalhouse.dhwallet.model.Profile
-//import br.com.digitalhouse.dhwallet.model.ProfileToken
-//import br.com.digitalhouse.dhwallet.model.TransactionResponse
-import br.com.digitalhouse.meuboletopago.model.Login
-import br.com.digitalhouse.meuboletopago.Profile
-import br.com.digitalhouse.meuboletopago.ProfileToken
+
+import br.com.digitalhouse.meuboletopago.model.*
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.*
+
+
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
@@ -36,8 +33,25 @@ class Api {
             header("Authorization" , token)
         }
     }
+//    suspend fun getAll(): List<ListTransaction> {
+//        return httpClient.get("$DEFAULT_URL/movement").body()
+//    }
+
+    suspend fun assign (signup: SignUp) : SignIn{
+          return httpClient.post("$DEFAULT_URL/user/signup") {
+            setBody(signup)
+        }.body()
+    }
 
 
+
+
+
+
+    //    suspend fun postMovement(movement: Movement): Movement {
+//        return httpClient.post("$DEFAULT_URL/movement") {
+//            setBody(movement)
+//        }.body()
     suspend fun login(login: Login): ProfileToken {
         return httpClient.post("$DEFAULT_URL/user/login") {
             setBody(login)
@@ -45,14 +59,20 @@ class Api {
     }
 
 /*TODO DIRECIONAR PARA PÁGINA DE PROFILE OU HOME */
-//    suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
+
+
 
 
     @ThreadLocal
     companion object {
         val instance by lazy { Api() }
         var token = ""
+        var id = ""
         const val DEFAULT_URL = "https://meuboletopago-api-production.up.railway.app"
 
     }
 }
+
+//private fun HttpResponse.body(typeInfo: SignIn): SignIn {
+//
+//}

@@ -5,4 +5,5 @@ sealed class DataResult<out T : Any> {
     data class Error(val error: Throwable) : DataResult<Nothing>()
     object Loading : DataResult<Nothing>()
     object Empty : DataResult<Nothing>()
+//    object Send : DataResult<Nothing>()
 }
