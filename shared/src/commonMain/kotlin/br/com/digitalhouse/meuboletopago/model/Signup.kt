@@ -1,6 +1,7 @@
 package br.com.digitalhouse.meuboletopago.model
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @kotlinx.serialization.Serializable
  data class SignUp(
@@ -10,7 +11,8 @@ import kotlinx.serialization.SerialName
     val password: String
     ){
 
-        val id: String = ""
+        val id: String? = ""
+    val recoveryToken: String? = null
 
  }
 
@@ -18,8 +20,8 @@ import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable
  data class SignIn(
-      val id: Long ,
-      val name: String = "",
+    val id: Long? ,
+    val name: String = "",
     val email: String= "" ,
     val password: String= "",
     val recoveryToken: String? = null
@@ -28,6 +30,9 @@ import kotlinx.serialization.SerialName
         return "SignIn(id=$id, name='$name', email='$email', password='$password', recoveryToken=$recoveryToken)"
     }
 }
+
+
+
 
 //@Serializable
 //data class Movement(

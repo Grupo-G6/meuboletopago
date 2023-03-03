@@ -28,6 +28,7 @@ import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.view.passwordMatches
 import br.com.digitalhouse.meuboletopago.api.Api.Companion.id
+import br.com.digitalhouse.meuboletopago.model.SignUp
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 /*TODO VER SE VAMOS USAR O ALERT OU O TOAST NAS TELAS INICIAIS*/
@@ -78,7 +79,7 @@ fun SignupScreen(navController: NavController) {
                 val passwordVisible = remember { mutableStateOf(false) }
                 val viewModel: SignUpViewModel = viewModel()
                 val signUpState by viewModel.signUpState.collectAsState()
-//                val isLogged = remember { mutableStateOf(false) }
+                val isLogged = remember { mutableStateOf(false) }
 //                val spacer: Dp = 8.dp
 
 
@@ -166,9 +167,10 @@ fun SignupScreen(navController: NavController) {
                 if (signUpState is DataResult.Loading) {
                     CircularProgressIndicator()
                 } else {
-                        if (signUpState is DataResult.Success) {
-                            Text(text = "Meuid é $id")
+                        if (signUpState is DataResult.Success && isLogged.value.not()) {
+                            Text(text = "Meu id é $id")
                         navController.navigate("login")
+                        isLogged.value = true
 
                     } else if (signUpState is DataResult.Error) {
                         Text(text = "O erro é: ${(signUpState as DataResult.Error).error.message}")
@@ -185,16 +187,20 @@ fun SignupScreen(navController: NavController) {
                 }
 
 
+
                 Button(
                     onClick = {
-                        val viewModelSign = viewModel.assign(
-                            name = name.value.text,
-                            email = login.value.text,
-                            password = password.value.text
-                        )
+
+
+
                         if (passwordMatches(password.value.text, confirmPassword.value.text)) {
 
-                            viewModelSign
+                             val viewSignUp = viewModel.assign(
+
+                                name = name.value.text,
+                                email = login.value.text,
+                                password = password.value.text)
+
 
 //                            navController.navigate("login")
 
