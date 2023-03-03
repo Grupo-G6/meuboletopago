@@ -10,14 +10,10 @@ import kotlinx.coroutines.flow.flowOn
 
 class TransactionRepository(
     private val api: Api = Api.instance,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {
     suspend fun getAll() = flow {
-        val chamada = api.getMovement()
-
-        emit(DataResult.Success(chamada))
-
-
+        emit(DataResult.Success(api.getMovement()))
     }.updateState().flowOn(dispatcher)
 
     companion object {
