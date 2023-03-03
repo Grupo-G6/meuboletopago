@@ -1,21 +1,18 @@
 package br.com.digitalhouse.meuboletopago.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-
 @kotlinx.serialization.Serializable
  data class SignUp(
-
+    val id: String,
     val name: String,
     val email: String,
-    val password: String
-    ){
-
-        val id: String? = ""
+    val password: String,
     val recoveryToken: String? = null
+    ) {
 
- }
-
+    override fun toString(): String {
+        return "SignUp(id=$id, name='$name', email='$email', password='$password', recoveryToken=$recoveryToken)"
+    }
+}
 
 
 @kotlinx.serialization.Serializable

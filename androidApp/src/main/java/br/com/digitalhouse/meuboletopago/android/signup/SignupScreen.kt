@@ -27,8 +27,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.view.passwordMatches
-import br.com.digitalhouse.meuboletopago.api.Api.Companion.id
-import br.com.digitalhouse.meuboletopago.model.SignUp
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 /*TODO VER SE VAMOS USAR O ALERT OU O TOAST NAS TELAS INICIAIS*/
@@ -69,6 +67,7 @@ fun SignupScreen(navController: NavController) {
             ) {
 
                 val name = remember { mutableStateOf(TextFieldValue()) }
+                val id = remember { mutableStateOf(TextFieldValue()) }
                 val email = remember { mutableStateOf(TextFieldValue()) }
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val confirmPassword = remember { mutableStateOf(TextFieldValue()) }
@@ -196,11 +195,12 @@ fun SignupScreen(navController: NavController) {
                         if (passwordMatches(password.value.text, confirmPassword.value.text)) {
 
                              val viewSignUp = viewModel.assign(
-
+                                id = id.value.text,
                                 name = name.value.text,
                                 email = login.value.text,
-                                password = password.value.text)
-
+                                password = password.value.text,
+                             )
+                            viewSignUp
 
 //                            navController.navigate("login")
 

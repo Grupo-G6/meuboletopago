@@ -2,7 +2,6 @@ package br.com.digitalhouse.meuboletopago.android.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.digitalhouse.meuboletopago.model.Login
 
 import br.com.digitalhouse.meuboletopago.model.SignIn
 import br.com.digitalhouse.meuboletopago.model.SignUp
@@ -24,8 +23,8 @@ class SignUpViewModel (
    val signUpState : StateFlow<DataResult<SignIn>> = _signUpState
 
 
-    fun assign(name: String, email: String, password: String) = viewModelScope.launch {
-        val signUp = SignUp( name, email, password)
+    fun assign(id: String, name: String, email: String, password: String) = viewModelScope.launch {
+        val signUp = SignUp(id, name, email, password)
         repository.assign(signUp).collectLatest {
             _signUpState.value = it
         }
