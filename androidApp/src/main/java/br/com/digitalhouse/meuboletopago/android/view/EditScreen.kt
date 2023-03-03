@@ -1,4 +1,4 @@
-package br.com.digitalhouse.meuboletopago.android.edit//package br.com.digitalhouse.meuboletopago.android.edit
+package br.com.digitalhouse.meuboletopago.android.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,9 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.android.view.SignupScreen
+
 
 @Composable
 fun EditScreen(navController: NavController) {

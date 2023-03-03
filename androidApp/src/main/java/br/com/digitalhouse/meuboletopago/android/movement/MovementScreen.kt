@@ -1,4 +1,4 @@
-package br.com.digitalhouse.meuboletopago.android.view
+package br.com.digitalhouse.meuboletopago.android.movement
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -132,7 +132,7 @@ fun MovementScreen(navController: NavController) {
                         CircularProgressIndicator()
                     } else {
                         if (movement is DataResult.Success && isLogged.value.not()) {
-                            navController.navigate("home") /*todo redirecionar, apos criar, ele crasha)*/
+                            navController.navigate("home") /*todo mensagem de confirmação de criação e ver cmo aparecer na home*/
                             isLogged.value = true
                         }
                         if (movement is DataResult.Error) {

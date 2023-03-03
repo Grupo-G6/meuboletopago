@@ -144,3 +144,7 @@ fun ContentHome(
 fun HomeScreenPreview() {
     HomeScreen(navController = NavController(LocalContext.current))
 }
+/*todo
+   -cards clicáveis;
+    -edição, detalhamento e delete;
+    -scroll e quantidade máxima de cards */

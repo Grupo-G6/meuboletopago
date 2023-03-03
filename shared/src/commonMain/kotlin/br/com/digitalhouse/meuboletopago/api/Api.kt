@@ -16,8 +16,7 @@ import kotlin.native.concurrent.ThreadLocal
 class Api {
     private val httpClient = HttpClient {
         install(ContentNegotiation) {
-            // como vai renderizar o conteúdo
-            json(
+                 json(
                 Json {
                     // se tiver mais dados, nao precisa validar
                     ignoreUnknownKeys = true
@@ -63,9 +62,6 @@ class Api {
             setBody(movement)
         }.body()
     }
-
-/*TODO DIRECIONAR PARA PÁGINA DE PROFILE OU HOME */
-//    suspend fun profile(): Profile = httpClient.get("https://dh-food-api.herokuapp.com/user/profile").body()
 
     @ThreadLocal
     companion object {

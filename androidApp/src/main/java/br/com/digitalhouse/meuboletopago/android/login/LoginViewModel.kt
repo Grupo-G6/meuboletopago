@@ -3,7 +3,6 @@ package br.com.digitalhouse.meuboletopago.android.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.digitalhouse.meuboletopago.ProfileToken
-import br.com.digitalhouse.meuboletopago.api.Api
 import br.com.digitalhouse.meuboletopago.model.Login
 import br.com.digitalhouse.meuboletopago.repository.LoginRepository
 import br.com.digitalhouse.meuboletopago.util.DataResult

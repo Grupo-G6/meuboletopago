@@ -1,5 +1,5 @@
 package br.com.digitalhouse.meuboletopago.model
-
+/*TODO EXCLUIR CLASSE*/
 @kotlinx.serialization.Serializable
 data class Transaction(
     val idMovement: Long,
@@ -35,7 +35,3 @@ data class TransactionSpecification(
 data class TransactionSpec(
     val transactionsSpec: List<TransactionSpecification>
 )
-//enum class TransactionType(val description: String) {
-//    DESPESA("Despesa"),
-//    RECEITA("Receita")
-//}

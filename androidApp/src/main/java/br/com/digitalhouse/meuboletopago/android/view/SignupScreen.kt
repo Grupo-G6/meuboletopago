@@ -1,9 +1,6 @@
 package br.com.digitalhouse.meuboletopago.android.view
 
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -19,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -30,13 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.android.R
 
-import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
 
-/*TODO VER SE VAMOS USAR O ALERT OU O TOAST NAS TELAS INICIAIS*/
 @Composable
 fun SignupScreen(navController: NavController) {
     val context = LocalContext.current

@@ -32,8 +32,6 @@ import br.com.digitalhouse.meuboletopago.api.Api.Companion.token
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
-//@Composable
-//fun LoginScreen(onHomeNavigate: () -> Unit) {
 @Composable
 fun LoginScreen(navController: NavController) {
 
@@ -108,7 +106,7 @@ fun LoginScreen(navController: NavController) {
                     if (loginState is DataResult.Success && isLogged.value.not()) {
 //                        Text(text = "Meu token é $token")
 //                        onHomeNavigate.invoke()
-                        navController.navigate("movement_page")
+                        navController.navigate("home") /*TODO conferir rota*/
                         isLogged.value = true
                     }
                     if (loginState is DataResult.Error) {

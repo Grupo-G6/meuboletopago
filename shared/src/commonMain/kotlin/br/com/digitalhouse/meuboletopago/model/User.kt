@@ -1,7 +1,6 @@
 package br.com.digitalhouse.meuboletopago.model
 
 import kotlinx.serialization.Serializable
-
 @Serializable
 data class User(
     val id: Int,
