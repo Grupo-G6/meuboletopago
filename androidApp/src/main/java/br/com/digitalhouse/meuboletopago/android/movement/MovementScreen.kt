@@ -34,6 +34,7 @@ fun MovementScreen(navController: NavController)  {
     val descricao = remember { mutableStateOf(TextFieldValue()) }
     val valor = remember { mutableStateOf(TextFieldValue()) }
     val data = remember { mutableStateOf(TextFieldValue()) }
+    val isLogged = remember{ mutableStateOf(false)}
 
     MyApplicationTheme {
         Scaffold(
@@ -129,8 +130,9 @@ fun MovementScreen(navController: NavController)  {
                     if (movement is DataResult.Loading) {
                         CircularProgressIndicator()
                     } else {
-                        if (movement is DataResult.Success) {
+                        if (movement is DataResult.Success && isLogged.value.not()) {
                             navController.navigate("home") /*todo redirecionar, apos criar, ele crasha)*/
+                            isLogged.value = true
                         }
                         if (movement is DataResult.Error) {
                         Text(text = "O erro é: ${(movement as DataResult.Error).error.message}")

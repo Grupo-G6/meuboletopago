@@ -21,4 +21,7 @@ class MovementViewModel (
             _movement.value = it
         }
     }
+    fun defaultState (){
+        _movement.value = DataResult.Empty
+    }
 }
