@@ -26,4 +26,5 @@ class LoginViewModel (
     fun defaultState (){
         _loginState.value = DataResult.Empty
     }
+    //metodo que seta o login para vazio: quando tiver mudanças de tela, tem um empty state
 }
