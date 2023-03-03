@@ -31,6 +31,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-auth:$ktorVersion")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
 
 
                 implementation("io.ktor:ktor-client-auth:$ktorVersion")

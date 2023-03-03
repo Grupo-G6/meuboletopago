@@ -18,7 +18,7 @@ fun CenterTopBar(title: String, navController: NavController) {
     CenterAlignedTopAppBar(
         title = { Text(title) },
         actions = {
-            IconButton(onClick = { navController.navigate("movement") }) {
+            IconButton(onClick = { navController.navigate("movement_page") }) {
                 Icon(
                     Icons.Filled.Add,
                     contentDescription = "Criar Movimentação"
