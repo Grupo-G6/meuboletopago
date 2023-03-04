@@ -24,6 +24,7 @@ class Api {
                     //se tiver mais dados, nao precisa validar
                     ignoreUnknownKeys = true
                     useAlternativeNames = false
+                    coerceInputValues = true
                 }
             )
         }
@@ -33,9 +34,7 @@ class Api {
             header("Authorization" , token)
         }
     }
-//    suspend fun getAll(): List<ListTransaction> {
-//        return httpClient.get("$DEFAULT_URL/movement").body()
-//    }
+
 
     suspend fun assign (signup: SignUp) : SignIn{
           return httpClient.post("$DEFAULT_URL/user/signup") {
@@ -43,15 +42,6 @@ class Api {
         }.body()
     }
 
-
-
-
-
-
-    //    suspend fun postMovement(movement: Movement): Movement {
-//        return httpClient.post("$DEFAULT_URL/movement") {
-//            setBody(movement)
-//        }.body()
     suspend fun login(login: Login): ProfileToken {
         return httpClient.post("$DEFAULT_URL/user/login") {
             setBody(login)
@@ -67,12 +57,8 @@ class Api {
     companion object {
         val instance by lazy { Api() }
         var token = ""
-        var id = ""
         const val DEFAULT_URL = "https://meuboletopago-api-production.up.railway.app"
 
     }
 }
 
-//private fun HttpResponse.body(typeInfo: SignIn): SignIn {
-//
-//}

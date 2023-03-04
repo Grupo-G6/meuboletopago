@@ -14,18 +14,18 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SignUpViewModel (
+    private val repository: SignUpRepository = SignUpRepository.instance
     )
     : ViewModel() {
 
-    private val repository: SignUpRepository = SignUpRepository.instance
+
     private val _signUpState : MutableStateFlow<DataResult<SignIn>> = MutableStateFlow(DataResult.Empty)
 
-   val signUpState : StateFlow<DataResult<SignIn>> = _signUpState
+    val signUpState : StateFlow<DataResult<SignIn>> = _signUpState
 
 
-    fun assign(id: String, name: String, email: String, password: String) = viewModelScope.launch {
-        val signUp = SignUp(id, name, email, password)
-        repository.assign(signUp).collectLatest {
+    fun assign(signup: SignUp) = viewModelScope.launch {
+        repository.assign(signup).collectLatest {
             _signUpState.value = it
         }
     }
@@ -34,13 +34,4 @@ class SignUpViewModel (
     }
 
 
-
-
 }
-
-//    fun login() = viewModelScope.launch {
-//        Api.token = Api.instance.login(Login("usuario@dhwallet.com.br", "123456")).toString()/*TODO.token*/
-//    }.invokeOnCompletion {
-//        getTransactions()
-//        getProfile()
-//    }

@@ -13,28 +13,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
+
 class SignUpRepository(
     private  val api: Api = Api.instance,
- private  val dispatcher: CoroutineDispatcher = Dispatchers.Default)
+ private  val dispatcher: CoroutineDispatcher = Dispatchers.Default) {
 
-{
-
-    suspend fun assign (signup: SignUp) =
-        flow<DataResult<SignIn>>{
-            val chamada = api.assign(signup)
+    suspend fun assign(signup: SignUp) = flow {
+        val chamada = api.assign(signup)
         emit(DataResult.Success(chamada))
     }.updateState().flowOn(dispatcher)
 
 
-    private fun emit(value: DataResult.Success<SignIn>) {
-
-    }
-
-
-    //data result para pegar os estados, sucesso,, erro etc
-    //update state -> erro e loading
-    //extension
     companion object {
         val instance by lazy {SignUpRepository()}
     }
+
 }
