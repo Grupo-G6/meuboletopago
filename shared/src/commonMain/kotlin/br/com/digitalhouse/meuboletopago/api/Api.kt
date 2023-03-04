@@ -1,6 +1,10 @@
 package br.com.digitalhouse.meuboletopago.api
 
 import br.com.digitalhouse.meuboletopago.ProfileToken
+import br.com.digitalhouse.meuboletopago.model.Email
+import br.com.digitalhouse.meuboletopago.model.NewPassword
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import br.com.digitalhouse.meuboletopago.model.*
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -33,6 +37,7 @@ class Api {
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
             header("Authorization", token)
+
         }
     }
 
@@ -57,11 +62,31 @@ class Api {
         return httpClient.get("$DEFAULT_URL/movement").body()
     }
 
+
+
+    suspend fun sendRecoverEmail(email: Email): HttpStatusCode {
+        return httpClient.post("$DEFAULT_URL/user/forgot-password") {
+            setBody(email)
+        }.status
+    }
+
+    suspend fun changePassword(newPassword: NewPassword): HttpStatusCode{
+        return httpClient.post("$DEFAULT_URL/user/password-recovery"){
+            setBody(newPassword)
+        }.status
+    }
+
+    //inicia no momento da instancia da classe
+    //by(delegate)
+    //lazy: só executa quando a variável é chamada
+    //instance: só sao instanciados se chamada a API
+
     suspend fun postMovement(movement: Movement): Movement {
         return httpClient.post("$DEFAULT_URL/movement") {
             setBody(movement)
         }.body()
     }
+
 
     @ThreadLocal
     companion object {

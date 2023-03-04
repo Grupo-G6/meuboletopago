@@ -6,6 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.digitalhouse.meuboletopago.android.edit.EditScreen
+import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
+import br.com.digitalhouse.meuboletopago.android.passwordrecovery.ChangePassword
+import br.com.digitalhouse.meuboletopago.android.passwordrecovery.RecoverPassword
+import br.com.digitalhouse.meuboletopago.android.screen.DetailScreen
 import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
 import br.com.digitalhouse.meuboletopago.android.movement.MovementScreen
 import br.com.digitalhouse.meuboletopago.android.view.*
@@ -24,9 +29,8 @@ fun Navigator(ctx : Context){
         composable("edit_page", content = { EditScreen(navController = navController) })
         composable("signup_page", content = { SignupScreen (navController = navController) })
         composable("recover_page", content = { RecoverPassword(navController = navController) })
+        composable("password_page", content = { ChangePassword(navController = navController) })
         composable("delete_page", content = { DeleteScreen(navController = navController) })
         composable("detail_page", content = { DetailScreen (navController = navController) })
-
-
     })
 }
