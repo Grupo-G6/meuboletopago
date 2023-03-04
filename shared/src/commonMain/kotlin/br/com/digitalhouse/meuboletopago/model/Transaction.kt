@@ -1,20 +1,37 @@
 package br.com.digitalhouse.meuboletopago.model
-
-import br.com.digitalhouse.meuboletopago.util.DateSerializer
-import kotlinx.datetime.LocalDate
-
+/*TODO EXCLUIR CLASSE*/
 @kotlinx.serialization.Serializable
 data class Transaction(
-    val logo:String,
-    val title:String,
-    val transactionType: TransactionType,
-    val value: Double,
-    val status: Boolean,
-    @kotlinx.serialization.Serializable(with = DateSerializer::class)
-    val date: String
+    val idMovement: Long,
+    val valueMovement: Double,
+    val dueDate: String,
+    val descriptionMovement: String,
+    val seqParcel: Int,
+    val typeMovement: String,
+    val wasPaid: Boolean,
+    val user: User
 )
 
-enum class TransactionType(val description: String) {
-    DESPESA("Despesa"),
-    RECEITA("Receita")
-}
+@kotlinx.serialization.Serializable
+data class TransactionResponse(
+    val transactions: List<Transaction>
+)
+
+@kotlinx.serialization.Serializable
+data class TransactionSpecification(
+    val dueDateIni: String? = "15/11/2000",
+    val dueDateEnd: String? = "17/11/2000",
+    val typeMovement: String? = "1",
+    val descriptionMovement: String? = "teste",
+    val idUser: Long? = 1,
+    val valueMovementIni: Double? = 44.0,
+    val valueMovementEnd: Double? = 46.0,
+    val wasPaid: Boolean? = false,
+    val idMovement: Long? = null
+//    val seqParcel: Int? = null
+)
+
+@kotlinx.serialization.Serializable
+data class TransactionSpec(
+    val transactionsSpec: List<TransactionSpecification>
+)

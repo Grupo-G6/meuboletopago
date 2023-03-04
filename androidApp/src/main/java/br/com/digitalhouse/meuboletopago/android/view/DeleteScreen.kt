@@ -2,12 +2,10 @@ package br.com.digitalhouse.meuboletopago.android.view
 
 
 import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,7 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.android.components.cards.ButtonSmall
+
+
 
 private val buttonSize = 260.dp
 
@@ -30,7 +29,8 @@ private val buttonSize = 260.dp
 @Composable
 fun DeleteScreen(navController: NavController) {
     var dialogShow = remember { mutableStateOf(false) }
-    val ctx = LocalContext.current
+    val context = LocalContext.current
+
     MyApplicationTheme {
         Scaffold(
             topBar = {
@@ -65,22 +65,50 @@ fun DeleteScreen(navController: NavController) {
                         Column(
                             modifier = Modifier.padding(16.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
+                        )
+                        {
+                            Button(
+                                onClick = {
+                                    Toast.makeText(
+                                        context,
+                                        "Registro excluído com sucesso!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    navController.navigate("home")
+                                },modifier = Modifier.fillMaxWidth()
 
-                            ButtonSmall(
-                                "Registro excluído com sucesso!",
-                                navController,
-                                "home",
-                                "Excluir registro"
                             )
-                            Spacer(modifier = Modifier.padding(5.dp))
 
-                            ButtonSmall(
-                                "Registros excluídos com sucesso!",
-                                navController,
-                                "home",
-                                "Excluir TODOS os registro"
+                            {
+                                Text(
+                                    text = "Excluir registro",
+                                    color = Color.White
+                                )
+
+
+                            }
+
+                            Button(
+                                onClick = {
+                                    Toast.makeText(
+                                        context,
+                                        "Registros excluídos com sucesso!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    navController.navigate("home")
+                                },modifier = Modifier.fillMaxWidth()
+
                             )
+
+                            {
+                                Text(
+                                    text = "Excluir TODOS os registro",
+                                    color = Color.White
+                                )
+
+
+                            }
+//
 ///*TODO: ALTERAR TEXTOS PARA CONSTAR UMA CONFIRMAÇÃO ANTES DA EXCLUSÃO DE TODOS OS REGISTROS*/
                         }
 
@@ -88,4 +116,10 @@ fun DeleteScreen(navController: NavController) {
                 }
             })
     }
+}
+@Preview
+@Composable
+fun DeletePreview() {
+    DeleteScreen(navController = NavController(LocalContext.current))
+
 }

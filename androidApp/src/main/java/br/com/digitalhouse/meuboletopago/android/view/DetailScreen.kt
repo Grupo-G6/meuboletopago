@@ -1,4 +1,4 @@
-package br.com.digitalhouse.meuboletopago.android.screen
+package br.com.digitalhouse.meuboletopago.android.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.components.cards.DetailCard
 
