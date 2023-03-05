@@ -4,7 +4,7 @@
     <style name="AppTheme.SplashScreen">
         <item name="android:windowSplashScreenBackground">@color/purple_200</item>
         <item name="android:windowSplashScreenAnimatedIcon">
-            @drawable/c_pia_de_meu_boleto_pago__12__adobe_express
+            @drawable/c_pia_de_meu_boleto_pago__4__adobe_express
         </item>
         <item name="android:windowSplashScreenAnimationDuration">1000</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
