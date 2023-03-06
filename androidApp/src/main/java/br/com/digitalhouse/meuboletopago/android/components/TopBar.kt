@@ -79,13 +79,16 @@ fun CenterTopBar(title: String, navController: NavController){
     MyApplicationTheme {
 
     TopAppBar(
+        contentColor =  MaterialTheme.colors.primary,
         navigationIcon = { IconButton(onClick = { navController.popBackStack() }) {
             Icon(
                 Icons.Filled.ArrowBack,
-                contentDescription = "Back")
+                contentDescription = "Back",
+            )
         }
         },
-        title = { Text(title) }
+        title = { Text(title)},
+        backgroundColor = MaterialTheme.colors.primaryVariant
     )
 }}
 

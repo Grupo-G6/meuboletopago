@@ -34,14 +34,14 @@ fun ScaffoldSample(navController: NavController, title: String) {
             topBar = {
                 TopAppBar(
                     title = { Text(title) },
-                    backgroundColor = MaterialTheme.colors.primary,
+                    backgroundColor = MaterialTheme.colors.primaryVariant,
                     navigationIcon = {
                         IconButton(onClick = { navController.popBackStack() } ) {
                            Icon(
                                 Icons.Filled.ArrowBack,
-                                contentDescription = "Back",
-//                                color = Color.White,
-                            )
+                                contentDescription = "Back")
+//                               color  = Color(0xFF67FAA1))
+
                         }
                     }, elevation = 10.dp,
                     contentColor = Color.White,
@@ -50,7 +50,7 @@ fun ScaffoldSample(navController: NavController, title: String) {
 
             floatingActionButtonPosition = FabPosition.Center,
             floatingActionButton = {
-                FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = Color.White, backgroundColor = MaterialTheme.colors.primary ) {
+                FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = MaterialTheme.colors.primaryVariant, backgroundColor = MaterialTheme.colors.primary ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
                 }
             },
@@ -67,57 +67,57 @@ fun Icon(arrowBack: ImageVector, contentDescription: String, color: Color) {
 }
 
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun ScaffoldWithTopBar(backPressed: () -> Unit) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Row() {
-                        Text(
-                            text = "Title 1",
-                            fontSize = 30.sp,
-                            color = Color.Red
-                        )
-                        Text(
-                            text = " Title 2",
-                            fontSize = 30.sp,
-                            color = Color.White
-                        )
-
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Filled.ArrowBack, "backIcon")
-                    }
-                },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = Color.White,
-                elevation = 10.dp
-            )
-        }, content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(0xff8d6e63)),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                Text(
-                    text = "Content of the page",
-                    fontSize = 30.sp,
-                    color = Color.White
-                )
-            }
-
-
-        }
-    )
-}
-
+//@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+//@Composable
+//fun ScaffoldWithTopBar(backPressed: () -> Unit) {
+//    Scaffold(
+//        topBar = {
+//            TopAppBar(
+//                title = {
+//                    Row() {
+//                        Text(
+//                            text = "Title 1",
+//                            fontSize = 30.sp,
+//                            color = Color.Red
+//                        )
+//                        Text(
+//                            text = " Title 2",
+//                            fontSize = 30.sp,
+//                            color = Color.White
+//                        )
+//
+//                    }
+//                },
+//                navigationIcon = {
+//                    IconButton(onClick = {}) {
+//                        Icon(Icons.Filled.ArrowBack, "backIcon", color = MaterialTheme.colors.primaryVariant)
+//                    }
+//                },
+//                backgroundColor = MaterialTheme.colors.primary,
+//                contentColor = Color.White,
+//                elevation = 10.dp
+//            )
+//        }, content = {
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .background(Color(0xff8d6e63)),
+//                verticalArrangement = Arrangement.Center,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//
+//                Text(
+//                    text = "Content of the page",
+//                    fontSize = 30.sp,
+//                    color = Color.White
+//                )
+//            }
+//
+//
+//        }
+//    )
+//}
+//
 
 
 

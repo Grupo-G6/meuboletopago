@@ -5,7 +5,7 @@
     <style name="AppTheme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/purple_200</item>
         <item name="windowSplashScreenAnimatedIcon">
-           @drawable/c_pia_de_meu_boleto_pago__4__adobe_express
+           @drawable/group_svg_foreground
         </item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>

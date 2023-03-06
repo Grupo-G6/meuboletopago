@@ -3,7 +3,6 @@ package br.com.digitalhouse.meuboletopago.android.login
 
 
 import AlertDialogComponent
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,12 +13,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -45,7 +44,7 @@ fun LoginScreen(navController: NavController) {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
-                    .padding(25.dp)
+                    .padding(15.dp)
                     .background(Color.White)
                     .fillMaxWidth()
                     .fillMaxHeight(),
@@ -63,7 +62,7 @@ fun LoginScreen(navController: NavController) {
                 val showDialog = remember { mutableStateOf(true) }
                 val viewModel: LoginViewModel = viewModel()
                 val loginState by viewModel.loginState.collectAsState()
-                val isLogged = remember{ mutableStateOf(false)}
+                val isLogged = remember { mutableStateOf(false) }
 
 
                 Spacer(modifier = Modifier.height(spacer))
@@ -73,38 +72,39 @@ fun LoginScreen(navController: NavController) {
                     fontSize = 26.sp,
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.height(spacer))
 
                 Text(text = "E-mail")
-                TextField(
+                OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(40.dp)
-                        .background( Color(0xFFA1E2C8), CircleShape),
-//leadingIcon = começo
-                    trailingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "emailIcon") },
+                        .height(55.dp),
                     value = login.value,
                     onValueChange = { login.value = it },
                     label = { Text(text = "") },
-                    shape = CircleShape
-
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Email,
+                            contentDescription = "emailIcon"
+                        )
+                    },
+                    shape = RoundedCornerShape(20.dp)
 
                 )
-                Spacer(modifier = Modifier.height(spacer))
+
+
                 Text(text = "Senha")
-               TextField(
+                OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(40.dp),
-//                        .background( Color(0xFFC6FFF5), CircleShape),
-
-                   shape = CircleShape,
-
+                        .height(55.dp),
                     value = password.value,
                     onValueChange = { password.value = it },
                     label = { Text(text = "") },
                     visualTransformation = if (passwordVisible.value.not()) PasswordVisualTransformation() else VisualTransformation.None,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    shape = RoundedCornerShape(20.dp),
+
                     trailingIcon = {
                         val iconPassword =
                             if (passwordVisible.value.not()) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
@@ -115,14 +115,15 @@ fun LoginScreen(navController: NavController) {
                         }
                     }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(spacer))
+                Spacer(modifier = Modifier.height(spacer))
 
 
                 if (loginState is DataResult.Loading) {
                     CircularProgressIndicator()
                 } else {
                     if (loginState is DataResult.Success && isLogged.value.not()) {
-                        Text(text = "Meu token é $token")
+//                        Text(text = "Meu token é $token")
 //                        onHomeNavigate.invoke()
                         navController.navigate("home") /*TODO conferir rota*/
                         isLogged.value = true
@@ -132,109 +133,132 @@ fun LoginScreen(navController: NavController) {
                         AlertDialogComponent(
                             showDialog = showDialog.value,
                             message = "Login e/ou senha inválida!",
-                            onDismissRequest = {showDialog.value = !showDialog.value
-                            viewModel.defaultState()
-                                               },
+                            onDismissRequest = {
+                                showDialog.value = !showDialog.value
+                                viewModel.defaultState()
+                            },
                         )
 
                     }
 
-                        /*TODO direcionar novamente para login e fechar botão ok*/
-                    }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement =   Arrangement.SpaceEvenly
+                    /*TODO direcionar novamente para login e fechar botão ok*/
+                }
 
-                ) {
-                    Button(
-                        onClick = {
-                            viewModel.login(
-                                email = login.value.text,
-                                password = password.value.text
-                            )
-                        },
-                        modifier = Modifier
-                            .width(200.dp)
-                        .height(50.dp),
-                        shape = RoundedCornerShape(50),
-                    )
-                    {
-                        Text(text = "entrar")
-                    }
+                Button(
+                    onClick = {
+                        viewModel.login(
+                            email = login.value.text,
+                            password = password.value.text
+                        )
+                    }, modifier = Modifier.fillMaxWidth()
+                        .height(40.dp),
+                    shape = RoundedCornerShape(70)
+                )
+                {
+                    Text(text = "entrar", color = MaterialTheme.colors.primaryVariant)
                 }
 
 
+                /*TODO: mudar o loginState para Empty */
+                Spacer(modifier = Modifier.height(spacer))
 
-                    /*TODO: mudar o loginState para Empty */
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement =   Arrangement.SpaceEvenly
+                Button(
+                    onClick = {
 
-                ) {
-                    androidx.compose.material3.OutlinedButton(
-                        onClick = { navController.navigate("recover_page")
-                        },
+                        navController.navigate("recover_page")
 
-                        modifier = Modifier.width(220.dp),
-//                    shape = RoundedCornerShape(50), // = 50% percent
-                        shape = CircleShape
-//                        colors = ButtonDefaults.outlinedButtonColors(
-//                            contentColor = Color(0xFF59D1A1),
-//                            containerColor = Color(0xFF35B884),
-//
-//                        )
-                    ) {
-                        Text(text = "Esqueci a senha", color = Color(0xFF369B73))
-                    }
+                    }, modifier = Modifier.fillMaxWidth()
+                        .height(40.dp),
+                    shape = RoundedCornerShape(70)
+                )
+                {
+                    Text(text = "Esqueci a senha", color = MaterialTheme.colors.primaryVariant)
                 }
 
-                    Spacer(modifier = Modifier.weight(2f))
+                Spacer(modifier = Modifier.weight(1f))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    horizontalArrangement =   Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.SpaceEvenly
 
                 ) {
-                   TextButton(
+                    TextButton(
                         onClick = {
 
                             navController.navigate("signup_page")
 
-                        },
-                        modifier = Modifier
-                            .width(220.dp),
-
-
-//                        shape = RoundedCornerShape(50),
-//                        colors = ButtonDefaults.outlinedButtonColors(
-//                            contentColor = Color.Transparent,
-//                            containerColor =  Color.Transparent,
-//
-//                        )
+                        }, modifier = Modifier.fillMaxWidth()
                     )
                     {
-                        Text(text = "Ainda não tem cadastro? Clique aqui!", color = Color(0xFF009688), textAlign = TextAlign.Center)
-//                        Text(text = "Clique aqui!", color = Color(0xFF009688))
+                        Text(
+                            text = "Ainda não tem cadastro? Clique aqui!",
+                            color = Color(0xFF364B9B),
+                            textAlign = TextAlign.Center
+                        )
+
                     }
-                }
 
                 }
             }
         }
     }
-
-
-
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    LoginScreen(navController = NavController(LocalContext.current))
-
 }
+
+
+
+
+
+
+
+
+
+
+
+//
+//Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth(),
+//                    horizontalArrangement =   Arrangement.SpaceEvenly
+//
+//                ) {
+//                   TextButton(
+//                        onClick = {
+//
+//                            navController.navigate("signup_page")
+//
+//                        },
+//                        modifier = Modifier
+//                            .width(220.dp),
+//
+//
+////                        shape = RoundedCornerShape(50),
+////                        colors = ButtonDefaults.outlinedButtonColors(
+////                            contentColor = Color.Transparent,
+////                            containerColor =  Color.Transparent,
+////
+////                        )
+//                    )
+//                    {
+//                        Text(text = "Ainda não tem cadastro? Clique aqui!", color = Color(0xFF009688), textAlign = TextAlign.Center)
+////                        Text(text = "Clique aqui!", color = Color(0xFF009688))
+//                    }
+//                }
+//
+//                }
+//            }
+//        }
+//    }
+//
+
+
+
+//@Preview
+//@Composable
+//fun DefaultPreview() {
+//    LoginScreen(navController = NavController(LocalContext.current))
+//
+//}
 //preview não pode ser usado com viewModel
 
 

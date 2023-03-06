@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -43,6 +44,7 @@ fun MovementScreen(navController: NavController) {
                     title = {
                         Text(text = "Nova Movimentação")
                     },
+                    backgroundColor = MaterialTheme.colors.primaryVariant,
                     navigationIcon = {
                         IconButton(onClick = { navController.navigate("home") }) {
                             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
@@ -105,26 +107,35 @@ fun MovementScreen(navController: NavController) {
                     ) {
 //                        Text(text = "Descrição")
                         OutlinedTextField(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(55.dp),
                             value = descricao.value,
                             onValueChange = { descricao.value = it },
                             label = { Text(text = "Descrição") },
+                            shape = RoundedCornerShape(20.dp)
                         )
                         Spacer(modifier = Modifier.height(20.dp))
 //                        Text(text = "Valor")
                         OutlinedTextField(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(55.dp),
                             value = valor.value,
                             onValueChange = { valor.value = it },
                             label = { Text(text = "Valor") },
+                            shape = RoundedCornerShape(20.dp)
                         )
                         Spacer(modifier = Modifier.height(20.dp))
 //                        Text(text = "Data")
                         OutlinedTextField(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(55.dp),
                             value = data.value,
                             onValueChange = { data.value = it },
                             label = { Text(text = "Data") },
+                            shape = RoundedCornerShape(20.dp)
                         )
                     }
                     Spacer(modifier = Modifier.height(20.dp))
@@ -155,13 +166,15 @@ fun MovementScreen(navController: NavController) {
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp),
+                            .padding(16.dp)
+                            .height(40.dp),
+                    shape = RoundedCornerShape(70),
 
                         colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary),
                     ) {
                         Text(
                             text = "Salvar ",
-                            color = Color.White,
+                            color = MaterialTheme.colors.primaryVariant,
                         )
                     }
                 }
@@ -169,6 +182,8 @@ fun MovementScreen(navController: NavController) {
         }
     }
 }
+
+
 
 @Preview
 @Composable

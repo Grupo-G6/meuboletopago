@@ -28,8 +28,8 @@ fun MyApplicationTheme(
         )
     } else {
         lightColors(
-            primary = Color(0xFFA1E2C8),
-            primaryVariant = Color(0xFF553B66),
+            primary = Color(0xFF67FAA1),
+            primaryVariant = Color(0xFF364B9B),
             secondary = Color(0xFF369B73),
         )
     }
@@ -70,3 +70,5 @@ fun MyApplicationTheme(
         content = content
     )
 }
+
+//primary = Color(0xFFA1E2C8),

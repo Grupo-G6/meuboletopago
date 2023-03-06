@@ -43,7 +43,6 @@ fun Balance(navController: NavController): Unit {
                 modifier = Modifier
                     .height(100.dp)
                     .fillMaxWidth(),
-                shape = RoundedCornerShape(10.dp),
                 elevation = 10.dp,
 
             ) {
@@ -190,8 +189,8 @@ fun Balance(navController: NavController): Unit {
                             ) {
                                 Text(
                                     text = "R$"/*TODO VALUE */,
-                                    modifier = Modifier
-                                        .paddingFromBaseline(2.dp),
+//                                    modifier = Modifier
+//                                        .paddingfromBaseline(2.dp),
                                     fontFamily = FontFamily.Default,
                                     fontWeight = FontWeight.ExtraBold,
                                     fontSize = 15.sp,

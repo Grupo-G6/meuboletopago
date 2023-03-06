@@ -53,7 +53,7 @@ fun HomeScreen(navController: NavController) {
             topBar = {
                 TopAppBar(
                     title = { Text("Olá, ") },
-                    backgroundColor = MaterialTheme.colors.primary
+                    backgroundColor = MaterialTheme.colors.primaryVariant
                 )
 
             },
@@ -61,7 +61,7 @@ fun HomeScreen(navController: NavController) {
 
 
             floatingActionButton = {
-                FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = Color.White, backgroundColor = MaterialTheme.colors.primary ) {
+                FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = MaterialTheme.colors.primaryVariant, backgroundColor = MaterialTheme.colors.primary ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
                 }
             },
@@ -119,10 +119,10 @@ fun ContentHome(
     navController: NavController,
 
 ) {
-    LazyColumn (  modifier = Modifier.background(  color = Color(0xFFA1E2C8))){
+    LazyColumn (  modifier = Modifier.background(  color =  MaterialTheme.colors.primaryVariant)){
         item {
             if (profile is DataResult.Success) {
-                Text(text = " ${profile.data.name}!")
+                Text(text = " Meu boleto pago de : ${profile.data.name}!", color = Color.White)
             }
             Balance(navController= NavController(LocalContext.current))
         }

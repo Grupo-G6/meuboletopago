@@ -15,7 +15,5 @@ class Profile (
     val token: String = ""
 
 }
-@kotlinx.serialization.Serializable
-class ProfileToken(val token: String, val email: String, val id: Int)
 
 
