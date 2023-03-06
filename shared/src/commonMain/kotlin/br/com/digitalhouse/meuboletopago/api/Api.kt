@@ -74,7 +74,13 @@ class Api {
         return httpClient.get("$DEFAULT_URL/movement").body()
     }
 
+    suspend fun getMovementDetail(id: String): Movement {
+        return httpClient.get("${DEFAULT_URL}/movement/$id").body()
+    }
 
+    suspend fun deleteMovement(id: String): HttpStatusCode {
+        return httpClient.delete("$DEFAULT_URL/movement/$id").status
+    }
 
     suspend fun sendRecoverEmail(email: Email): HttpStatusCode {
         return httpClient.post("$DEFAULT_URL/user/forgot-password") {
@@ -104,7 +110,6 @@ class Api {
     companion object {
         val instance by lazy { Api() }
         var token = ""
-        const val DEFAULT_URL = "https://meuboletopago-api-production.up.railway.app"
-
+        const val DEFAULT_URL = "https://meu-boleto-pago-api-production.up.railway.app"
     }
 }

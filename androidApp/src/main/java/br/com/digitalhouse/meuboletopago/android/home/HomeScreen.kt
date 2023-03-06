@@ -79,7 +79,7 @@ fun HomeScreen(navController: NavController) {
                         modifier = Modifier.padding(8.dp, 0.dp),
                     )
                 }
-            },
+            }
         ) {
             when (transactions) {
                 is DataResult.Loading -> LoadingIndicator()
@@ -87,6 +87,7 @@ fun HomeScreen(navController: NavController) {
                 is DataResult.Success -> ContentHome(
                     (transactions as DataResult.Success<List<Movement>>).data,
                     user,
+                    navController
                 )
                 else -> Unit
             }
@@ -118,6 +119,7 @@ fun LoadingIndicator() {
 fun ContentHome(
     movements: List<Movement>,
     profile: DataResult<User>,
+    navController: NavController
 ) {
     LazyColumn {
         item {
@@ -134,6 +136,9 @@ fun ContentHome(
                 value = {
                     Text(text = "R$ ${movement.valueMovement}.")
                 },
+                onDetailNavigate = {
+                    navController.navigate("detail_page/${movement.idMovement}")
+                }
             )
         }
     }

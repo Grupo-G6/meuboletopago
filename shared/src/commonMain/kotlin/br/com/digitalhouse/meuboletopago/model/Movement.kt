@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Movement(
+    val idMovement: Long? = null,
     val valueMovement: Double,
     val dueDate: String,
     val descriptionMovement: String,
