@@ -64,6 +64,7 @@ fun HomeScreen(navController: NavController) {
                 FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = MaterialTheme.colors.primaryVariant, backgroundColor = MaterialTheme.colors.primary ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
                 }
+
             },
 
 
@@ -89,6 +90,7 @@ fun HomeScreen(navController: NavController) {
 
             },
         )
+
     }
 }
 
@@ -116,8 +118,7 @@ fun LoadingIndicator() {
 fun ContentHome(
     movements: List<Movement>,
     profile: DataResult<User>,
-    navController: NavController,
-
+    navController: NavController
 ) {
     LazyColumn (  modifier = Modifier.background(  color =  MaterialTheme.colors.primaryVariant)){
         item {
@@ -182,9 +183,9 @@ fun ContentHome(
                     Text(text = "R$ ${movement.valueMovement}")
                 },
 
-
                 onDetailNavigate = {
-                    navController.navigate("detail_page"/*TODO${movement.idMovement}*/)
+                    navController.navigate("detail_page/${movement.idMovement}")
+
                 }
             )
 
@@ -200,7 +201,3 @@ fun HomeScreenPreview() {
 }
 
 
-//value = {
-//    Text(text = "+ R$ 45", color = Color.Green, fontWeight =
-//    FontWeight. Bold, fontSize =  20.sp)
-//}

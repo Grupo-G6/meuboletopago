@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 //REQUEST
 @Serializable
 data class Movement(
+    val idMovement: Long? = null,
     val valueMovement: Double,
     val dueDate: String,
     val descriptionMovement: String,

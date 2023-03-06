@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.digitalhouse.meuboletopago.android.delete.DeleteScreen
+import br.com.digitalhouse.meuboletopago.android.detail.DetailScreen
 import br.com.digitalhouse.meuboletopago.android.login.LoginScreen
 import br.com.digitalhouse.meuboletopago.android.passwordrecovery.ChangePassword
 import br.com.digitalhouse.meuboletopago.android.passwordrecovery.RecoverPassword
@@ -20,15 +22,18 @@ fun Navigator(ctx : Context){
 
     NavHost(navController = navController, startDestination = "login", builder = {
         composable("login", content = { LoginScreen(navController = navController) })
-        composable("home", content = {
-           val id = it.arguments?.getString("id") /*todo id*/
-            HomeScreen(navController = navController) })
+        composable("home", content = { HomeScreen(navController = navController) })
         composable("movement_page", content = { MovementScreen(navController = navController) })
         composable("edit_page", content = { EditScreen(navController = navController) })
         composable("signup_page", content = { SignupScreen (navController = navController) })
         composable("recover_page", content = { RecoverPassword(navController = navController) })
         composable("password_page", content = { ChangePassword(navController = navController) })
-        composable("delete_page", content = { DeleteScreen(navController = navController) })
-        composable("detail_page", content = { DetailScreen (navController = navController) })
+        composable("delete_page/{id}", content = {
+            val id = it.arguments?.getString("id")
+            DeleteScreen(navController = navController, id= id)
+        })
+        composable("detail_page/{id}", content = {
+            val id = it.arguments?.getString("id")
+            DetailScreen(navController = navController, id= id) })
     })
 }
