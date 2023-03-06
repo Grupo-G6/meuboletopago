@@ -70,9 +70,6 @@ fun HomeScreen(navController: NavController) {
 
             content = {
 
-//            ) {
-
-
                             run {
 
                             when (transactions) {

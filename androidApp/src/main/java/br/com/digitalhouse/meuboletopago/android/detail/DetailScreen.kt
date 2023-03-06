@@ -33,18 +33,21 @@ fun DetailScreen(navController: NavController, id: String?) {
     MyApplicationTheme {
         Scaffold(
             topBar =   { TopAppBar(
+                backgroundColor = MaterialTheme.colors.primaryVariant,
                 title = { Text(
                     textAlign = TextAlign.Justify,
                     text = "Detalhes",
                     fontSize = 22.sp,
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
+
                 )
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate("home")}) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Voltar à tela principal")
                     }
+
                 })
             }
         ) {

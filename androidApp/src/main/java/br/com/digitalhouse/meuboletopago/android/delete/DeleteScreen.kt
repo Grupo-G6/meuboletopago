@@ -38,6 +38,7 @@ fun DeleteScreen(navController: NavController, id: String?) {
         Scaffold(
             topBar = {
                 TopAppBar(
+                    backgroundColor = MaterialTheme.colors.primaryVariant,
                     title = {
                         Text(
                             textAlign = TextAlign.Center,
