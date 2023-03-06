@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -78,7 +79,7 @@ fun HomeScreen(navController: NavController) {
                                 is DataResult.Error -> ErrorMessage((transactions as DataResult.Error).error)
                                 is DataResult.Success -> ContentHome(
                                     (transactions as DataResult.Success<List<Movement>>).data,
-                                    user,
+                                    user, navController
                                 )
                                 else -> Unit
                             }
@@ -115,6 +116,7 @@ fun LoadingIndicator() {
 fun ContentHome(
     movements: List<Movement>,
     profile: DataResult<User>,
+    navController: NavController,
 
 ) {
     LazyColumn (  modifier = Modifier.background(  color = Color(0xFFA1E2C8))){
@@ -145,13 +147,15 @@ fun ContentHome(
                            .background(Color.Transparent)
                            .padding(10.dp)
                            .clip(CircleShape)
-//                           .clickable {  navController.navigate("detail_page")}
+                           .border(5.dp, shape = RoundedCornerShape(5.dp), color = Color.White)
+//                           .clickable { navController.navigate("detail_page")}
 
 
-                   ) }
+                   )
+                       Text(text = "despesa")}
                        else {
                        Image(
-                           painter =  painterResource(R.drawable.payments_fill0_wght400_grad0_opsz48),
+                           painter =  painterResource(R.drawable.monetization_on_black_24dp),
                            contentDescription = "Profile Image",
                            contentScale = ContentScale.Fit,
                            modifier = Modifier
@@ -164,21 +168,25 @@ fun ContentHome(
 
                        )}
 
-                                                     },
+                   Text(text = "receita")                  },
 
                 title = movement.descriptionMovement,
 
 
-                subtitle =
-
-                movement.typeMovement ?: "",
+                subtitle = "",
+//
+//                movement.typeMovement ?: "",
 
 
                     value = {
                     Text(text = "R$ ${movement.valueMovement}")
                 },
 
-                )
+
+                onDetailNavigate = {
+                    navController.navigate("detail_page"/*TODO${movement.idMovement}*/)
+                }
+            )
 
         }
     }
@@ -190,10 +198,7 @@ fun ContentHome(
 fun HomeScreenPreview() {
     HomeScreen(navController = NavController(LocalContext.current))
 }
-/*todo
-   -cards clicáveis;
-    -edição, detalhamento e delete;
-    -scroll e quantidade máxima de cards */
+
 
 //value = {
 //    Text(text = "+ R$ 45", color = Color.Green, fontWeight =

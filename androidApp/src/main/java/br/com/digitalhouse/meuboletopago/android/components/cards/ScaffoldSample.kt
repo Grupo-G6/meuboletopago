@@ -105,12 +105,14 @@ fun ScaffoldWithTopBar(backPressed: () -> Unit) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 Text(
                     text = "Content of the page",
                     fontSize = 30.sp,
                     color = Color.White
                 )
             }
+
 
         }
     )

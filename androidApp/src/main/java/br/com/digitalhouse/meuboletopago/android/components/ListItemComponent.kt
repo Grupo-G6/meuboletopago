@@ -29,7 +29,7 @@ fun ListItemComponent(
     title: String,
     subtitle: String,
     value: @Composable () -> Unit = {},
-//    navController: NavController,
+    onDetailNavigate: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier.padding(bottom = 0.5.dp)
@@ -39,15 +39,15 @@ fun ListItemComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(20.dp)
-//                .clickable {  navController?.navigate("detail_page") }
+                .clickable { onDetailNavigate.invoke() }
         ) {
             image()
             Spacer(modifier = Modifier.width(20.dp))
-            Column {
-                Text(text = title, fontWeight = FontWeight.Bold, fontSize = 17.sp)
-                Text(text = subtitle, fontSize = 13.sp, color = Color.Gray)
+            Column(modifier = Modifier.weight(1f)) {
+                Text(text = title, fontWeight = FontWeight.Bold, fontSize = 17.sp )
+                Text(text = subtitle, fontSize = 7.sp, color = Color.Gray)
             }
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(20.dp))
             value()
         }
     }
