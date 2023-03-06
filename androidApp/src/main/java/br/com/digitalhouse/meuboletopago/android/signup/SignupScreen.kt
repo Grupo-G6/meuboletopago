@@ -1,6 +1,7 @@
 package br.com.digitalhouse.meuboletopago.android.signup
 
 import AlertDialogComponent
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -68,8 +69,7 @@ fun SignupScreen(navController: NavController) {
                 val nome = remember { mutableStateOf(TextFieldValue()) }
                 val email = remember { mutableStateOf(TextFieldValue()) }
                 val senha = remember { mutableStateOf(TextFieldValue()) }
-
-
+                val context = LocalContext.current
                 val showDialog = remember { mutableStateOf(true) }
                 val passwordVisible = remember { mutableStateOf(false) }
                 val viewModel: SignUpViewModel = viewModel()
@@ -189,9 +189,12 @@ fun SignupScreen(navController: NavController) {
                                     password = senha.value.text,
                                 )
                             )
+                            Toast.makeText(context,
+                                "Cadastro realizado com sucesso!",
+                                Toast.LENGTH_SHORT).show()
                         }, modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = "entrar")
+                        Text(text = "cadastrar")
                     }
                 }
             }
@@ -207,5 +210,5 @@ fun SignUpPreview() {
     SignupScreen(navController = NavController(LocalContext.current))
 }
 
-
+/*TODO TOAST CADASTRO CONCLUÍDO*/
 

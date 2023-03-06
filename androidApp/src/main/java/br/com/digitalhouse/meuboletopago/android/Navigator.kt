@@ -21,7 +21,7 @@ fun Navigator(ctx : Context){
     NavHost(navController = navController, startDestination = "login", builder = {
         composable("login", content = { LoginScreen(navController = navController) })
         composable("home", content = {
-           val id = it.arguments?.getString("id")
+           val id = it.arguments?.getString("id") /*todo id*/
             HomeScreen(navController = navController) })
         composable("movement_page", content = { MovementScreen(navController = navController) })
         composable("edit_page", content = { EditScreen(navController = navController) })

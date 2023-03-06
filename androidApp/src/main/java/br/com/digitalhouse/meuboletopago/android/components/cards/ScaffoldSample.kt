@@ -50,13 +50,14 @@ fun ScaffoldSample(navController: NavController, title: String) {
 
             floatingActionButtonPosition = FabPosition.Center,
             floatingActionButton = {
-                FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = MaterialTheme.colors.primaryVariant, backgroundColor = MaterialTheme.colors.primary ) {
+                FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = Color.White, backgroundColor = MaterialTheme.colors.primary ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
                 }
             },
             drawerContent = { Text(text = "Drawer Menu 1") },
             content = { Text("Content") },
-            bottomBar = { BottomAppBar(backgroundColor = MaterialTheme.colors.primary) { Text("Bottom App Bar") } }
+            bottomBar =  {BottomBar()}
+//            bottomBar = { BottomAppBar(backgroundColor = MaterialTheme.colors.primary) { Text("Bottom App Bar") } }
         )
     }
 }
@@ -118,7 +119,7 @@ fun ScaffoldWithTopBar(backPressed: () -> Unit) {
 
 
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview
 @Composable
 fun ScaffoldPreview() {
     ScaffoldSample(navController= NavController(LocalContext.current), title = "")

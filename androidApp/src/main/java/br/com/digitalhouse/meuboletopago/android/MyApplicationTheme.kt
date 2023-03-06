@@ -22,15 +22,15 @@ fun MyApplicationTheme(
 ) {
     val colors = if (darkTheme) {
         darkColors(
-            primary = Color(0xFF009688),
+            primary = Color(0xFF369B73),
             primaryVariant = Color.White,
-            secondary =Color(0xFF3700B3)
+            secondary =Color(0xFF1EB36A)
         )
     } else {
         lightColors(
             primary = Color(0xFF369B73),
-            primaryVariant = Color(0xFF364B9B),
-            secondary = Color(0xFF03DAC5)
+            primaryVariant = Color(0xFF553B66),
+            secondary = Color(0xFF369B73),
         )
     }
     val nameMovementH5 = Typography(

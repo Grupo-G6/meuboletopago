@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 
@@ -28,7 +29,7 @@ fun ListItemComponent(
     title: String,
     subtitle: String,
     value: @Composable () -> Unit = {},
-    onDetailNavigate: () -> Unit = {}
+//    navController: NavController,
 ) {
     Card(
         modifier = Modifier.padding(bottom = 0.5.dp)
@@ -38,7 +39,7 @@ fun ListItemComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(20.dp)
-                .clickable { onDetailNavigate.invoke() }
+//                .clickable {  navController?.navigate("detail_page") }
         ) {
             image()
             Spacer(modifier = Modifier.width(20.dp))
@@ -53,38 +54,38 @@ fun ListItemComponent(
 }
 
 
-@Preview
-@Composable
-fun ListItemComponent_Preview () {
-    val painter =  rememberAsyncImagePainter(model =
-    ImageRequest.Builder( LocalContext.current)
-
-        .data("https://media.licdn.com/dms/image/C4E03AQGzYGYIlmUzbg/profile-displayphoto-shrink_800_800/0/1640531489913?e=2147483647&v=beta&t=qmWLp-OvACiTmOfMIYk-T3bCq1R-KQkB7jXM9UsGvfI" )
-    .size( 50)
-        .placeholder(android.R.drawable. ic_delete)
-        .build()
-    )
-    ListItemComponent(
-        image = {
-            Image(
-                painter =  painter,
-                contentDescription =  "Profile Image" ,
-                contentScale =  ContentScale. Fit,
-                modifier =  Modifier
-                    . height(56.dp)
-                    . width(56.dp)
-                    . clip(CircleShape)
-                    . background(Color.Red)
-                    . padding(10.dp)
-                    . clip(CircleShape)
-            )
-        },
-        title = "Dribble Inc" ,
-        subtitle =  "Crédito",
-        value = {
-            Text(text = "+ R$ 45", color = Color.Green, fontWeight =
-            FontWeight. Bold, fontSize =  20.sp)
-        }
-    )
-}
-
+//@Preview
+//@Composable
+//fun ListItemComponent_Preview () {
+//    val painter =  rememberAsyncImagePainter(model =
+//    ImageRequest.Builder( LocalContext.current)
+//
+//        .data("https://media.licdn.com/dms/image/C4E03AQGzYGYIlmUzbg/profile-displayphoto-shrink_800_800/0/1640531489913?e=2147483647&v=beta&t=qmWLp-OvACiTmOfMIYk-T3bCq1R-KQkB7jXM9UsGvfI" )
+//    .size( 50)
+//        .placeholder(android.R.drawable. ic_delete)
+//        .build()
+//    )
+//    ListItemComponent(
+//        image = {
+//            Image(
+//                painter =  painter,
+//                contentDescription =  "Profile Image" ,
+//                contentScale =  ContentScale. Fit,
+//                modifier =  Modifier
+//                    . height(56.dp)
+//                    . width(56.dp)
+//                    . clip(CircleShape)
+//                    . background(Color.Red)
+//                    . padding(10.dp)
+//                    . clip(CircleShape)
+//            )
+//        },
+//        title = "Dribble Inc" ,
+//        subtitle =  "Crédito",
+//        value = {
+//            Text(text = "+ R$ 45", color = Color.Green, fontWeight =
+//            FontWeight. Bold, fontSize =  20.sp)
+//        }
+//    )
+//}
+//

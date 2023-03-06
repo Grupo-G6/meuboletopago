@@ -1,6 +1,8 @@
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,9 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
 import br.com.digitalhouse.meuboletopago.android.components.ListItemComponent
+import br.com.digitalhouse.meuboletopago.android.components.cards.Balance
 import br.com.digitalhouse.meuboletopago.android.home.HomeViewModel
 import br.com.digitalhouse.meuboletopago.model.Movement
 import br.com.digitalhouse.meuboletopago.model.User
@@ -47,91 +51,25 @@ fun HomeScreen(navController: NavController) {
 
             topBar = {
                 TopAppBar(
-                    title = { Text("Top App Bar") },
+                    title = { Text("Olá, ") },
                     backgroundColor = MaterialTheme.colors.primary
                 )
+
             },
             floatingActionButtonPosition = FabPosition.Center,
+
+
             floatingActionButton = {
-                FloatingActionButton(onClick = {navController.navigate("movement_page")}) {
-                    androidx.compose.material.Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "fab icon"
-                    )
+                FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = Color.White, backgroundColor = MaterialTheme.colors.primary ) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
                 }
             },
+
 
             content = {
 
 //            ) {
-                    Row() {
-                        Column(
-                           /* modifier = Modifier
-                                .fillMaxWidth(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally*/) {
 
-
-                            Text(
-
-                                textAlign = TextAlign.End,
-                                text = "Receitas:",
-                                fontSize = 14.sp,
-                                color = Color.Black,
-                                modifier = Modifier.padding(8.dp, 0.dp),
-                            )
-                            Text(
-
-                                textAlign = TextAlign.End,
-                                text = " R$0.00",
-                                fontSize = 14.sp,
-                                color = Color.Black,
-                                modifier = Modifier.padding(8.dp, 0.dp),
-                            )
-                            Spacer(modifier = Modifier.weight(1f))
-                        }
-                        Column() {
-                            Text(
-                                textAlign = TextAlign.Start,
-                                text = "Despesas:",
-                                fontSize = 14.sp,
-                                color = Color.Black,
-                                modifier = Modifier.padding(8.dp, 0.dp),
-                            )
-
-                            Text(
-
-                                textAlign = TextAlign.Start,
-                                text = " R$0.00",
-                                fontSize = 14.sp,
-                                color = Color.Black,
-                                modifier = Modifier.padding(8.dp, 0.dp),
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.weight(1f))
-                        Column()
-                        {
-                            Text(
-                                textAlign = TextAlign.Center,
-                                text = "Saldo:",
-                                fontSize = 16.sp,
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(8.dp, 0.dp),
-                            )
-                            Text(
-                                textAlign = TextAlign.Center,
-                                text = "R$0.00",
-                                fontSize = 16.sp,
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(8.dp, 0.dp),
-                            )
-//                            Spacer(modifier = Modifier.weight(1f))
-                        }
-
-                    }
 
                             run {
 
@@ -177,29 +115,38 @@ fun LoadingIndicator() {
 fun ContentHome(
     movements: List<Movement>,
     profile: DataResult<User>,
+
 ) {
-    LazyColumn (){
+    LazyColumn (  modifier = Modifier.background(  color = Color(0xFFA1E2C8))){
         item {
             if (profile is DataResult.Success) {
-                Text(text = "Olá, ${profile.data.name}!")
+                Text(text = " ${profile.data.name}!")
             }
+            Balance(navController= NavController(LocalContext.current))
         }
+
 
         items(movements) { movement ->
             ListItemComponent(
+
+
+
                image = {
                    if (movement.typeMovement == "2") {
 
-                   Image(
+
+                       Image(
                        painter =  painterResource(R.drawable.barcode_fill0_wght400_grad0_opsz48),
                        contentDescription = "Profile Image",
                        contentScale = ContentScale.Fit,
                        modifier = Modifier
                            .height(56.dp)
                            .clip(CircleShape)
-                           .background(Color.Red)
+                           .background(Color.Transparent)
                            .padding(10.dp)
                            .clip(CircleShape)
+//                           .clickable {  navController.navigate("detail_page")}
+
 
                    ) }
                        else {
@@ -210,7 +157,8 @@ fun ContentHome(
                            modifier = Modifier
                                .height(56.dp)
                                .clip(CircleShape)
-                               .background(Color.Green)
+//                               .border(1.dp, color = Color.DarkGray)
+                               .background(Color.Transparent)
                                .padding(10.dp)
                                .clip(CircleShape)
 
@@ -227,13 +175,15 @@ fun ContentHome(
 
 
                     value = {
-                    Text(text = "R$ ${movement.valueMovement}.")
+                    Text(text = "R$ ${movement.valueMovement}")
                 },
-            )
+
+                )
 
         }
     }
 }
+
 
 @Preview
 @Composable
@@ -244,3 +194,8 @@ fun HomeScreenPreview() {
    -cards clicáveis;
     -edição, detalhamento e delete;
     -scroll e quantidade máxima de cards */
+
+//value = {
+//    Text(text = "+ R$ 45", color = Color.Green, fontWeight =
+//    FontWeight. Bold, fontSize =  20.sp)
+//}

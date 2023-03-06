@@ -153,7 +153,7 @@ fun LoginScreen(navController: NavController) {
                         Text(text = "Esqueci a senha")
                     }
 
-                    Spacer(modifier = Modifier.height(96.dp))
+                    Spacer(modifier = Modifier.height(46.dp))
                     Button(
                         onClick = {
 

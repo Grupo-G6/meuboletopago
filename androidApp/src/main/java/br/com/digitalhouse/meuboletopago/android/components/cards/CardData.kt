@@ -1,4 +1,4 @@
-package com.learnandroid.meuboletopago.component
+
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
