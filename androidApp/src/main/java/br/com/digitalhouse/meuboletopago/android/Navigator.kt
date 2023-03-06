@@ -13,7 +13,7 @@ import br.com.digitalhouse.meuboletopago.android.passwordrecovery.ChangePassword
 import br.com.digitalhouse.meuboletopago.android.passwordrecovery.RecoverPassword
 import br.com.digitalhouse.meuboletopago.android.movement.MovementScreen
 import br.com.digitalhouse.meuboletopago.android.signup.SignupScreen
-import br.com.digitalhouse.meuboletopago.android.view.*
+import br.com.digitalhouse.meuboletopago.android.edit.*
 
 
 @Composable
@@ -24,7 +24,9 @@ fun Navigator(ctx : Context){
         composable("login", content = { LoginScreen(navController = navController) })
         composable("home", content = { HomeScreen(navController = navController) })
         composable("movement_page", content = { MovementScreen(navController = navController) })
-        composable("edit_page", content = { EditScreen(navController = navController) })
+        composable("edit_page/{id}", content = {
+            val id = it.arguments?.getString("id")
+            EditScreen(navController = navController, id = id) })
         composable("signup_page", content = { SignupScreen (navController = navController) })
         composable("recover_page", content = { RecoverPassword(navController = navController) })
         composable("password_page", content = { ChangePassword(navController = navController) })

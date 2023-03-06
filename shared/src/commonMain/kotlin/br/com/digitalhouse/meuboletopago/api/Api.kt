@@ -82,6 +82,13 @@ class Api {
         return httpClient.delete("$DEFAULT_URL/movement/$id").status
     }
 
+    suspend fun editMovement(id: String, movement: Movement): Movement {
+        return httpClient.put("$DEFAULT_URL/movement/$id") {
+            setBody(movement)
+        }.body()
+
+    }
+
     suspend fun sendRecoverEmail(email: Email): HttpStatusCode {
         return httpClient.post("$DEFAULT_URL/user/forgot-password") {
             setBody(email)
