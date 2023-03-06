@@ -1,23 +1,28 @@
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,10 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.R
-import br.com.digitalhouse.meuboletopago.android.components.CenterTopBar
 import br.com.digitalhouse.meuboletopago.android.components.ListItemComponent
+import br.com.digitalhouse.meuboletopago.android.components.cards.Balance
 import br.com.digitalhouse.meuboletopago.android.home.HomeViewModel
 import br.com.digitalhouse.meuboletopago.model.Movement
 import br.com.digitalhouse.meuboletopago.model.User
@@ -43,55 +49,48 @@ fun HomeScreen(navController: NavController) {
 
     MyApplicationTheme {
         Scaffold(
+
             topBar = {
-                CenterTopBar(
-                    title = "Controle de Despesas",
-                    navController = navController,
+                TopAppBar(
+                    title = { Text("Olá, ") },
+                    backgroundColor = MaterialTheme.colors.primaryVariant
                 )
+
             },
-            bottomBar = {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.End,
-                ) {
-                    Text(
-                        textAlign = TextAlign.End,
-                        text = "Receitas: R$0.00",
-                        fontSize = 14.sp,
-                        color = Color.White,
-                        modifier = Modifier.padding(8.dp, 0.dp),
-                    )
-                    Text(
-                        textAlign = TextAlign.End,
-                        text = "Despesas: R$0.00",
-                        fontSize = 14.sp,
-                        color = Color.White,
-                        modifier = Modifier.padding(8.dp, 0.dp),
-                    )
-                    Text(
-                        textAlign = TextAlign.End,
-                        text = "Saldo: R$0.00",
-                        fontSize = 16.sp,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(8.dp, 0.dp),
-                    )
+            floatingActionButtonPosition = FabPosition.Center,
+
+
+            floatingActionButton = {
+                FloatingActionButton(onClick = {navController.navigate("movement_page")}, contentColor = MaterialTheme.colors.primaryVariant, backgroundColor = MaterialTheme.colors.primary ) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
                 }
-            }
-        ) {
-            when (transactions) {
-                is DataResult.Loading -> LoadingIndicator()
-                is DataResult.Error -> ErrorMessage((transactions as DataResult.Error).error)
-                is DataResult.Success -> ContentHome(
-                    (transactions as DataResult.Success<List<Movement>>).data,
-                    user,
-                    navController
-                )
-                else -> Unit
-            }
-        }
+
+            },
+
+
+            content = {
+
+//            ) {
+
+
+                            run {
+
+                            when (transactions) {
+                                is DataResult.Loading -> LoadingIndicator()
+                                is DataResult.Error -> ErrorMessage((transactions as DataResult.Error).error)
+                                is DataResult.Success -> ContentHome(
+                                    (transactions as DataResult.Success<List<Movement>>).data,
+                                    user, navController
+                                )
+                                else -> Unit
+                            }
+                        }
+
+
+
+            },
+        )
+
     }
 }
 
@@ -121,35 +120,84 @@ fun ContentHome(
     profile: DataResult<User>,
     navController: NavController
 ) {
-    LazyColumn {
+    LazyColumn (  modifier = Modifier.background(  color =  MaterialTheme.colors.primaryVariant)){
         item {
             if (profile is DataResult.Success) {
-                Text(text = "Olá, ${profile.data.name}!")
+                Text(text = " Meu boleto pago de : ${profile.data.name}!", color = Color.White)
             }
+            Balance(navController= NavController(LocalContext.current))
         }
+
 
         items(movements) { movement ->
             ListItemComponent(
-                image = painterResource(id = R.drawable.ic_exclamacao),
+
+
+
+               image = {
+                   if (movement.typeMovement == "2") {
+
+
+                       Image(
+                       painter =  painterResource(R.drawable.barcode_fill0_wght400_grad0_opsz48),
+                       contentDescription = "Profile Image",
+                       contentScale = ContentScale.Fit,
+                       modifier = Modifier
+                           .height(56.dp)
+                           .clip(CircleShape)
+                           .background(Color.Transparent)
+                           .padding(10.dp)
+                           .clip(CircleShape)
+                           .border(5.dp, shape = RoundedCornerShape(5.dp), color = Color.White)
+//                           .clickable { navController.navigate("detail_page")}
+
+
+                   )
+                       Text(text = "despesa")}
+                       else {
+                       Image(
+                           painter =  painterResource(R.drawable.monetization_on_black_24dp),
+                           contentDescription = "Profile Image",
+                           contentScale = ContentScale.Fit,
+                           modifier = Modifier
+                               .height(56.dp)
+                               .clip(CircleShape)
+//                               .border(1.dp, color = Color.DarkGray)
+                               .background(Color.Transparent)
+                               .padding(10.dp)
+                               .clip(CircleShape)
+
+                       )}
+
+                   Text(text = "receita")                  },
+
                 title = movement.descriptionMovement,
-                subtitle = movement.typeMovement ?: "",
-                value = {
-                    Text(text = "R$ ${movement.valueMovement}.")
+
+
+                subtitle = "",
+//
+//                movement.typeMovement ?: "",
+
+
+                    value = {
+                    Text(text = "R$ ${movement.valueMovement}")
                 },
+
                 onDetailNavigate = {
                     navController.navigate("detail_page/${movement.idMovement}")
+
                 }
             )
+
         }
     }
 }
+
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
     HomeScreen(navController = NavController(LocalContext.current))
 }
-/*todo
-   -cards clicáveis;
-    -edição, detalhamento e delete;
-    -scroll e quantidade máxima de cards */
+
+

@@ -1,12 +1,15 @@
 package br.com.digitalhouse.meuboletopago.android.signup
 
 import AlertDialogComponent
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
@@ -37,6 +40,7 @@ fun SignupScreen(navController: NavController) {
         Scaffold(
             topBar = {
                 TopAppBar(
+                    backgroundColor = MaterialTheme.colors.primaryVariant,
                     title = {
                         Text(
                             textAlign = TextAlign.Justify,
@@ -68,8 +72,7 @@ fun SignupScreen(navController: NavController) {
                 val nome = remember { mutableStateOf(TextFieldValue()) }
                 val email = remember { mutableStateOf(TextFieldValue()) }
                 val senha = remember { mutableStateOf(TextFieldValue()) }
-
-
+                val context = LocalContext.current
                 val showDialog = remember { mutableStateOf(true) }
                 val passwordVisible = remember { mutableStateOf(false) }
                 val viewModel: SignUpViewModel = viewModel()
@@ -90,7 +93,10 @@ fun SignupScreen(navController: NavController) {
 //
                 Text(text = "Nome")
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
+                    shape = RoundedCornerShape(20.dp),
                     value = nome.value,
                     onValueChange = { nome.value = it },
                     label = { Text(text = "") }
@@ -99,25 +105,30 @@ fun SignupScreen(navController: NavController) {
 
                 Text(text = "Email")
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
+                    shape = RoundedCornerShape(20.dp),
                     value = email.value,
                     onValueChange = { email.value = it },
-                    label = { Text(text = "") }
+                    label = { Text(text = "") },
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Email,
+                            contentDescription = "emailIcon"
+                        )
+                    }
 
                 )
-//                Text(text = "Confirmar e-mail")
-//                OutlinedTextField(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    value = emailConfirm.value,
-//                    onValueChange = { emailConfirm.value = it },
-//                    label = { Text(text = "") }
-//
-//                )
+
                 Text(text = "Senha")
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
+                    shape = RoundedCornerShape(20.dp),
                     value = senha.value,
+
 
                     onValueChange = { senha.value = it },
 
@@ -135,50 +146,26 @@ fun SignupScreen(navController: NavController) {
                         }
                     }
                 )
-//                Spacer(modifier = Modifier.height(16.dp))
-//                Text(text = "Confirmar senha")
-//                OutlinedTextField(
-//                    modifier = Modifier.fillMaxWidth(),
-//
-//                    value = confirmPassword.value,
-//
-//                    onValueChange = { confirmPassword.value = it },
-//
-//                    label = { Text(text = "") },
-//
-//                    visualTransformation = if (passwordVisible.value.not()) PasswordVisualTransformation() else VisualTransformation.None,
-//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-//                    trailingIcon = {
-//                        val iconPassword =
-//                            if (passwordVisible.value.not()) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
-//                        val description =
-//                            if (passwordVisible.value.not()) "Invisível" else "Visível"
-//                        IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-//                            Icon(imageVector = iconPassword, contentDescription = description)
-//                        }
-//                    }
-//                )
+
                 Spacer(modifier = Modifier.height(16.dp))
                 if (signUpState is DataResult.Loading) {
                     CircularProgressIndicator()
                 } else {
                     if (signUpState is DataResult.Success /*&& isLogged.value.not()*/) {
-//                        Text(text = "Meu token é ${Api.token}")
-//                        onHomeNavigate.invoke()
+                        isLogged.value = true
                         navController.navigate("login")
-                       /* isLogged.value = true */
-                        viewModel.defaultState()
+                         viewModel.defaultState()
                     }
                     if (signUpState is DataResult.Error) {
                         Text(text = "O erro é: ${(signUpState as DataResult.Error).error.message}")
-//                        AlertDialogComponent(
-//                            showDialog = showDialog.value,
-//                            message = "Cadastro não realizado!",
-//                            onDismissRequest = {
-//                                showDialog.value = !showDialog.value
-//                                viewModel.defaultState()
-//                            },
-//                        )
+                        AlertDialogComponent(
+                            showDialog = showDialog.value,
+                            message = "Cadastro não realizado!",
+                            onDismissRequest = {
+                                showDialog.value = !showDialog.value
+                                viewModel.defaultState()
+                            },
+                        )
                     }
                     Button(
                         onClick = {
@@ -189,23 +176,26 @@ fun SignupScreen(navController: NavController) {
                                     password = senha.value.text,
                                 )
                             )
+                            Toast.makeText(context,
+                                "Cadastro realizado com sucesso!",
+                                Toast.LENGTH_SHORT).show()
                         }, modifier = Modifier.fillMaxWidth()
+                            .height(40.dp),
+                        shape = RoundedCornerShape(70)
                     ) {
-                        Text(text = "entrar")
+                        Text(text = "cadastrar", color = MaterialTheme.colors.primaryVariant)
                     }
                 }
             }
         }
     }
 }
-//fun passwordMatches(password: String, confirmPassword: String) : Boolean {
-//return password == confirmPassword
-//    }
+
 @Preview
 @Composable
 fun SignUpPreview() {
     SignupScreen(navController = NavController(LocalContext.current))
 }
 
-
+/*TODO TOAST CADASTRO CONCLUÍDO*/
 

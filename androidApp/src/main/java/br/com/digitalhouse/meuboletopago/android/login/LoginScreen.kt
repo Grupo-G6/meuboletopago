@@ -5,9 +5,12 @@ package br.com.digitalhouse.meuboletopago.android.login
 import AlertDialogComponent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
@@ -15,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -40,7 +44,7 @@ fun LoginScreen(navController: NavController) {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
-                    .padding(25.dp)
+                    .padding(15.dp)
                     .background(Color.White)
                     .fillMaxWidth()
                     .fillMaxHeight(),
@@ -58,7 +62,7 @@ fun LoginScreen(navController: NavController) {
                 val showDialog = remember { mutableStateOf(true) }
                 val viewModel: LoginViewModel = viewModel()
                 val loginState by viewModel.loginState.collectAsState()
-                val isLogged = remember{ mutableStateOf(false)}
+                val isLogged = remember { mutableStateOf(false) }
 
 
                 Spacer(modifier = Modifier.height(spacer))
@@ -72,21 +76,35 @@ fun LoginScreen(navController: NavController) {
 
                 Text(text = "E-mail")
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
                     value = login.value,
                     onValueChange = { login.value = it },
-                    label = { Text(text = "") }
+                    label = { Text(text = "") },
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Email,
+                            contentDescription = "emailIcon"
+                        )
+                    },
+                    shape = RoundedCornerShape(20.dp)
 
                 )
-                Spacer(modifier = Modifier.height(spacer))
+
+
                 Text(text = "Senha")
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
                     value = password.value,
                     onValueChange = { password.value = it },
                     label = { Text(text = "") },
                     visualTransformation = if (passwordVisible.value.not()) PasswordVisualTransformation() else VisualTransformation.None,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    shape = RoundedCornerShape(20.dp),
+
                     trailingIcon = {
                         val iconPassword =
                             if (passwordVisible.value.not()) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
@@ -97,14 +115,15 @@ fun LoginScreen(navController: NavController) {
                         }
                     }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(spacer))
+                Spacer(modifier = Modifier.height(spacer))
 
 
                 if (loginState is DataResult.Loading) {
                     CircularProgressIndicator()
                 } else {
                     if (loginState is DataResult.Success && isLogged.value.not()) {
-                        Text(text = "Meu token é $token")
+//                        Text(text = "Meu token é $token")
 //                        onHomeNavigate.invoke()
                         navController.navigate("home") /*TODO conferir rota*/
                         isLogged.value = true
@@ -114,47 +133,57 @@ fun LoginScreen(navController: NavController) {
                         AlertDialogComponent(
                             showDialog = showDialog.value,
                             message = "Login e/ou senha inválida!",
-                            onDismissRequest = {showDialog.value = !showDialog.value
-                            viewModel.defaultState()
-                                               },
+                            onDismissRequest = {
+                                showDialog.value = !showDialog.value
+                                viewModel.defaultState()
+                            },
                         )
 
                     }
 
-                        /*TODO direcionar novamente para login e fechar botão ok*/
-                    }
+                    /*TODO direcionar novamente para login e fechar botão ok*/
+                }
 
-                    Button(
-                        onClick = {
-                            viewModel.login(
-                                email = login.value.text,
-                                password = password.value.text
-                            )
-                        }, modifier = Modifier.fillMaxWidth()
-                    )
-                    {
-                        Text(text = "entrar")
-                    }
-
-
-
-
-                    /*TODO: mudar o loginState para Empty */
+                Button(
+                    onClick = {
+                        viewModel.login(
+                            email = login.value.text,
+                            password = password.value.text
+                        )
+                    }, modifier = Modifier.fillMaxWidth()
+                        .height(40.dp),
+                    shape = RoundedCornerShape(70)
+                )
+                {
+                    Text(text = "entrar", color = MaterialTheme.colors.primaryVariant)
+                }
 
 
-                    Button(
-                        onClick = {
+                /*TODO: mudar o loginState para Empty */
+                Spacer(modifier = Modifier.height(spacer))
 
-                            navController.navigate("recover_page")
 
-                        }, modifier = Modifier.fillMaxWidth()
-                    )
-                    {
-                        Text(text = "Esqueci a senha")
-                    }
+                Button(
+                    onClick = {
 
-                    Spacer(modifier = Modifier.height(96.dp))
-                    Button(
+                        navController.navigate("recover_page")
+
+                    }, modifier = Modifier.fillMaxWidth()
+                        .height(40.dp),
+                    shape = RoundedCornerShape(70)
+                )
+                {
+                    Text(text = "Esqueci a senha", color = MaterialTheme.colors.primaryVariant)
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+
+                ) {
+                    TextButton(
                         onClick = {
 
                             navController.navigate("signup_page")
@@ -162,29 +191,74 @@ fun LoginScreen(navController: NavController) {
                         }, modifier = Modifier.fillMaxWidth()
                     )
                     {
-                        Text(text = "Ainda não tem cadastro? Clique aqui")
+                        Text(
+                            text = "Ainda não tem cadastro? Clique aqui!",
+                            color = Color(0xFF364B9B),
+                            textAlign = TextAlign.Center
+                        )
+
                     }
 
                 }
             }
         }
     }
+}
 
 
-//private operator fun Boolean.invoke(value: Any) {
+
+
+
+
+
+
+
+
+
+//
+//Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth(),
+//                    horizontalArrangement =   Arrangement.SpaceEvenly
+//
+//                ) {
+//                   TextButton(
+//                        onClick = {
+//
+//                            navController.navigate("signup_page")
+//
+//                        },
+//                        modifier = Modifier
+//                            .width(220.dp),
+//
+//
+////                        shape = RoundedCornerShape(50),
+////                        colors = ButtonDefaults.outlinedButtonColors(
+////                            contentColor = Color.Transparent,
+////                            containerColor =  Color.Transparent,
+////
+////                        )
+//                    )
+//                    {
+//                        Text(text = "Ainda não tem cadastro? Clique aqui!", color = Color(0xFF009688), textAlign = TextAlign.Center)
+////                        Text(text = "Clique aqui!", color = Color(0xFF009688))
+//                    }
+//                }
+//
+//                }
+//            }
+//        }
+//    }
+//
+
+
+
+//@Preview
+//@Composable
+//fun DefaultPreview() {
+//    LoginScreen(navController = NavController(LocalContext.current))
 //
 //}
-
-
-//private operator fun <T> Comparable<T>.invoke(value: Any) {
-//
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    LoginScreen(navController = NavController(LocalContext.current))
-
-}
 //preview não pode ser usado com viewModel
 
 

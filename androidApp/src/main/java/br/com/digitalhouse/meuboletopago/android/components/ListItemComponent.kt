@@ -19,19 +19,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 
 @Composable
 fun ListItemComponent(
-    image: Painter,
+    image: @Composable () -> Unit,
     title: String,
     subtitle: String,
     value: @Composable () -> Unit = {},
-    status: @Composable () -> Unit = {},
     onDetailNavigate: () -> Unit = {}
 ) {
-    Card (
+    Card(
         modifier = Modifier.padding(bottom = 0.5.dp)
     ) {
         Row(
@@ -41,48 +41,51 @@ fun ListItemComponent(
                 .padding(20.dp)
                 .clickable { onDetailNavigate.invoke() }
         ) {
-            image
+            image()
             Spacer(modifier = Modifier.width(20.dp))
-            Column {
-                Text(text = title, fontWeight = FontWeight.Bold, fontSize = 17.sp)
-                Text(text = subtitle, fontSize = 13.sp, color = Color.Gray)
+            Column(modifier = Modifier.weight(1f)) {
+                Text(text = title, fontWeight = FontWeight.Bold, fontSize = 17.sp )
+                Text(text = subtitle, fontSize = 7.sp, color = Color.Gray)
             }
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(20.dp))
             value()
         }
     }
 }
 
+
 //@Preview
 //@Composable
-//fun ListItemComponent_Preview() {
-//    val painter = rememberAsyncImagePainter(model =
-//    ImageRequest.Builder(LocalContext.current)
-//        .data("https://media.licdn.com/dms/image/C4E03AQGzYGYIlmUzbg/profile-displayphoto-shrink_800_800/0/1640531489913?e=2147483647&v=beta&t=qmWLp-OvACiTmOfMIYk-T3bCq1R-KQkB7jXM9UsGvfI")
-//        .size(50)
-//        .placeholder(android.R.drawable.ic_delete)
+//fun ListItemComponent_Preview () {
+//    val painter =  rememberAsyncImagePainter(model =
+//    ImageRequest.Builder( LocalContext.current)
+//
+//        .data("https://media.licdn.com/dms/image/C4E03AQGzYGYIlmUzbg/profile-displayphoto-shrink_800_800/0/1640531489913?e=2147483647&v=beta&t=qmWLp-OvACiTmOfMIYk-T3bCq1R-KQkB7jXM9UsGvfI" )
+//    .size( 50)
+//        .placeholder(android.R.drawable. ic_delete)
 //        .build()
 //    )
-//
 //    ListItemComponent(
 //        image = {
 //            Image(
-//                painter = painter,
-//                contentDescription = "Profile Image",
-//                contentScale = ContentScale.Fit,
-//                modifier = Modifier
-//                    .height(56.dp)
-//                    .width(56.dp)
-//                    .clip(CircleShape)
-//                    .background(Color(0x1CFD3C72))
-//                    .padding(10.dp)
-//                    .clip(CircleShape)
+//                painter =  painter,
+//                contentDescription =  "Profile Image" ,
+//                contentScale =  ContentScale. Fit,
+//                modifier =  Modifier
+//                    . height(56.dp)
+//                    . width(56.dp)
+//                    . clip(CircleShape)
+//                    . background(Color.Red)
+//                    . padding(10.dp)
+//                    . clip(CircleShape)
 //            )
 //        },
-//        title = "Dribble Inc",
-//        subtitle = "Crédito",
+//        title = "Dribble Inc" ,
+//        subtitle =  "Crédito",
 //        value = {
-//            Text(text = "+ R$ 45", color = Color.Green, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+//            Text(text = "+ R$ 45", color = Color.Green, fontWeight =
+//            FontWeight. Bold, fontSize =  20.sp)
 //        }
 //    )
 //}
+//
