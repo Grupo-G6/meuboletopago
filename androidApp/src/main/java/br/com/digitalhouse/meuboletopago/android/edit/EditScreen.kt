@@ -80,7 +80,7 @@ fun EditScreen(navController: NavController, id: String?) {
                     LazyColumn(
                         modifier = Modifier.padding()
                     ) {
-                        item {
+                        item { /*todo*/
                             Spacer(modifier = Modifier.height(20.dp))
                             Column(
                                 modifier = Modifier
@@ -137,7 +137,7 @@ fun EditScreen(navController: NavController, id: String?) {
                                     value = descricao.value,
                                     onValueChange = { descricao.value = it },
                                     label = {
-                                        Text(text = "${(movement as DataResult.Success<Movement>).data.descriptionMovement}")
+                                        Box { Text(text = (movement as DataResult.Success<Movement>).data.descriptionMovement) }
                                     }
                                 )
                                 Spacer(modifier = Modifier.height(20.dp))
