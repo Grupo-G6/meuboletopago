@@ -2,9 +2,6 @@ package br.com.digitalhouse.meuboletopago.repository
 
 import br.com.digitalhouse.meuboletopago.api.Api
 import br.com.digitalhouse.meuboletopago.extension.updateState
-import br.com.digitalhouse.meuboletopago.model.Login
-import br.com.digitalhouse.meuboletopago.model.ProfileToken
-import br.com.digitalhouse.meuboletopago.model.SignIn
 import br.com.digitalhouse.meuboletopago.model.SignUp
 import br.com.digitalhouse.meuboletopago.util.DataResult
 import kotlinx.coroutines.CoroutineDispatcher

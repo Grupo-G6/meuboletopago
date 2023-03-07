@@ -60,7 +60,7 @@ class Api {
     }
 
     suspend fun getUser(): User {
-        return httpClient.get("$DEFAULT_URL/user/3").body()
+        return httpClient.get("$DEFAULT_URL/user/2").body()
     }
 
     suspend fun getAll(): TransactionResponse {
