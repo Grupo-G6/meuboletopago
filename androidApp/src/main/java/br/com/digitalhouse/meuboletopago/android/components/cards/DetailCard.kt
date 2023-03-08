@@ -80,15 +80,16 @@ fun DetailCard(description: String,
                     horizontalAlignment = Alignment.End,
                     modifier = Modifier.padding(16.dp).fillMaxWidth()
                 ) {
-                    if (!wasPaid) {
-                        Details(state = textState.value.text, img = R.drawable.barcode_fill0_wght400_grad0_opsz48)
-                    } else  {
-                        Details(state = textState.value.text, img = R.drawable.payments_fill0_wght400_grad0_opsz48)
-                    }
+//                    if (!wasPaid) {
+//                        Details(state = textState.value.text, img = R.drawable.barcode_fill0_wght400_grad0_opsz48)
+//                    } else  {
+//                        Details(state = textState.value.text, img = R.drawable.payments_fill0_wght400_grad0_opsz48)
+//                    }
                 }
             }
                 Row {
                     Column(modifier = Modifier.fillMaxWidth()) {
+
                         Text(
                             text = "Vencimento: $dueDate",
                             modifier = Modifier.padding(16.dp),

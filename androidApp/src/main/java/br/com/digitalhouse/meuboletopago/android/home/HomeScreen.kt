@@ -75,7 +75,7 @@ fun HomeScreen(navController: NavController) {
                     {
 //
                         if (user is DataResult.Success )
-                            Text(text = " Olá : ${(user as DataResult.Success<User>).data.name}! :)", color = Color.White)
+                            Text(text = " Olá  ${(user as DataResult.Success<User>).data.name}! :)", color = Color.White)
 
                     },
                     backgroundColor = MaterialTheme.colors.primaryVariant

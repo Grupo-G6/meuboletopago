@@ -4,6 +4,7 @@ package br.com.digitalhouse.meuboletopago.android.delete
 import AlertDialogComponent
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -105,12 +106,15 @@ fun DeleteScreen(navController: NavController, id: String?) {
                                     ).show()
                                     navController.navigate("home")
                                         }
-                                    },modifier = Modifier.fillMaxWidth()
+                                    },
+                                    modifier = Modifier.fillMaxWidth()
+                                        .height(40.dp),
+                                    shape = RoundedCornerShape(70)
                                 )
                                 {
                                     Text(
                                         text = "Excluir registro",
-                                        color = Color.White
+                                        color = MaterialTheme.colors.primaryVariant
                                     )
                                 }
                             }
