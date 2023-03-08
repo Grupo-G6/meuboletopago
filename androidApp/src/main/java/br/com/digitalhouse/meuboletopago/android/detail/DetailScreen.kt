@@ -2,6 +2,7 @@ package br.com.digitalhouse.meuboletopago.android.detail
 
 import AlertDialogComponent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -51,6 +52,8 @@ fun DetailScreen(navController: NavController, id: String?) {
                 })
             }
         ) {
+
+
             when(movement) {
                 is DataResult.Loading -> LoadingIndicator()
                 is DataResult.Error -> {
@@ -66,7 +69,9 @@ fun DetailScreen(navController: NavController, id: String?) {
                 is DataResult.Success -> {
                     Column(
                         modifier = Modifier.padding(it),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+
                     ) {
                         Row(horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically) {
@@ -79,18 +84,21 @@ fun DetailScreen(navController: NavController, id: String?) {
                         }
                         Row(horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically) {
-                            Button(modifier = Modifier.padding(16.dp),
-
-                                onClick = {navController.navigate("edit_page/${(movement as DataResult.Success<Movement>).data.idMovement}")},
-                                colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
-                                Text(text = "Editar",
-                                    color = Color.White)
-                            }
-                            Button(modifier = Modifier.padding(16.dp),
+//                            Button(modifier = Modifier.padding(16.dp),
+//
+//                                onClick = {navController.navigate("edit_page/${(movement as DataResult.Success<Movement>).data.idMovement}")},
+//                                colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
+//                                Text(text = "Editar",
+//                                    color = Color.White)
+//                            }
+                            Button(modifier = Modifier
+                                .padding(16.dp)
+                                .height(40.dp),
+                                shape = RoundedCornerShape(70),
                                 onClick = {navController.navigate("delete_page/${(movement as DataResult.Success<Movement>).data.idMovement}") },
                                 colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
                                 Text(text = "Excluir",
-                                    color = Color.White)
+                                    color  = MaterialTheme.colors.primaryVariant)
                             }
                         }
                     }

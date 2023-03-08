@@ -1,5 +1,6 @@
 package br.com.digitalhouse.meuboletopago.android
 
+import EditScreen
 import HomeScreen
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -14,6 +15,8 @@ import br.com.digitalhouse.meuboletopago.android.passwordrecovery.RecoverPasswor
 import br.com.digitalhouse.meuboletopago.android.movement.MovementScreen
 import br.com.digitalhouse.meuboletopago.android.signup.SignupScreen
 import br.com.digitalhouse.meuboletopago.android.edit.*
+import br.com.digitalhouse.meuboletopago.model.User
+import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
 @Composable
@@ -22,11 +25,11 @@ fun Navigator(ctx : Context){
 
     NavHost(navController = navController, startDestination = "login", builder = {
         composable("login", content = { LoginScreen(navController = navController) })
-         composable("home", content = { HomeScreen(navController = navController) })
+         composable("home", content = { HomeScreen(navController = navController, ) })
         composable("movement_page", content = { MovementScreen(navController = navController) })
                composable("edit_page/{id}", content = {
             val id = it.arguments?.getString("id")
-            EditScreen(navController = navController, idMovement = id) })
+            EditScreen(navController = navController, id = id) })
         composable("signup_page", content = { SignupScreen (navController = navController) })
         composable("recover_page", content = { RecoverPassword(navController = navController) })
         composable("password_page", content = { ChangePassword(navController = navController) })
@@ -39,3 +42,4 @@ fun Navigator(ctx : Context){
             DetailScreen(navController = navController, id= id) })
     })
 }
+

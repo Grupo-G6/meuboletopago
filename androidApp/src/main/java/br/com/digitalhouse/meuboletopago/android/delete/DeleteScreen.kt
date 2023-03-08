@@ -98,6 +98,12 @@ fun DeleteScreen(navController: NavController, id: String?) {
                                     onClick = {
                                         if(id != null){
                                             viewModel.deteleMovement(id)
+                                            Toast.makeText(
+                                        context,
+                                        "Registros excluídos com sucesso!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    navController.navigate("home")
                                         }
                                     },modifier = Modifier.fillMaxWidth()
                                 )
@@ -109,27 +115,6 @@ fun DeleteScreen(navController: NavController, id: String?) {
                                 }
                             }
 
-//                            Button(
-//                                onClick = {
-//                                    Toast.makeText(
-//                                        context,
-//                                        "Registros excluídos com sucesso!",
-//                                        Toast.LENGTH_SHORT
-//                                    ).show()
-//                                    navController.navigate("home")
-//                                },modifier = Modifier.fillMaxWidth()
-//
-//                            )
-//
-//                            {
-//                                Text(
-//                                    text = "Excluir TODOS os registro",
-//                                    color = Color.White
-//                                )
-//
-//
-//                            }
-//
 ///*TODO: ALTERAR TEXTOS PARA CONSTAR UMA CONFIRMAÇÃO ANTES DA EXCLUSÃO DE TODOS OS REGISTROS*/
                         }
 

@@ -22,8 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
@@ -44,6 +46,7 @@ fun HomeScreen(navController: NavController) {
     val viewModel = viewModel<HomeViewModel>()
     val transactions by viewModel.transactions.collectAsState()
     val user by viewModel.user.collectAsState()
+
     val balance by viewModel.balance.collectAsState()
     val preferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(LocalContext.current)
@@ -56,14 +59,25 @@ fun HomeScreen(navController: NavController) {
             isLogged.value = true
 
         }
+//    (navController = navController,
 
 
     MyApplicationTheme {
         Scaffold(
 
+
+
             topBar = {
                 TopAppBar(
-                    title = { Text("Olá, ") },
+
+
+                    title =
+                    {
+//
+                        if (user is DataResult.Success )
+                            Text(text = " Olá : ${(user as DataResult.Success<User>).data.name}! :)", color = Color.White)
+
+                    },
                     backgroundColor = MaterialTheme.colors.primaryVariant
                 )
 
@@ -129,12 +143,10 @@ fun ContentHome(
     navController: NavController,
     balance: DataResult<Balance>,
 ) {
-    LazyColumn (  modifier = Modifier.background(  color =  MaterialTheme.colors.primaryVariant)){
+    LazyColumn() {
         item {
-            if (profile is DataResult.Success) {
-                Text(text = " Meu boleto pago de : ${profile.data.name}!", color = Color.White)
-            }
-            Balance(navController= NavController(LocalContext.current), balance)
+
+            Balance(navController = NavController(LocalContext.current), balance)
         }
 //        title = movement.descriptionMovement,
 
@@ -142,54 +154,112 @@ fun ContentHome(
             ListItemComponent(
 
 
+                image = {
+                    if (movement.typeMovement == "2") {
 
-               image = {
-                   if (movement.typeMovement == "2") {
 
-
-                       Image(
-                       painter =  painterResource(R.drawable.barcode_fill0_wght400_grad0_opsz48),
-                       contentDescription = "Profile Image",
-                       contentScale = ContentScale.Fit,
-                       modifier = Modifier
-                           .height(56.dp)
-                           .clip(CircleShape)
-                           .background(Color.Transparent)
-                           .padding(10.dp)
-                           .clip(CircleShape)
-                           .border(5.dp, shape = RoundedCornerShape(5.dp), color = Color.White)
+                        Image(
+                            painter = painterResource(R.drawable.barcode_fill0_wght400_grad0_opsz48),
+                            contentDescription = "Profile Image",
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .height(46.dp)
+                                .width(46.dp)
+                                .clip(CircleShape)
+                                .background(Color(0x1CFD3C72))
+                                .padding(10.dp)
+//                           .border(3.dp, shape = RoundedCornerShape(3.dp), color = Color.Transparent)
 //                           .clickable { navController.navigate("detail_page")}
 
 
-                   )
-                       Text(text = "despesa")}
-                       else {
-                       Image(
-                           painter =  painterResource(R.drawable.monetization_on_black_24dp),
-                           contentDescription = "Profile Image",
-                           contentScale = ContentScale.Fit,
-                           modifier = Modifier
-                               .height(56.dp)
-                               .clip(CircleShape)
+                        )
+//                       Text(text = "despesa")
+                    } else {
+                        Image(
+                            painter = painterResource(R.drawable.monetization_on_black_24dp),
+                            contentDescription = "Profile Image",
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .height(46.dp)
+                                .width(46.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFFC8E7C9))
+                                .padding(5.dp)
 //                               .border(1.dp, color = Color.DarkGray)
-                               .background(Color.Transparent)
-                               .padding(10.dp)
-                               .clip(CircleShape)
+//                               .border(3.dp, shape = RoundedCornerShape(5.dp), color = Color.Transparent)
+//                               .border(3.dp, shape = RoundedCornerShape(3.dp), color = Color.Transparent)
 
-                       )}
 
-                   Text(text = "receita")                  },
+                        )
+
+//                   Text(text = "receita")
+
+                    }
+                },
 
                 title = movement.descriptionMovement,
 
+//
+//                title = "Dribble Inc" ,
+//                subtitle =  "Crédito",
+//                value = {
+//                    Text(text = "+ R$ 45", color = Color.Green, fontWeight =
+//                    FontWeight. Bold, fontSize =  20.sp)
 
-                subtitle = "",
+//                subtitle = {
+//                    if (movement.typeMovement == "2") {
+//                        Text(text = "receita")
+//                    } else {
+//                        Text(text = "receita")
+//
+//                    }
+//
+
+//                },
+                      subtitle = ""  ,
+
 //
 //                movement.typeMovement ?: "",
 
+//                subtitle = {
+//                    if (movement.typeMovement == "2") {
+//                        Text(
+//                            text = "R$ ${movement.valueMovement}",
+//                            fontWeight = FontWeight.Bold,
+//                            color = Color(0xFFC03C33),
+//                            fontSize = 20.sp
+//                        )
+//                    } else {
+//
+//                        Text(
+//                            text = "R$ ${movement.valueMovement}",
+//                            fontWeight = FontWeight.Bold,
+//                            color = Color(0xFF4CAF50),
+//                            fontSize = 20.sp
+//                        )
+//                    }
+//
+//                },
 
-                    value = {
-                    Text(text = "R$ ${movement.valueMovement}")
+
+                value = {
+                    if (movement.typeMovement == "2") {
+                        Text(
+                            text = "- R$ ${movement.valueMovement}",
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFC03C33),
+                            fontSize = 16.sp
+                        )
+                    } else {
+
+                        Text(
+                            text = "+ R$ ${movement.valueMovement}",
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF4CAF50),
+                            fontSize = 16.sp
+                        )
+                    }
+
                 },
 
                 onDetailNavigate = {

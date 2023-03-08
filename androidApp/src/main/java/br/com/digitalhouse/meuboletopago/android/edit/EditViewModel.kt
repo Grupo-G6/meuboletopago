@@ -1,14 +1,12 @@
-package br.com.digitalhouse.meuboletopago.android.edit
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.model.Movement
 import br.com.digitalhouse.meuboletopago.repository.DetailRepository
-import br.com.digitalhouse.meuboletopago.repository.EditRepository
+
 import br.com.digitalhouse.meuboletopago.util.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class EditViewModel(
@@ -18,7 +16,7 @@ class EditViewModel(
     private val _changedState : MutableStateFlow<DataResult<Movement>> = MutableStateFlow(DataResult.Empty)
     val changedState : StateFlow<DataResult<Movement>> = _changedState
 
-    private val _movement : MutableStateFlow<DataResult<Movement>> = MutableStateFlow<DataResult<Movement>>(DataResult.Empty)
+    private val _movement : MutableStateFlow<DataResult<Movement>> = MutableStateFlow(DataResult.Empty)
     val movement : StateFlow<DataResult<Movement>> = _movement
 
     fun getMovementDetails(id: String) = viewModelScope.launch {
@@ -27,15 +25,14 @@ class EditViewModel(
         }
     }
 
-    fun editMovement( idMovement: Movement) = viewModelScope.launch {
-
-        repository.editMovement( idMovement).collectLatest {
+    fun editMovement(id: String, movement: Movement, navController: NavController) = viewModelScope.launch {
+        repository.editMovement(id, movement).collect {
             _changedState.value = it
         }
+        navController.navigate("home")
     }
 
     fun setDefaultState() {
         _changedState.value = DataResult.Empty
     }
 }
-

@@ -1,5 +1,3 @@
-package br.com.digitalhouse.meuboletopago.repository
-
 import br.com.digitalhouse.meuboletopago.api.Api
 import br.com.digitalhouse.meuboletopago.extension.updateState
 import br.com.digitalhouse.meuboletopago.model.Movement
@@ -16,13 +14,15 @@ class EditRepository (
     private val api: Api = Api.instance,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
-    suspend fun editMovement(idMovement: Movement) = flow {
-        val chamada = api.editMovement(idMovement)
+    suspend fun editMovement(idMovement: String, movement: Movement) = flow {
+        val chamada = api.editMovement(idMovement, movement)
         emit(DataResult.Success(chamada))
     }.updateState().flowOn(dispatcher)
 
     companion object {
-        val instance by lazy { EditRepository() }
+        val instance by lazy {
+            EditRepository()
+        }
     }
 }
 

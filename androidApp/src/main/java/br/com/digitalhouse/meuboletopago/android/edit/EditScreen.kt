@@ -1,8 +1,4 @@
-package br.com.digitalhouse.meuboletopago.android.edit
-
-
 import AlertDialogComponent
-import ErrorMessage
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -28,26 +24,26 @@ import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
 import br.com.digitalhouse.meuboletopago.android.components.LoadingIndicator
 import br.com.digitalhouse.meuboletopago.android.components.TopBar
-import br.com.digitalhouse.meuboletopago.android.detail.DetailViewModel
-import br.com.digitalhouse.meuboletopago.android.signup.SignUpViewModel
-import br.com.digitalhouse.meuboletopago.model.Balance
 import br.com.digitalhouse.meuboletopago.model.Movement
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun EditScreen(navController: NavController, idMovement: String?) {
-    val viewModel : EditViewModel = viewModel()
+fun EditScreen(navController: NavController, id: String?) {
+    val viewModel = viewModel<EditViewModel>()
+    if (id != null) {
+        viewModel.getMovementDetails(id)
+    }
+    val showDialog = remember { mutableStateOf(false) }
     val movement by viewModel.movement.collectAsState()
     val changedState by viewModel.changedState.collectAsState()
-    var editMovement : Movement? = null
 
-    if (idMovement != null) {
-        viewModel.getMovementDetails(idMovement)
-    }
-
-
+    var descricao = remember { mutableStateOf(TextFieldValue()) }
+    var valor = remember { mutableStateOf(TextFieldValue()) }
+    var data = remember { mutableStateOf(TextFieldValue()) }
+    var state by remember { mutableStateOf(true) }
+    var state2 by remember { mutableStateOf(false) }
     MyApplicationTheme {
         Scaffold(
             topBar = {
@@ -59,6 +55,7 @@ fun EditScreen(navController: NavController, idMovement: String?) {
                     navigationIcon = {
                         IconButton(onClick = { navController.navigate("home") }) {
                             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+                            viewModel.setDefaultState()
                         }
                     },
                     contentColor = Color.White,
@@ -67,31 +64,82 @@ fun EditScreen(navController: NavController, idMovement: String?) {
             },
         ){
 
-
-            val showDialog = remember { mutableStateOf(false) }
-            val descricao = remember { mutableStateOf(TextFieldValue()) }
-            val valor = remember { mutableStateOf(TextFieldValue()) }
-            val data = remember { mutableStateOf(TextFieldValue()) }
-            var state by remember { mutableStateOf(true) }
-            var state2 by remember { mutableStateOf(false) }
-
-
-//            when (idMovement) {
-//                is DataResult.Loading -> LoadingIndicator()
-//                is DataResult.Error -> {
-//                    ErrorMessage((idMovement as DataResult.Error).error)
-//                }
-//                is DataResult.Success<*> -> {
-//                    editMovement = (idMovement as DataResult.Success<Movement>).data}
-//
-//                else -> Unit
-//            }
-
+            when(movement) {
+                is DataResult.Loading -> CircularProgressIndicator()
+                is DataResult.Error -> {
+                    AlertDialogComponent(
+                        showDialog = showDialog.value,
+                        message = "Ocorreu um erro inesperado, tente novamente!",
+                        onDismissRequest = {
+                            showDialog.value = !showDialog.value
+                            navController.navigate("home")
+                        }
+                    )
+                }
+                is DataResult.Success -> {
+//                    if (changedState is DataResult.Loading) {
+//                        CircularProgressIndicator()
+//                    } else {
+//                        if (changedState is DataResult.Success ) {
+//                            navController.navigate("home")
+//                            viewModel.setDefaultState()
+//                        }
+//                        if (changedState is DataResult.Error) {
+//                            Text(text = "O erro é: ${(changedState as DataResult.Error).error.message}")
+//                        }
+//                    }
                     LazyColumn(
                         modifier = Modifier.padding()
                     ) {
+                        descricao.value =
+                            TextFieldValue(
+                                (movement as DataResult.Success<Movement>).data.descriptionMovement
+                            )
+                        valor.value =
+                            TextFieldValue(
+                                (movement as DataResult.Success<Movement>).data.valueMovement.toString()
+                            )
+                        data.value =
+                            TextFieldValue(
+                                (movement as DataResult.Success<Movement>).data.dueDate
+                            )
                         item {
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Row(
+                                Modifier.selectableGroup(),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Spacer(modifier = Modifier.weight(1f))
+                                RadioButton(
+                                    selected = state,
+                                    onClick = { state = true },
+                                    modifier = Modifier.semantics {
+                                        contentDescription = "Localized Description"
+                                    },
+                                    colors = RadioButtonDefaults.colors(
+                                        selectedColor = Color(0xFF7BC59D),
+                                        unselectedColor = Color.LightGray,
+                                    ),
+
+                                    )
+                                Text(text = "Receita")
+                                Spacer(modifier = Modifier.weight(1f))
+                                RadioButton(
+                                    selected = !state,
+                                    onClick = { state = false },
+                                    modifier = Modifier.semantics {
+                                        contentDescription = "Localized Description"
+                                    },
+                                    colors = RadioButtonDefaults.colors(
+                                        selectedColor = Color.Red,
+                                        unselectedColor = Color.LightGray,
+                                    ),
+                                )
+                                Text(
+                                    text = "Despesa",
+                                    textAlign = TextAlign.Center,
+                                )
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
                             Column(
                                 modifier = Modifier
                                     .padding(25.dp)
@@ -101,79 +149,35 @@ fun EditScreen(navController: NavController, idMovement: String?) {
                                 horizontalAlignment = Alignment.Start,
                                 verticalArrangement = Arrangement.Center
                             ) {
-
-                                Row(
-                                    Modifier.selectableGroup(),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    Spacer(modifier = Modifier.weight(1f))
-                                    RadioButton(
-                                        selected = state,
-                                        onClick = { state = true },
-                                        modifier = Modifier.semantics {
-                                            contentDescription = "Localized Description"
-                                        },
-                                        colors = RadioButtonDefaults.colors(
-                                            selectedColor = Color(0xFF7BC59D),
-                                            unselectedColor = Color.LightGray,
-                                        ),
-
-                                        )
-                                    Text(text = "Receita")
-                                    Spacer(modifier = Modifier.weight(1f))
-                                    RadioButton(
-                                        selected = !state,
-                                        onClick = { state = false },
-                                        modifier = Modifier.semantics {
-                                            contentDescription = "Localized Description"
-                                        },
-                                        colors = RadioButtonDefaults.colors(
-                                            selectedColor = Color.Red,
-                                            unselectedColor = Color.LightGray,
-                                        ),
-                                    )
-                                    Text(
-                                        text = "Despesa",
-                                        textAlign = TextAlign.Center,
-                                    )
-                                    Spacer(modifier = Modifier.weight(1f))
-                                }
-                                Text(
-                                    text = "Descrição", textAlign = TextAlign.Left,
-                                    fontSize = 18.sp
-                                )
-                                OutlinedTextField(
+                                Spacer(modifier = Modifier.height(20.dp))
+                                Text(text = "Descrição")
+                                TextField(
                                     modifier = Modifier.fillMaxWidth(),
                                     value = descricao.value,
                                     onValueChange = { descricao.value = it },
-                                    label = {
-                                        Text(text = editMovement?.descriptionMovement?:"")
-                                    }
+                                    label = {Text(text = descricao.value.text) }
+
                                 )
                                 Spacer(modifier = Modifier.height(20.dp))
                                 Text(text = "Valor")
-                                OutlinedTextField(
+                                TextField(
                                     modifier = Modifier.fillMaxWidth(),
                                     value = valor.value,
                                     onValueChange = { valor.value = it },
-                                    label = {
-                                        Text(text = editMovement?.valueMovement.toString()?:"")
-                                    }
+                                    label = {Text(text = valor.value.text) }
+
                                 )
                                 Spacer(modifier = Modifier.height(20.dp))
                                 Text(text = "Data")
-                                OutlinedTextField(
-                                    modifier = Modifier
-                                        .fillMaxWidth(),
+                                TextField(
+                                    modifier = Modifier.fillMaxWidth(),
                                     value = data.value,
                                     onValueChange = { data.value = it },
-                                    label = {
-                                        Text(text = editMovement?.dueDate.toString()?:"")
-//                                        balanceData?.credit.toString()?:""
-                                    }
+                                    label = {Text(text = data.value.text) }
+
                                 )
+
                             }
-                            Spacer(modifier = Modifier.height(20.dp))
                             Row(
                                 Modifier.selectableGroup(),
                                 verticalAlignment = Alignment.CenterVertically,
@@ -210,23 +214,12 @@ fun EditScreen(navController: NavController, idMovement: String?) {
                                 )
                                 Spacer(modifier = Modifier.weight(1f))
                             }
-                            Spacer(modifier = Modifier.height(20.dp))
-                            if (changedState is DataResult.Loading) {
-                                CircularProgressIndicator()
-                            } else {
-                                if (changedState is DataResult.Success ) {
-                                    navController.navigate("home") /*todo mensagem de confirmação de criação e ver cmo aparecer na home*/
-                                    viewModel.setDefaultState()
-                                }
-//                                if (idMovement.toString() is DataResult.Error) {
-//                                    Text(text = "O erro é: ${(idMovement as DataResult.Error).error.message}")
-//                                }
-                            }
+
                             Button(
                                 onClick = {
                                     viewModel.editMovement(
-                                        idMovement = Movement(
-                                            idMovement = editMovement?.idMovement,
+                                        id = (movement as DataResult.Success<Movement>).data.idMovement.toString(),
+                                        movement = Movement(
                                             descriptionMovement = descricao.value.text,
                                             valueMovement = valor.value.text.toDouble(),
                                             dueDate = data.value.text,
@@ -234,6 +227,7 @@ fun EditScreen(navController: NavController, idMovement: String?) {
                                             seqParcel = 1,
                                             wasPaid = state2,
                                         ),
+                                        navController = navController
                                     )
                                 },
                                 modifier = Modifier
@@ -245,106 +239,16 @@ fun EditScreen(navController: NavController, idMovement: String?) {
                         }
                     }
                 }
-
+                else -> Unit
             }
         }
+    }
+}
 
 
-//@Preview
-//@Composable
-//fun EditPreview() {
-//    EditScreen(navController = NavController(LocalContext.current), id = "1")
-//
-//}
+@Preview
+@Composable
+fun EditPreview() {
+    EditScreen(navController = NavController(LocalContext.current), id = "1")
 
-
-//    var state by remember { mutableStateOf(true) }
-//    var state2 by remember { mutableStateOf(true) }
-//    var state3 by remember { mutableStateOf(true) }
-//    MyApplicationTheme() {
-//        Surface(
-//            modifier = Modifier.fillMaxSize()
-//        ) {
-//            Column(
-//                modifier = Modifier.fillMaxWidth(),
-//                horizontalAlignment = Alignment.CenterHorizontally
-//            ) {
-//                TopAppBar(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    title = {
-//                        Text(text = "Edição")
-//                    },
-//                    navigationIcon = {
-//                        IconButton(onClick = { navController.navigate("home") }) {
-//                            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
-//                        }
-//                    },
-//                    contentColor = Color.White,
-//                    elevation = 8.dp
-//                )
-//
-//                    LazyColumn(
-//                        modifier = Modifier.padding()
-//                    ) {
-//                        item {
-//                            Spacer(modifier = Modifier.height(20.dp))
-//                            Column (modifier = Modifier
-//                                .padding(25.dp)
-//                                .background(Color.White)
-//                                .fillMaxWidth()
-//                                .fillMaxHeight(),
-//                                horizontalAlignment = Alignment.Start,
-//                                verticalArrangement = Arrangement.Center){
-//                                val descricao = remember { mutableStateOf(TextFieldValue()) }
-//                                val valor = remember { mutableStateOf(TextFieldValue()) }
-//                                val data = remember { mutableStateOf(TextFieldValue()) }
-//                                Text(text = "Descrição", textAlign = TextAlign.Left,
-//                                    fontSize = 18.sp)
-//                                OutlinedTextField(
-//                                    modifier = Modifier.fillMaxWidth(),
-//                                    value = descricao.value,
-//                                    onValueChange = { descricao.value = it },
-//                                    label = { Text(text = "") }
-//                                )
-//                                Spacer(modifier = Modifier.height(20.dp))
-//                                Text(text = "Valor")
-//                                OutlinedTextField(
-//                                    modifier = Modifier.fillMaxWidth(),
-//                                    value = valor.value,
-//                                    onValueChange = { valor.value = it },
-//                                    label = { Text(text = "") }
-//                                )
-//                                Spacer(modifier = Modifier.height(20.dp))
-//                                Text(text = "Data")
-//                                OutlinedTextField(
-//                                    modifier = Modifier
-//                                        .fillMaxWidth(),
-//                                    value = data.value,
-//                                    onValueChange = { data.value = it },
-//                                    label = { Text(text = "") }
-//                                )
-//                            }
-//                            Spacer(modifier = Modifier.height(20.dp))
-//                            Button(
-//                                onClick = { navController.navigate("home")},
-//                                modifier = Modifier
-//                                    .fillMaxWidth()
-//                                    .padding(16.dp)
-//                            ) {
-//                                Text(text = "Salvar")
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//
-//@Preview
-//@Composable
-//fun EditPreview() {
-//    EditScreen(navController = NavController(LocalContext.current))
-//
-//}
-//
+}

@@ -100,9 +100,9 @@ class Api {
     suspend fun getBalance(): Balance {
         return httpClient.get("${DEFAULT_URL}/movement/balance").body()
     }
-    suspend fun editMovement(idMovement: Movement): Movement {
-        return httpClient.put("$DEFAULT_URL/movement/${idMovement}") {
-            setBody(idMovement)
+    suspend fun editMovement(id: String, movement: Movement): Movement {
+        return httpClient.put("$DEFAULT_URL/movement/$id") {
+            setBody(movement)
         }.body()
 
     }
