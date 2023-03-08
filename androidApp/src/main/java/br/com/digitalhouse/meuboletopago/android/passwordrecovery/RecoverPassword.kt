@@ -4,6 +4,7 @@ import AlertDialogComponent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.*
@@ -30,6 +31,7 @@ fun RecoverPassword(navController: NavController){
     MyApplicationTheme {
         Scaffold(
             topBar =   { TopAppBar(
+                backgroundColor = MaterialTheme.colors.primaryVariant,
                 title = { Text(
                     textAlign = TextAlign.Justify,
                     text = "Recuperação de senha",
@@ -49,6 +51,7 @@ fun RecoverPassword(navController: NavController){
                 val email = remember { mutableStateOf(TextFieldValue()) }
                 val viewModel : RecPasswordViewModel = viewModel()
                 val sendState by viewModel.emailState.collectAsState()
+                val context = LocalContext.current
                 AlertDialogComponent(
                     showDialog = showDialog.value,
                     message = "E-mail não cadastrado\nTente novamente",
@@ -74,6 +77,7 @@ fun RecoverPassword(navController: NavController){
                             Text(text = "E-mail")
                         }
                     )
+
                     if (sendState is DataResult.Loading){
                         LoadingIndicator()
                     } else {
@@ -89,14 +93,19 @@ fun RecoverPassword(navController: NavController){
                             email.value = TextFieldValue("")
                             viewModel.setDefaultState()
                         }
+                        Spacer(modifier = Modifier.height(16.dp))
                         Button(
                             onClick = {
                                 viewModel.sendRecoverEmail(email = email.value.text)
-                            },
+                           },
+                            modifier = Modifier.fillMaxWidth()
+                                .height(40.dp),
+                            shape = RoundedCornerShape(70),
                             colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary))
+
                         {
                             Text(text = "Enviar e-mail",
-                                color = Color.White)
+                                color = MaterialTheme.colors.primaryVariant)
                         }
                     }
                 }

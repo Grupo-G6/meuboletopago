@@ -3,9 +3,11 @@ package br.com.digitalhouse.meuboletopago.android.login
 
 
 import AlertDialogComponent
+import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -18,21 +20,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import br.com.digitalhouse.meuboletopago.ProfileToken
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
-import br.com.digitalhouse.meuboletopago.api.Api.Companion.token
 import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
@@ -55,6 +55,8 @@ fun LoginScreen(navController: NavController) {
             {
                 //VARIÁVEIS
                 /*todo enviar variáveis para o ViewModel */
+
+                lateinit var sharedPreferences: SharedPreferences
                 val login = remember { mutableStateOf(TextFieldValue()) }
                 val password = remember { mutableStateOf(TextFieldValue()) }
                 val passwordVisible = remember { mutableStateOf(false) }
@@ -125,6 +127,13 @@ fun LoginScreen(navController: NavController) {
                     if (loginState is DataResult.Success && isLogged.value.not()) {
 //                        Text(text = "Meu token é $token")
 //                        onHomeNavigate.invoke()
+                        val idUser = (loginState as DataResult.Success<ProfileToken>).data.id
+                        val preferences: SharedPreferences =
+                            PreferenceManager.getDefaultSharedPreferences(LocalContext.current)
+                        val editor = preferences.edit()
+                        editor.putInt("idUser", idUser)
+                        editor.apply()
+
                         navController.navigate("home") /*TODO conferir rota*/
                         isLogged.value = true
                     }
@@ -150,7 +159,8 @@ fun LoginScreen(navController: NavController) {
                             email = login.value.text,
                             password = password.value.text
                         )
-                    }, modifier = Modifier.fillMaxWidth()
+                    }, modifier = Modifier
+                        .fillMaxWidth()
                         .height(40.dp),
                     shape = RoundedCornerShape(70)
                 )
@@ -168,7 +178,8 @@ fun LoginScreen(navController: NavController) {
 
                         navController.navigate("recover_page")
 
-                    }, modifier = Modifier.fillMaxWidth()
+                    }, modifier = Modifier
+                        .fillMaxWidth()
                         .height(40.dp),
                     shape = RoundedCornerShape(70)
                 )
@@ -204,85 +215,4 @@ fun LoginScreen(navController: NavController) {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-//
-//Row(
-//                    modifier = Modifier
-//                        .fillMaxWidth(),
-//                    horizontalArrangement =   Arrangement.SpaceEvenly
-//
-//                ) {
-//                   TextButton(
-//                        onClick = {
-//
-//                            navController.navigate("signup_page")
-//
-//                        },
-//                        modifier = Modifier
-//                            .width(220.dp),
-//
-//
-////                        shape = RoundedCornerShape(50),
-////                        colors = ButtonDefaults.outlinedButtonColors(
-////                            contentColor = Color.Transparent,
-////                            containerColor =  Color.Transparent,
-////
-////                        )
-//                    )
-//                    {
-//                        Text(text = "Ainda não tem cadastro? Clique aqui!", color = Color(0xFF009688), textAlign = TextAlign.Center)
-////                        Text(text = "Clique aqui!", color = Color(0xFF009688))
-//                    }
-//                }
-//
-//                }
-//            }
-//        }
-//    }
-//
-
-
-
-//@Preview
-//@Composable
-//fun DefaultPreview() {
-//    LoginScreen(navController = NavController(LocalContext.current))
-//
-//}
-//preview não pode ser usado com viewModel
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

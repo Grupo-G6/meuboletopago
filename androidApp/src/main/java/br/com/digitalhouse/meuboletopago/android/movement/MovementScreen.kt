@@ -40,11 +40,12 @@ fun MovementScreen(navController: NavController) {
         Scaffold(
             topBar = {
                 TopAppBar(
+                    backgroundColor = MaterialTheme.colors.primaryVariant,
                     modifier = Modifier.fillMaxWidth(),
                     title = {
                         Text(text = "Nova Movimentação")
                     },
-                    backgroundColor = MaterialTheme.colors.primaryVariant,
+
                     navigationIcon = {
                         IconButton(onClick = { navController.navigate("home") }) {
                             Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")

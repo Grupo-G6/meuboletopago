@@ -59,19 +59,22 @@ class Api {
         }.body()
     }
 
-    suspend fun getUser(): User {
-        return httpClient.get("$DEFAULT_URL/user/2").body()
+    suspend fun getUser(id: String): User {
+        return httpClient.get("$DEFAULT_URL/user/$id").body()
     }
 
-    suspend fun getAll(): TransactionResponse {
-        val transaction: TransactionSpecification = TransactionSpecification()
-        return httpClient.get("$DEFAULT_URL/movement/filter") {
-            setBody { transaction }
-        }.body()
-    }
+//    suspend fun getAll(): TransactionResponse {
+//        val transaction: TransactionSpecification = TransactionSpecification()
+//        return httpClient.get("$DEFAULT_URL/movement/filter") {
+//            setBody { transaction }
+//        }.body()
+//    }
 
-    suspend fun getMovement(): List<Movement> {
-        return httpClient.get("$DEFAULT_URL/movement").body()
+//    suspend fun getMovement(): List<Movement> {
+//        return httpClient.get("$DEFAULT_URL/movement").body()
+//    }
+        suspend fun getMovement(): List<Movement> {
+        return httpClient.post("$DEFAULT_URL/movement/filteruser").body()
     }
 
     suspend fun getMovementDetail(id: String): Movement {
@@ -113,3 +116,4 @@ class Api {
         const val DEFAULT_URL = "https://meu-boleto-pago-api-production.up.railway.app"
     }
 }
+//pegar user logado

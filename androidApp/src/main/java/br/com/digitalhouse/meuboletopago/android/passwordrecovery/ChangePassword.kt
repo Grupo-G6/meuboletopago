@@ -37,6 +37,7 @@ fun ChangePassword(navController: NavController){
     MyApplicationTheme {
         Scaffold(
             topBar =   { TopAppBar(
+                backgroundColor = MaterialTheme.colors.primaryVariant,
                 title = { Text(
                     textAlign = TextAlign.Justify,
                     text = "Mudança de senha",
@@ -152,7 +153,7 @@ fun ChangePassword(navController: NavController){
                             },
                             colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
                             Text(text = "Mudar senha",
-                                color = Color.White)
+                                color =  MaterialTheme.colors.primaryVariant)
                         }
                         Button(
                             onClick = {
@@ -175,7 +176,7 @@ fun ChangePassword(navController: NavController){
                             {
                                 Text(
                                     text = "Ir para login",
-                                    color = Color.White
+                                    color =  MaterialTheme.colors.primaryVariant,
                                 )
                             }
                         }

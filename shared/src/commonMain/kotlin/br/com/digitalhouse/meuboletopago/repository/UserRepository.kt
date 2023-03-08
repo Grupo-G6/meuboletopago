@@ -12,9 +12,8 @@ class UserRepository(
     private val api: Api = Api.instance,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
-    suspend fun getUser() = flow {
-        val chamada = api.getUser()
-
+    suspend fun getUser(id: String) = flow {
+        val chamada = api.getUser(id)
         emit(DataResult.Success(chamada))
     }.updateState().flowOn(dispatcher)
 
@@ -22,3 +21,4 @@ class UserRepository(
         val instance by lazy { UserRepository() }
     }
 }
+

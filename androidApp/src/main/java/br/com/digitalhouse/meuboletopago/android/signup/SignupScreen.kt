@@ -94,8 +94,8 @@ fun SignupScreen(navController: NavController) {
                 Text(text = "Nome")
                 OutlinedTextField(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(55.dp),
+                        .fillMaxWidth(),
+//                        .height(55.dp),
                     shape = RoundedCornerShape(20.dp),
                     value = nome.value,
                     onValueChange = { nome.value = it },
@@ -106,8 +106,8 @@ fun SignupScreen(navController: NavController) {
                 Text(text = "Email")
                 OutlinedTextField(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(55.dp),
+                        .fillMaxWidth(),
+//                        .height(55.dp),
                     shape = RoundedCornerShape(20.dp),
                     value = email.value,
                     onValueChange = { email.value = it },

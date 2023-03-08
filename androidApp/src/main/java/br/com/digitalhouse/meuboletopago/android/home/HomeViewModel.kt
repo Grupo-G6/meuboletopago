@@ -1,5 +1,11 @@
 package br.com.digitalhouse.meuboletopago.android.home
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,20 +19,23 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
-    private val savedStateHandle: SavedStateHandle,
-) : ViewModel() {
+class HomeViewModel (
+
+    application: Application,  private val savedStateHandle: SavedStateHandle
+) : AndroidViewModel(application) {
     private val transactionRepository: TransactionRepository = TransactionRepository.instance
     private val userRepository: UserRepository = UserRepository.instance
     private val _transactions = MutableStateFlow<DataResult<List<Movement>>>(DataResult.Empty)
     val transactions: StateFlow<DataResult<List<Movement>>> = _transactions
+
     private val _user = MutableStateFlow<DataResult<User>>(DataResult.Empty)
     val user: StateFlow<DataResult<User>> = _user
 
-    init {
-        getAll()
-        getUser()
-    }
+//    init {
+//        getAll()
+//        getUser()
+//
+//    }
 
     fun getAll() = viewModelScope.launch {
         transactionRepository.getAll().collect {
@@ -34,9 +43,13 @@ class HomeViewModel(
         }
     }
 
-    fun getUser() = viewModelScope.launch {
-        userRepository.getUser().collectLatest {
+    fun getUser(id: String) = viewModelScope.launch {
+        userRepository.getUser(id).collect {
             _user.value = it
         }
     }
 }
+
+//fun getMovementDetails(id: String) = viewModelScope.launch {
+//    repository.getMovementDetail(id).collect {
+//        _movement.value = it
