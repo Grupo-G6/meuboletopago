@@ -97,6 +97,16 @@ class Api {
         }.status
     }
 
+    suspend fun getBalance(): Balance {
+        return httpClient.get("${DEFAULT_URL}/movement/balance").body()
+    }
+    suspend fun editMovement(idMovement: Movement): Movement {
+        return httpClient.put("$DEFAULT_URL/movement/${idMovement}") {
+            setBody(idMovement)
+        }.body()
+
+    }
+
     //inicia no momento da instancia da classe
     //by(delegate)
     //lazy: só executa quando a variável é chamada

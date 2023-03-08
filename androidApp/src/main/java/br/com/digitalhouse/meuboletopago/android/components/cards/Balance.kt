@@ -2,6 +2,8 @@ package br.com.digitalhouse.meuboletopago.android.components.cards
 
 
 
+import ErrorMessage
+import LoadingIndicator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -25,11 +27,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.digitalhouse.meuboletopago.android.MyApplicationTheme
+import br.com.digitalhouse.meuboletopago.model.Balance
+import br.com.digitalhouse.meuboletopago.model.Movement
+import br.com.digitalhouse.meuboletopago.util.DataResult
 
 
 @Composable
-fun Balance(navController: NavController): Unit {
+fun Balance(navController: NavController, balance: DataResult<Balance>): Unit {
+    var balanceData : Balance? = null
     MyApplicationTheme() {
+
+        when (balance) {
+            is DataResult.Loading -> LoadingIndicator()
+            is DataResult.Error -> ErrorMessage((balance as DataResult.Error).error)
+            is DataResult.Success -> {
+                balanceData = (balance as DataResult.Success<Balance>).data}
+
+            else -> Unit
+        }
 
 
 //        Column(
@@ -99,7 +114,7 @@ fun Balance(navController: NavController): Unit {
 
                             ) {
                                 Text(
-                                    text = "R$"/*TODO VALUE */,
+                                    text = balanceData?.credit.toString()?:"",
                                     modifier = Modifier
                                         .paddingFromBaseline(2.dp),
                                     fontFamily = FontFamily.Default,
@@ -139,7 +154,7 @@ fun Balance(navController: NavController): Unit {
 
                             ) {
                                 Text(
-                                    text = "R$"/*TODO VALUE */,
+                                    text =  balanceData?.balance.toString()?:"",
 //                                    modifier = Modifier.padding(10.dp),
                                     fontFamily = FontFamily.Default,
                                     fontWeight = FontWeight.ExtraBold,
@@ -188,7 +203,7 @@ fun Balance(navController: NavController): Unit {
 
                             ) {
                                 Text(
-                                    text = "R$"/*TODO VALUE */,
+                                    text =  balanceData?.debt.toString()?:"",
 //                                    modifier = Modifier
 //                                        .paddingfromBaseline(2.dp),
                                     fontFamily = FontFamily.Default,
@@ -213,8 +228,8 @@ fun Balance(navController: NavController): Unit {
 
 //}
 
-@Preview
-@Composable
-fun DataCardPreview(){
-    Balance(navController= NavController(LocalContext.current))
-}
+//@Preview
+//@Composable
+//fun DataCardPreview(){
+//    Balance(navController= NavController(LocalContext.current), saldo= "saldo", receita = "receita", despesa = "despesa" )
+//}

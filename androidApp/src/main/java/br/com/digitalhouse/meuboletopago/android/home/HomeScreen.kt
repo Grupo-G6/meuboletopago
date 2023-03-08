@@ -31,6 +31,7 @@ import br.com.digitalhouse.meuboletopago.android.R
 import br.com.digitalhouse.meuboletopago.android.components.ListItemComponent
 import br.com.digitalhouse.meuboletopago.android.components.cards.Balance
 import br.com.digitalhouse.meuboletopago.android.home.HomeViewModel
+import br.com.digitalhouse.meuboletopago.model.Balance
 import br.com.digitalhouse.meuboletopago.model.Movement
 import br.com.digitalhouse.meuboletopago.model.User
 import br.com.digitalhouse.meuboletopago.util.DataResult
@@ -43,6 +44,7 @@ fun HomeScreen(navController: NavController) {
     val viewModel = viewModel<HomeViewModel>()
     val transactions by viewModel.transactions.collectAsState()
     val user by viewModel.user.collectAsState()
+    val balance by viewModel.balance.collectAsState()
     val preferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(LocalContext.current)
     val idUser =  preferences.getInt("idUser", 0).toString()
@@ -50,6 +52,7 @@ fun HomeScreen(navController: NavController) {
         if (isLogged.value.not()){
             viewModel.getAll()
             viewModel.getUser(idUser)
+            viewModel.getBalance()
             isLogged.value = true
 
         }
@@ -85,7 +88,7 @@ fun HomeScreen(navController: NavController) {
                                 is DataResult.Error -> ErrorMessage((transactions as DataResult.Error).error)
                                 is DataResult.Success -> ContentHome(
                                     (transactions as DataResult.Success<List<Movement>>).data,
-                                    user, navController
+                                    user, navController, balance
                                 )
                                 else -> Unit
                             }
@@ -123,16 +126,17 @@ fun LoadingIndicator() {
 fun ContentHome(
     movements: List<Movement>,
     profile: DataResult<User>,
-    navController: NavController
+    navController: NavController,
+    balance: DataResult<Balance>,
 ) {
     LazyColumn (  modifier = Modifier.background(  color =  MaterialTheme.colors.primaryVariant)){
         item {
             if (profile is DataResult.Success) {
                 Text(text = " Meu boleto pago de : ${profile.data.name}!", color = Color.White)
             }
-            Balance(navController= NavController(LocalContext.current))
+            Balance(navController= NavController(LocalContext.current), balance)
         }
-
+//        title = movement.descriptionMovement,
 
         items(movements) { movement ->
             ListItemComponent(

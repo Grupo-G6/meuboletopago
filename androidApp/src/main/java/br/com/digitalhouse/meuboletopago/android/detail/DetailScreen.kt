@@ -80,7 +80,8 @@ fun DetailScreen(navController: NavController, id: String?) {
                         Row(horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically) {
                             Button(modifier = Modifier.padding(16.dp),
-                                onClick = {navController.navigate("edit_page")},
+
+                                onClick = {navController.navigate("edit_page/${(movement as DataResult.Success<Movement>).data.idMovement}")},
                                 colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary)){
                                 Text(text = "Editar",
                                     color = Color.White)

@@ -9,8 +9,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.digitalhouse.meuboletopago.model.Balance
 import br.com.digitalhouse.meuboletopago.model.Movement
 import br.com.digitalhouse.meuboletopago.model.User
+import br.com.digitalhouse.meuboletopago.repository.BalanceRepository
 import br.com.digitalhouse.meuboletopago.repository.TransactionRepository
 import br.com.digitalhouse.meuboletopago.repository.UserRepository
 import br.com.digitalhouse.meuboletopago.util.DataResult
@@ -25,11 +27,16 @@ class HomeViewModel (
 ) : AndroidViewModel(application) {
     private val transactionRepository: TransactionRepository = TransactionRepository.instance
     private val userRepository: UserRepository = UserRepository.instance
+    private val balanceRepository: BalanceRepository = BalanceRepository.instance
+
     private val _transactions = MutableStateFlow<DataResult<List<Movement>>>(DataResult.Empty)
     val transactions: StateFlow<DataResult<List<Movement>>> = _transactions
 
     private val _user = MutableStateFlow<DataResult<User>>(DataResult.Empty)
     val user: StateFlow<DataResult<User>> = _user
+
+    private val _balance = MutableStateFlow<DataResult<Balance>>(DataResult.Empty)
+    val balance: StateFlow<DataResult<Balance>> = _balance
 
 //    init {
 //        getAll()
@@ -48,8 +55,10 @@ class HomeViewModel (
             _user.value = it
         }
     }
+    fun getBalance() = viewModelScope.launch {
+        balanceRepository.getBalance().collect {
+            _balance.value = it
+        }
+    }
 }
 
-//fun getMovementDetails(id: String) = viewModelScope.launch {
-//    repository.getMovementDetail(id).collect {
-//        _movement.value = it
