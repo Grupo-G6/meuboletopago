@@ -118,5 +118,7 @@ class Api {
         val instance by lazy { Api() }
         var token = ""
         const val DEFAULT_URL = "https://meu-boleto-pago-api-production.up.railway.app"
+//        const val DEFAULT_URL = "https://meuboletopago-api-production.up.railway.app"
     }
+
 }
