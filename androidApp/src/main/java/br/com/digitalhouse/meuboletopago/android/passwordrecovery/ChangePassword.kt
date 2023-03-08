@@ -4,6 +4,7 @@ import AlertDialogComponent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -80,6 +81,7 @@ fun ChangePassword(navController: NavController){
                     OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = token.value,
+                        shape = RoundedCornerShape(20.dp),
                         onValueChange = { token.value = it },
                         label = {
                             Text(text = "Token")
@@ -90,6 +92,7 @@ fun ChangePassword(navController: NavController){
                         value = newPassword.value,
                         onValueChange = { newPassword.value = it },
                         label = { Text(text = "Nova senha") },
+                        shape = RoundedCornerShape(20.dp),
                         visualTransformation = if (passwordVisible.value.not()) PasswordVisualTransformation() else VisualTransformation.None,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         trailingIcon = {
@@ -104,6 +107,7 @@ fun ChangePassword(navController: NavController){
                     OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = confirmNewPassword.value,
+                        shape = RoundedCornerShape(20.dp),
                         onValueChange = { confirmNewPassword.value = it },
                         label = { Text(text = "Confirme sua senha") },
                         visualTransformation = if (confirmPasswordVisible.value.not()) PasswordVisualTransformation() else VisualTransformation.None,
@@ -144,7 +148,10 @@ fun ChangePassword(navController: NavController){
                                     viewModel.setDefaultState()
                                 })
                         }
-                        Button(modifier = Modifier.padding(16.dp),
+                        Button(modifier = Modifier
+                            .padding(16.dp)
+                            .height(40.dp),
+                            shape = RoundedCornerShape(70),
                             onClick = { if (passwordMatches(newPassword.value.text, confirmNewPassword.value.text)){
                                     viewModel.changePassword(token.value.text, newPassword.value.text)
                             } else {
@@ -160,19 +167,25 @@ fun ChangePassword(navController: NavController){
                                         navController.popBackStack()
                                         passwordChanged.value = false
                                       },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent))
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(40.dp),
+                            shape = RoundedCornerShape(70),
+                            colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary))
                         {
                             Text(
                                 text = "Reenviar e-mail",
-                                color = MaterialTheme.colors.primary
+                                color = MaterialTheme.colors.primaryVariant
                             )
                         }
                         if(passwordChanged.value){
                             Button(
                                 onClick = { navController.navigate("login") },
-                                modifier = Modifier.fillMaxWidth(),
-                                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary))
+                                modifier = Modifier.fillMaxWidth()
+
+                                    .height(40.dp),
+                                shape = RoundedCornerShape(70),
+                                 colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary))
                             {
                                 Text(
                                     text = "Ir para login",

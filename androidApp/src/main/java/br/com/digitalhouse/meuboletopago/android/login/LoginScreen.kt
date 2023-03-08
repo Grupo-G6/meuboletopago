@@ -79,8 +79,8 @@ fun LoginScreen(navController: NavController) {
                 Text(text = "E-mail")
                 OutlinedTextField(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(55.dp),
+                        .fillMaxWidth(),
+
                     value = login.value,
                     onValueChange = { login.value = it },
                     label = { Text(text = "") },
@@ -98,8 +98,8 @@ fun LoginScreen(navController: NavController) {
                 Text(text = "Senha")
                 OutlinedTextField(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(55.dp),
+                        .fillMaxWidth(),
+
                     value = password.value,
                     onValueChange = { password.value = it },
                     label = { Text(text = "") },

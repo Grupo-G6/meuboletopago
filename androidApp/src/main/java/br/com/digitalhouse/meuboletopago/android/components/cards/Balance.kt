@@ -46,14 +46,6 @@ fun Balance(navController: NavController, balance: DataResult<Balance>): Unit {
             else -> Unit
         }
 
-
-//        Column(
-//            modifier = Modifier
-//                .fillMaxSize()
-//            .fillMaxWidth(),
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        ) {
             Card(
                 modifier = Modifier
                     .height(100.dp)
@@ -97,9 +89,6 @@ fun Balance(navController: NavController, balance: DataResult<Balance>): Unit {
 
                             Text(
                                 text = "Receitas",
-
-//                                modifier = Modifier
-//                                    .padding(15.dp),
                                 fontFamily = FontFamily.Default,
                                 fontWeight = FontWeight.Medium,
                                 fontSize = 15.sp
@@ -226,10 +215,3 @@ fun Balance(navController: NavController, balance: DataResult<Balance>): Unit {
         }
     }
 
-//}
-
-//@Preview
-//@Composable
-//fun DataCardPreview(){
-//    Balance(navController= NavController(LocalContext.current), saldo= "saldo", receita = "receita", despesa = "despesa" )
-//}

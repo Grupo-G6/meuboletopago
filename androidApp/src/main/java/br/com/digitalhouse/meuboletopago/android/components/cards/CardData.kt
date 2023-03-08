@@ -37,9 +37,7 @@ MyApplicationTheme() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                //.background(Color.LightGray),
-                //verticalArrangement = Arrangement.Center,
-                //horizontalAlignment = Alignment.CenterHorizontally
+
             ) {
                 Row() {
 

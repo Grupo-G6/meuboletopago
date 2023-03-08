@@ -71,6 +71,7 @@ fun RecoverPassword(navController: NavController){
                         fontSize = 18.sp)
                     OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp),
                         value = email.value,
                         onValueChange = { email.value = it },
                         label = {
@@ -99,8 +100,8 @@ fun RecoverPassword(navController: NavController){
                                 viewModel.sendRecoverEmail(email = email.value.text)
                            },
                             modifier = Modifier.fillMaxWidth()
-                                .height(40.dp),
-                            shape = RoundedCornerShape(70),
+                            .height(40.dp),
+                              shape = RoundedCornerShape(70),
                             colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primary))
 
                         {
